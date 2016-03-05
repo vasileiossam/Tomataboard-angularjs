@@ -11,9 +11,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Thalia.Models;
 using Thalia.Services;
+using Thalia.Data;
 
 namespace Thalia
 {
+    public class DataSettings
+    {
+        public string ConnectionString { get; set; }
+        public string ThaliaContextConnection { get; set; }
+    }
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -41,8 +48,8 @@ namespace Thalia
             // Add framework services.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
+                .AddDbContext<ThaliaContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -53,6 +60,9 @@ namespace Thalia
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
