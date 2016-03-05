@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F6D7B74-8A63-40DF-A460-53061B376B59}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		Local.testsettings = Local.testsettings
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thalia", "src\Thalia\Thalia.xproj", "{2A216B13-46FE-4155-B806-76EE5275EBE4}"

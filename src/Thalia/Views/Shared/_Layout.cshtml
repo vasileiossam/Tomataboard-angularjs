@@ -7,6 +7,7 @@
 
         <environment names="Development">
             <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/lib/Font-Awesome/css/font-awesome.min.css" />
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>
         <environment names="Staging,Production">
@@ -16,53 +17,155 @@
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         </environment>
     </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+    <body style="border: 5px solid black;">
+                 <div class="navbar navbar-inverse navbar-fixed-top  well" >
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand">Thalia</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-default"><i class="fa fa-automobile"></i> hh</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                </div>
+            </div> 
+
+ 
+
+            @*<footer class="container-fluid text-center">
+                <p>Footer Text</p>
+            </footer>*@
+
+        <!-- Fixed navbar -->
+   <!--      <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Thalia</a>
+                    <a class="navbar-brand" href="#">Project name</a>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
+                </div> 
             </div>
-        </div>
-        <div class="container body-content">
+        </nav>-->
+        <p></p>
+        <!-- Begin page content -->
+        <div class="container-fluid ext-box">
+            
+           
+                <div class="int-box">
+                    <h2>Some txt</h2>
+                    <p>
+                        dd a
+                        sdfa s
+                        df
+                        asd
+                        fas
+                        df
+                        a
+                        sd
+                        fas
+                        d
+                    </p>
+                    <p>
+                        asdfasd
+                    </p>
+                    <p>
+                        asdfasd
+                        fas
+                        df
+                        asd
+                        fa
+                        sd
+                        <input value="" /><i class="fa fa-4x fa-meh-o"></i>
+                        content
+                    </p>
+                </div>
+
             @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2016 - Thalia</p>
-            </footer>
-        </div>
+            </div>
 
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
+            
+   
+    
 
-        @RenderSection("scripts", required: false)
-    </body>
+          <footer class="container-fluid">
+              <div class="navbar navbar-inverse navbar-fixed-bottom  navbar-right well">
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav">
+                          <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                          <li><a asp-controller="Home" asp-action="About">About</a></li>
+                          <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                      </ul>
+
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-default"><i class="fa fa-automobile"></i> hh</a></li>
+                          <li><a asp-controller="Home" asp-action="About">
+                              
+                                  <h1>About</h1></a></li>
+                          <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                      </ul>
+                      
+                  </div>
+              </div>
+        </footer> 
+
+
+            <environment names="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment names="Staging,Production">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery">
+                </script>
+                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
+
+            @RenderSection("scripts", required: false)
+ 
+</body>
 </html>
