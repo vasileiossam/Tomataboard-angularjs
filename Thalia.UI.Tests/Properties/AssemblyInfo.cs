@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Thalia.Web.Tests")]
+[assembly: AssemblyTitle("Thalia.UI.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Thalia.Web.Tests")]
+[assembly: AssemblyProduct("Thalia.UI.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b83c26d1-2878-4230-a513-11f2f8239ed1")]
+[assembly: Guid("0eb6f121-c841-4a0c-90bd-13a82b5da42a")]
 
 // Version information for an assembly consists of the following four values:
 //
