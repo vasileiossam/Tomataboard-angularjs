@@ -10,7 +10,8 @@ namespace Thalia.Data
         public DbSet<GeoLite2IPv6> GeoLite2IPv6 { get; set; }
         public DbSet<GeoLite2Location> GeoLite2Locations { get; set; }
         public DbSet<Cache> Cache { get; set; }
-        
+        public DbSet<Quote> Quotes { get; set; }
+
         private IOptions<DataSettings> _settings;
 
         public ThaliaContext(IOptions<DataSettings> settings)
