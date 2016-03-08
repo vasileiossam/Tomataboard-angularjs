@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Thalia.Models;
 using Thalia.Services;
 using Thalia.Data;
+using Thalia.Services.Cache;
+using Thalia.Services.Location;
 
 namespace Thalia
 {
@@ -60,6 +62,9 @@ namespace Thalia
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ICacheRepository<Location>, CacheRepository<Location>>();
+            
+            services.AddLogging();
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
 

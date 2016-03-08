@@ -8,14 +8,14 @@ using Thalia.Data;
 using Thalia.Extensions;
 using System.Linq;
 using Thalia.Data.Entities;
+using Thalia.Services;
 
 namespace Thalia.Services.Location
 {
     /// <summary>
     /// http://freegeoip.net
-    /// Limit: 10000 queries per hour
     /// </summary>
-    public class FreegeoipService : ILocationApi
+    public class FreegeoipService : IServiceOperation<Location>
     {
         #region private members
         [DataContract]
@@ -30,11 +30,11 @@ namespace Thalia.Services.Location
             [DataMember(Name = "region_code")]
             public string RegionCode { get; set; }
             [DataMember(Name = "region_name")]
-            public string RegionNname { get; set; }
+            public string RegionName { get; set; }
             [DataMember(Name = "city")]
             public string City { get; set; }
             [DataMember(Name = "zip_code")]
-            public string ZipCode { get; set; }
+            public string PostCode { get; set; }
             [DataMember(Name = "time_zone")]
             public string TimeZone { get; set; }
             [DataMember(Name = "latitude")]
@@ -45,28 +45,27 @@ namespace Thalia.Services.Location
             public string MetroCode { get; set; }
         }
 
-        private int RequestsPerMinute = 150;
         private ILogger _logger;
-        private ThaliaContext _context;
         #endregion
 
-        public FreegeoipService(ILogger logger, ThaliaContext context)
+        public string Parameters { get; set; }
+        public string Result { get; set; }
+        public int? RequestsPerMinute { get; }
+        public TimeSpan? Expiration { get; }
+
+        public FreegeoipService(ILogger logger)
         {
             _logger = logger;
-            _context = context;
+            RequestsPerMinute = 150;
         }
 
-        public async Task<Location> GetLocationAsync(string ip)
+        public async Task<Location> Execute(string parameters)
         {
+            Parameters = parameters;
+
             try
             {
-                if (!CanRequest())
-                {
-                    _logger.LogCritical($"FreegeoipService: Cannot get location for '{ip}' because the request limit {RequestsPerMinute} was reached ");
-                    return null;
-                }
-
-                var url = $"http://www.freegeoip.net/json/{ip}";
+                var url = $"http://www.freegeoip.net/json/{parameters}";
 
                 using (var client = new HttpClient())
                 {
@@ -75,45 +74,35 @@ namespace Thalia.Services.Location
 
                     if (response.IsSuccessStatusCode)
                     {
-                        _context.ServiceRequests.Add(new ServiceRequest()
-                        {
-                            Ip = ip,
-                            Api = this.GetType().Name,
-                            Created = DateTime.Now,
-                            Operation = "GetLocationAsync",
-                            Response = content
-                        });
-                        _context.SaveChanges();
-
-                        return GetLocation(content);
+                        return GetResult(content);
                     }
 
-                    _logger.LogCritical($"FreegeoipService: Cannot get location for '{ip}'. Status code: {response.StatusCode} Content: {content}");
+                    _logger.LogCritical($"{GetType().Name}: Cannot get location for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogCritical($"FreegeoipService: Cannot get location for '{ip}'. Exception: " + ex.GetError());
+                _logger.LogCritical($"{GetType().Name}: Cannot get location for '{parameters}'. Exception: " + ex.GetError());
             }
 
             return null;
         }
 
-        public bool CanRequest()
+        public Location GetResult(string json)
         {
-            return _context.ServiceRequests.Where(x => x.Api == this.GetType().Name && x.Created >= DateTime.Now.AddHours(-1) && x.Created <= DateTime.Now).Count() <= RequestsPerMinute;
-        }
+            // todo Code smell, it shouldn't even be here. Result is used in cache because it is in the interface but what will make sure that it has a value?
+            Result = json;
 
-        public Location GetLocation(string json)
-        {
             var locationDto = JsonConvert.DeserializeObject<LocationDto>(json);
             if (locationDto == null) return null;
+            if (string.IsNullOrEmpty(locationDto.City) || string.IsNullOrEmpty(locationDto.CountryName)) return null;
 
             return new Location()
             {
                 Country = locationDto.CountryName,
-                Region = locationDto.RegionNname,
+                Region = locationDto.RegionName,
+                StateCode = locationDto.RegionCode,
                 City = locationDto.City
             };
         }

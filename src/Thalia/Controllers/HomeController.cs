@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc;
 using Thalia.Services.Location;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
+using Thalia.Services.Cache;
 
 namespace Thalia.Controllers
 {
@@ -44,16 +45,17 @@ namespace Thalia.Controllers
 
         public async Task<IActionResult> Test()
         {
-            var s = new LocationService(_logger, _context);
-
             var ip = HttpContext.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress.MapToIPv4().ToString();
 #if DEBUG
             if ((ip == "0.0.0.1") || (ip == "127.0.0.1"))
             {
+                //ip = "175342523";
                 ip = "175.34.25.23";
+
             }
-#endif
-            var ss = await s.GetLocationAsync(ip); 
+#endif      
+            var locationExecutor = new LocationExecutor(_logger, new CacheRepository<Location>(_context), _context);
+            var o = await locationExecutor.Execute(ip);
             return View();
         }
     }

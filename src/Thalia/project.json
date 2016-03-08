@@ -30,6 +30,7 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "System.Runtime.Serialization.Json": "4.0.0",
     "System.Runtime.Serialization.Primitives": "4.0.0-beta-22605"
+    
   },
 
   "commands": {
