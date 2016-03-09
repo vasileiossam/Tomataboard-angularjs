@@ -1,0 +1,7 @@
+﻿{
+  "Api500px": {
+    "ConsumerKey": "<ENTER YOUR CONSUMER KEY HERE>",
+    "ConsumerSecret": "<ENTER YOUR CONSUMER SECRET HERE>",
+    "CallbackUrl": "<ENTER YOUR CALLBACK URL HERE>"
+  }
+}

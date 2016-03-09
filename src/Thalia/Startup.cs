@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -30,6 +26,7 @@ namespace Thalia
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+                .AddJsonFile("keys.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
@@ -67,7 +64,8 @@ namespace Thalia
             services.AddLogging();
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
-
+            services.Configure<Api500pxSettings>(Configuration.GetSection("ApiSettings:Api500px"));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
