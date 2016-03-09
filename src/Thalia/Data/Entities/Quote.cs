@@ -8,8 +8,8 @@ namespace Thalia.Data.Entities
     public class Quote
     {
         [Key]
-        public long Id { get; set; }
-        public string Quote { get; set; }
+        public int Id { get; set; }
+        public string Wording { get; set; }
         public string Author { get; set; }
         public string Tag { get; set; }
     }

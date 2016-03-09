@@ -45,7 +45,7 @@ namespace Thalia.Services.Cache
         {
             // todo error handling, loging
 
-            var cacheItem = _context.Cache.FirstOrDefault(x =>
+            var cacheItem = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
                     ((x.Expired == null) || (x.Expired > DateTime.Now)) &&
                     (x.Service == service) &&
                     (x.Params == parameters)

@@ -5,6 +5,7 @@ using Thalia.Services.Location;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
 using Thalia.Services.Cache;
+using Thalia.Services;
 
 namespace Thalia.Controllers
 {
@@ -45,6 +46,9 @@ namespace Thalia.Controllers
 
         public async Task<IActionResult> Test()
         {
+            var repo = new QuoteRepository(_context);
+            var quote = repo.GetQuoteOfTheDay();
+
             var ip = HttpContext.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress.MapToIPv4().ToString();
 #if DEBUG
             if ((ip == "0.0.0.1") || (ip == "127.0.0.1"))
