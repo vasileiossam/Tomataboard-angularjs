@@ -1,6 +1,6 @@
-﻿namespace Thalia.Services.Photos.Flickr  
+﻿namespace Thalia.Services.Weather.Yahoo
 {
-    public class FlickrSettings
+    public class YahooWeatherKeys
     {
         public string ConsumerKey { get; set; }
         public string ConsumerSecret { get; set; }

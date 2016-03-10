@@ -39,7 +39,7 @@ namespace Thalia.Services.Photos.Api500px
         #region Private Fields
         private Dictionary<string, string> AuthorizationParameters;
         private OauthToken _accessToken;
-        private readonly IOptions<Api500pxSettings> _settings;
+        private readonly IOptions<Api500pxKeys> _keys;
         private readonly ILogger _logger;
         #endregion
 
@@ -53,11 +53,11 @@ namespace Thalia.Services.Photos.Api500px
         public string Result { get; set; }
 
         #region Constructors
-        public Api500px(ILogger logger, IOptions<Api500pxSettings> settings)
+        public Api500px(ILogger logger, IOptions<Api500pxKeys> keys)
         {
             _logger = logger;
-            _settings = settings;
-            _accessToken = new OauthToken() { Token = _settings.Value.AccessToken, Secret = _settings.Value.AccessSecret };
+            _keys = keys;
+            _accessToken = new OauthToken() { Token = _keys.Value.AccessToken, Secret = _keys.Value.AccessSecret };
         }
         #endregion
         
@@ -234,7 +234,7 @@ namespace Thalia.Services.Photos.Api500px
 
             AuthorizationParameters = new Dictionary<string, string>()
             {
-                {OauthParameter.OauthConsumerKey, _settings.Value.ConsumerKey},
+                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
@@ -242,7 +242,7 @@ namespace Thalia.Services.Photos.Api500px
                 {OauthParameter.OauthVersion, OAuthVersion}
             };
 
-            var response = await Sign(url, _settings.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
+            var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
             return await DeserializeResponse<GetPhotosResponse>(response);
         }
 
@@ -250,7 +250,7 @@ namespace Thalia.Services.Photos.Api500px
         {
             AuthorizationParameters = new Dictionary<string, string>()
             {
-                {OauthParameter.OauthConsumerKey, _settings.Value.ConsumerKey},
+                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
@@ -259,7 +259,7 @@ namespace Thalia.Services.Photos.Api500px
             };
 
             var url = "https://api.500px.com/v1/photos/search";
-            var response = await Sign(url, _settings.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
+            var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
             return await DeserializeResponse<GetPhotosResponse>(response);
         }
 
@@ -267,15 +267,15 @@ namespace Thalia.Services.Photos.Api500px
         {
             AuthorizationParameters = new Dictionary<string, string>()
             {
-                {OauthParameter.OauthCallback, _settings.Value.CallbackUrl},
-                {OauthParameter.OauthConsumerKey, _settings.Value.ConsumerKey},
+                {OauthParameter.OauthCallback, _keys.Value.CallbackUrl},
+                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
                 {OauthParameter.OauthVersion, OAuthVersion}
             };
 
-            var response = await Sign(RequestTokenUrl, _settings.Value.ConsumerSecret, string.Empty, "POST", "").PostRequest(RequestTokenUrl);
+            var response = await Sign(RequestTokenUrl, _keys.Value.ConsumerSecret, string.Empty, "POST", "").PostRequest(RequestTokenUrl);
             return ParseReponse(response);
         }
 
@@ -293,7 +293,7 @@ namespace Thalia.Services.Photos.Api500px
         {
             AuthorizationParameters = new Dictionary<string, string>()
             {
-                {OauthParameter.OauthConsumerKey, _settings.Value.ConsumerKey},
+                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
@@ -302,7 +302,7 @@ namespace Thalia.Services.Photos.Api500px
                 {OauthParameter.OauthVersion, OAuthVersion}
              };
 
-            var response = await Sign(AccessUrl, _settings.Value.ConsumerSecret, token.Secret, "POST", "").PostRequest(AccessUrl);
+            var response = await Sign(AccessUrl, _keys.Value.ConsumerSecret, token.Secret, "POST", "").PostRequest(AccessUrl);
             return ParseReponse(response);
         }
 
@@ -316,7 +316,7 @@ namespace Thalia.Services.Photos.Api500px
             {
                 AuthorizationParameters = new Dictionary<string, string>()
                 {
-                    {OauthParameter.OauthConsumerKey, _settings.Value.ConsumerKey},
+                    {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
                     {OauthParameter.OauthNonce, GetNonce()},
                     {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                     {OauthParameter.OauthTimestamp, GetTimeStamp()},
@@ -332,7 +332,7 @@ namespace Thalia.Services.Photos.Api500px
                 var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
 
                 var url = "https://api.500px.com/v1/photos/search";
-                var response = await Sign(url, _settings.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString).GetRequest(url, queryString);
+                var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString).GetRequest(url, queryString);
                 var content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)

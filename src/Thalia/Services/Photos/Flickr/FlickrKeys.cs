@@ -1,6 +1,6 @@
-﻿namespace Thalia.Services.Photos.Api500px
+﻿namespace Thalia.Services.Photos.Flickr  
 {
-    public class Api500pxSettings
+    public class FlickrKeys
     {
         public string ConsumerKey { get; set; }
         public string ConsumerSecret { get; set; }

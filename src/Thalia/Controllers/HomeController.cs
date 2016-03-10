@@ -12,6 +12,7 @@ using Thalia.Services.Photos;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Quotes;
+using Thalia.Services.Weather.Yahoo;
 
 namespace Thalia.Controllers
 {
@@ -19,20 +20,23 @@ namespace Thalia.Controllers
     {
         private ILogger _logger;
         private ThaliaContext _context;
-        private IOptions<Api500pxSettings> _api500pxSettings;
-        private IOptions<FlickrSettings> _flickrSettings;
+        private IOptions<Api500pxKeys> _api500pxKeys;
+        private IOptions<FlickrKeys> _flickrKeys;
         private IOptions<DataSettings> _dataSettings;
-
+        private IOptions<YahooWeatherKeys> _yahooWeatherKeys;
+        
         public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
-            IOptions<Api500pxSettings> api500pxSettings,
-            IOptions<FlickrSettings> flickrSettings,
-            IOptions<DataSettings> dataSettings)
+            IOptions<Api500pxKeys> api500pxKeys,
+            IOptions<FlickrKeys> flickrKeys,
+            IOptions<DataSettings> dataSettings,
+            IOptions<YahooWeatherKeys> yahooWeatherKeys)
         {
             _logger = logger;
             _context = context;
-            _api500pxSettings = api500pxSettings;
+            _api500pxKeys = api500pxKeys;
             _dataSettings = dataSettings;
-            _flickrSettings = flickrSettings;
+            _flickrKeys = flickrKeys;
+            _yahooWeatherKeys = yahooWeatherKeys;
         }
         
         public IActionResult Index()
@@ -63,10 +67,13 @@ namespace Thalia.Controllers
         {
             IServiceOperation<List<Photo>> service;
 
+            var weatherService = new YahooWeatherService(_logger, _yahooWeatherKeys);
+            await weatherService.Execute("Melbourne");
+
             //service = new FlickrService(_logger, _flickrSettings);
             //ViewData.Model = await service.Execute("winter,snow,landscape");
 
-            service = new Api500px(_logger, _api500pxSettings);
+            service = new Api500px(_logger, _api500pxKeys);
             ViewData.Model = await service.Execute("inspirational");
 
             var repo = new QuoteRepository(_context);

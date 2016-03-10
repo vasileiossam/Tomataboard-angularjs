@@ -12,6 +12,7 @@ using Thalia.Services.Cache;
 using Thalia.Services.Locations;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
+using Thalia.Services.Weather.Yahoo;
 
 namespace Thalia
 {
@@ -66,8 +67,9 @@ namespace Thalia
             services.AddLogging();
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
-            services.Configure<Api500pxSettings>(Configuration.GetSection("ApiSettings:Api500pxSettings"));
-            services.Configure<FlickrSettings>(Configuration.GetSection("ApiSettings:FlickrSettings"));
+            services.Configure<Api500pxKeys>(Configuration.GetSection("ApiSettings:Api500pxKeys"));
+            services.Configure<FlickrKeys>(Configuration.GetSection("ApiSettings:FlickrKeys"));
+            services.Configure<YahooWeatherKeys>(Configuration.GetSection("ApiSettings:YahooWeatherKeys"));
 
         }
 

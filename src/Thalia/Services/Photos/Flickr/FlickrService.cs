@@ -17,7 +17,7 @@ namespace Thalia.Services.Photos.Flickr
     public class FlickrService : IFlickrService, IServiceOperation<List<Photo>>
     {
         #region Private Fields
-        private readonly IOptions<FlickrSettings> _settings;
+        private readonly IOptions<FlickrKeys> _keys;
         private readonly ILogger _logger;
         #endregion
 
@@ -28,10 +28,10 @@ namespace Thalia.Services.Photos.Flickr
         public string Result { get; set; }
 
         #region Constructors
-        public FlickrService(ILogger logger, IOptions<FlickrSettings> settings)
+        public FlickrService(ILogger logger, IOptions<FlickrKeys> keys)
         {
             _logger = logger;
-            _settings = settings;
+            _keys = keys;
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace Thalia.Services.Photos.Flickr
                 var queryParams = new Dictionary<string, string>()
                 {
                     {"method", "flickr.photos.search"},
-                    {"api_key", _settings.Value.ConsumerKey},
+                    {"api_key", _keys.Value.ConsumerKey},
                     {"format", "json" },
                     {"nojsoncallback", "1" },
                     // The order in which to sort returned photos. Deafults to date-posted-desc 
