@@ -1,13 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Mvc;
-using Thalia.Services.Location;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
 using Thalia.Services.Cache;
-using Thalia.Services;
-using Thalia.Services.Api500px;
 using Microsoft.Extensions.OptionsModel;
+using Thalia.Services;
+using Thalia.Services.Locations;
+using Thalia.Services.Photos;
+using Thalia.Services.Photos.Api500px;
+using Thalia.Services.Photos.Flickr;
+using Thalia.Services.Quotes;
 
 namespace Thalia.Controllers
 {
@@ -16,14 +20,19 @@ namespace Thalia.Controllers
         private ILogger _logger;
         private ThaliaContext _context;
         private IOptions<Api500pxSettings> _api500pxSettings;
+        private IOptions<FlickrSettings> _flickrSettings;
         private IOptions<DataSettings> _dataSettings;
 
-        public HomeController(ILogger<HomeController> logger, ThaliaContext context, IOptions<Api500pxSettings> api500pxSettings, IOptions<DataSettings> dataSettings)
+        public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
+            IOptions<Api500pxSettings> api500pxSettings,
+            IOptions<FlickrSettings> flickrSettings,
+            IOptions<DataSettings> dataSettings)
         {
             _logger = logger;
             _context = context;
             _api500pxSettings = api500pxSettings;
             _dataSettings = dataSettings;
+            _flickrSettings = flickrSettings;
         }
         
         public IActionResult Index()
@@ -52,8 +61,13 @@ namespace Thalia.Controllers
 
         public async Task<IActionResult> Test()
         {
-            var service = new Api500px(_api500pxSettings);
-            ViewData.Model = await service.Search("term=inspire&rpp=30");
+            IServiceOperation<List<Photo>> service;
+
+            //service = new FlickrService(_logger, _flickrSettings);
+            //ViewData.Model = await service.Execute("winter,snow,landscape");
+
+            service = new Api500px(_logger, _api500pxSettings);
+            ViewData.Model = await service.Execute("inspirational");
 
             var repo = new QuoteRepository(_context);
             var quote = repo.GetQuoteOfTheDay();

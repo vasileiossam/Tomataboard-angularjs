@@ -9,7 +9,9 @@ using Thalia.Models;
 using Thalia.Services;
 using Thalia.Data;
 using Thalia.Services.Cache;
-using Thalia.Services.Location;
+using Thalia.Services.Locations;
+using Thalia.Services.Photos.Api500px;
+using Thalia.Services.Photos.Flickr;
 
 namespace Thalia
 {
@@ -64,8 +66,9 @@ namespace Thalia
             services.AddLogging();
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
-            services.Configure<Api500pxSettings>(Configuration.GetSection("ApiSettings:Api500px"));
-            
+            services.Configure<Api500pxSettings>(Configuration.GetSection("ApiSettings:Api500pxSettings"));
+            services.Configure<FlickrSettings>(Configuration.GetSection("ApiSettings:FlickrSettings"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
