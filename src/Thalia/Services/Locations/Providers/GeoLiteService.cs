@@ -5,10 +5,11 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Thalia.Data;
 using Thalia.Data.Entities;
+using Thalia.Services.Locations.Abstract;
 
-namespace Thalia.Services.Locations
+namespace Thalia.Services.Locations.Providers
 {
-    public class GeoLiteService : IServiceOperation<Location>
+    public class GeoLiteService : IGeoLiteService
     {
         #region private members
         private ILogger _logger;

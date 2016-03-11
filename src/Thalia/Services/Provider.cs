@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Thalia.Services.Cache;
-using System.Linq;
 
 namespace Thalia.Services
 {
-    public class ServiceExecutor<T> : IServiceExecutor<T> where T : class
+    public class Provider<T> : IProvider<T> where T : class
     {
         protected List<IServiceOperation<T>> _operations = new List<IServiceOperation<T>>();
         protected ICacheRepository<T> _cacheRepository;
         protected ILogger _logger;
 
-        public ServiceExecutor(ILogger logger, ICacheRepository<T> cacheRepository)
+        public Provider(ILogger logger, ICacheRepository<T> cacheRepository)
         {
             _logger = logger;
             _cacheRepository = cacheRepository;

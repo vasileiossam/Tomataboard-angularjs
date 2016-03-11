@@ -2,7 +2,7 @@
 
 namespace Thalia.Services
 {
-    public interface IServiceExecutor<T>
+    public interface IProvider<T>
     {
         Task<T> Execute(string parameters);
     }

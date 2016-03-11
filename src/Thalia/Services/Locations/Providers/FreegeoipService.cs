@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Thalia.Extensions;
+using Thalia.Services.Locations.Abstract;
 
-namespace Thalia.Services.Locations
+namespace Thalia.Services.Locations.Providers
 {
     /// <summary>
     /// http://freegeoip.net
     /// </summary>
-    public class FreegeoipService : IServiceOperation<Location>
+    public class FreegeoipService : IFreegeoipService
     {
         #region private members
         [DataContract]

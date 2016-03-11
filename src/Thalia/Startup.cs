@@ -13,6 +13,9 @@ using Thalia.Services.Locations;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Weather.Yahoo;
+using Thalia.Services.Locations.Abstract;
+using Thalia.Services.Locations.Providers;
+using Thalia.Services.Weather.OpenWeatherMap;
 
 namespace Thalia
 {
@@ -64,6 +67,19 @@ namespace Thalia
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<ICacheRepository<Location>, CacheRepository<Location>>();
             
+            // location services
+            services.AddTransient<IFreegeoipService, FreegeoipService>();
+            services.AddTransient<IGeoLiteService, GeoLiteService>();
+            services.AddTransient<IIpGeolocationService, IpGeolocationService>();
+            
+            // photo services
+            services.AddTransient<IApi500px, Api500px>();
+            services.AddTransient<IFlickrService, FlickrService>();
+
+            // weather services
+            services.AddTransient<IYahooWeatherService, YahooWeatherService>();
+            services.AddTransient<IOpenWeatherMapService, OpenWeatherMapService>();
+
             services.AddLogging();
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));

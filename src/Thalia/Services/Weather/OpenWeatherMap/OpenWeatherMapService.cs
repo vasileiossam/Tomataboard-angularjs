@@ -1,18 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.OptionsModel;
 using Thalia.Extensions;
+using Thalia.Services.Weather.Yahoo;
 
-namespace Thalia.Services.Weather.Yahoo
+namespace Thalia.Services.Weather.OpenWeatherMap
 {
     /// <summary>
     /// https://developer.yahoo.com/weather/
     /// OAuth 2.0
     /// </summary>
-    public class YahooWeatherService : IYahooWeatherService
+    public class OpenWeatherMapService : IOpenWeatherMapService
     {
         #region Private Fields
         private readonly IOptions<YahooWeatherKeys> _keys;
@@ -20,7 +20,7 @@ namespace Thalia.Services.Weather.Yahoo
         #endregion
 
         #region Constructors
-        public YahooWeatherService(ILogger logger, IOptions<YahooWeatherKeys> keys)
+        public OpenWeatherMapService(ILogger logger, IOptions<YahooWeatherKeys> keys)
         {
             _logger = logger;
             _keys = keys;

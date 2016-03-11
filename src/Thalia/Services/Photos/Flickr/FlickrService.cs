@@ -14,7 +14,7 @@ namespace Thalia.Services.Photos.Flickr
     /// https://www.flickr.com/services/api/
     /// https://www.flickr.com/services/developer/api/
     /// </summary>
-    public class FlickrService : IFlickrService, IServiceOperation<List<Photo>>
+    public class FlickrService : IFlickrService
     {
         #region Private Fields
         private readonly IOptions<FlickrKeys> _keys;

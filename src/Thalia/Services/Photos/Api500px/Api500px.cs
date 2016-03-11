@@ -26,7 +26,7 @@ namespace Thalia.Services.Photos.Api500px
     /// Good ideas here: http://www.rahulpnath.com/blog/exploring-oauth-c-and-500px/
     /// To check the signature: http://oauth.googlecode.com/svn/code/javascript/example/signature.html
     /// </summary>
-    public class Api500px  : IServiceOperation<List<Photo>>
+    public class Api500px  : IApi500px
     {
         #region Private Constants
         private const string AccessUrl = "https://api.500px.com/v1/oauth/access_token";

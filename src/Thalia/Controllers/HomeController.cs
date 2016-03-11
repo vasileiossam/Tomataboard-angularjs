@@ -88,7 +88,7 @@ namespace Thalia.Controllers
 
             }
 #endif      
-            var locationExecutor = new LocationExecutor(_logger, new CacheRepository<Location>(_context), _context);
+            var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
             var o = await locationExecutor.Execute(ip);
             return View();
         }

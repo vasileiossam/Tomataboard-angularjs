@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Thalia.Services.Weather
 {
-    public class Weather
+    public class WeatherConditions
     {
+
     }
 }

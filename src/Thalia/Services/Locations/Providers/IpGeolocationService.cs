@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Thalia.Extensions;
+using Thalia.Services.Locations.Abstract;
 
-namespace Thalia.Services.Locations
+namespace Thalia.Services.Locations.Providers
 {
     /// <summary>
     /// http://ip-api.com
     /// </summary>
-    public class IpGeolocationApi : IServiceOperation<Location>
+    public class IpGeolocationService : IIpGeolocationService
     {
         #region private members
         [DataContract]
@@ -49,7 +50,7 @@ namespace Thalia.Services.Locations
             public string Message { get; set; }
         }
 
-        private ILogger _logger;
+        private readonly ILogger _logger;
         #endregion
 
         public string Parameters { get; set; }
@@ -57,7 +58,7 @@ namespace Thalia.Services.Locations
         public int? RequestsPerMinute { get; }
         public TimeSpan? Expiration { get; }
 
-        public IpGeolocationApi(ILogger logger)
+        public IpGeolocationService(ILogger logger)
         {
             _logger = logger;
             RequestsPerMinute = 140;
@@ -100,8 +101,7 @@ namespace Thalia.Services.Locations
             Result = json;
 
             var locationDto = JsonConvert.DeserializeObject<LocationDto>(json);
-            if (locationDto == null) return null;
-            if (string.IsNullOrEmpty(locationDto.City) || string.IsNullOrEmpty(locationDto.Country)) return null;
+            if (string.IsNullOrEmpty(locationDto?.City) || string.IsNullOrEmpty(locationDto.Country)) return null;
 
             return new Location()
             {
