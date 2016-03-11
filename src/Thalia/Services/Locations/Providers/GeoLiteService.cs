@@ -12,7 +12,7 @@ namespace Thalia.Services.Locations.Providers
     public class GeoLiteService : IGeoLiteService
     {
         #region private members
-        private ILogger _logger;
+        private ILogger<GeoLiteService> _logger;
         private ThaliaContext _context;
         #endregion
 
@@ -21,7 +21,7 @@ namespace Thalia.Services.Locations.Providers
         public int? RequestsPerMinute { get; }
         public TimeSpan? Expiration { get; }
         
-        public GeoLiteService(ILogger logger, ThaliaContext context)
+        public GeoLiteService(ILogger<GeoLiteService> logger, ThaliaContext context)
         {
             _logger = logger;
             _context = context;

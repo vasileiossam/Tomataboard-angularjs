@@ -40,7 +40,7 @@ namespace Thalia.Services.Photos.Api500px
         private Dictionary<string, string> AuthorizationParameters;
         private OauthToken _accessToken;
         private readonly IOptions<Api500pxKeys> _keys;
-        private readonly ILogger _logger;
+        private readonly ILogger<Api500px> _logger;
         #endregion
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Thalia.Services.Photos.Api500px
         public string Result { get; set; }
 
         #region Constructors
-        public Api500px(ILogger logger, IOptions<Api500pxKeys> keys)
+        public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys)
         {
             _logger = logger;
             _keys = keys;

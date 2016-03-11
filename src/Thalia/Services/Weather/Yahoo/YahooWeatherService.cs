@@ -16,11 +16,11 @@ namespace Thalia.Services.Weather.Yahoo
     {
         #region Private Fields
         private readonly IOptions<YahooWeatherKeys> _keys;
-        private readonly ILogger _logger;
+        private readonly ILogger<YahooWeatherService> _logger;
         #endregion
 
         #region Constructors
-        public YahooWeatherService(ILogger logger, IOptions<YahooWeatherKeys> keys)
+        public YahooWeatherService(ILogger<YahooWeatherService> logger, IOptions<YahooWeatherKeys> keys)
         {
             _logger = logger;
             _keys = keys;

@@ -42,7 +42,7 @@ namespace Thalia.Services.Locations.Providers
             public string MetroCode { get; set; }
         }
 
-        private readonly ILogger _logger;
+        private readonly ILogger<FreegeoipService> _logger;
         #endregion
 
         public string Parameters { get; set; }
@@ -50,7 +50,7 @@ namespace Thalia.Services.Locations.Providers
         public int? RequestsPerMinute { get; }
         public TimeSpan? Expiration { get; }
 
-        public FreegeoipService(ILogger logger)
+        public FreegeoipService(ILogger<FreegeoipService> logger)
         {
             _logger = logger;
             RequestsPerMinute = 150;

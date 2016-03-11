@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Thalia.Data;
-using Thalia.Services;
-using Entities = Thalia.Data.Entities;
 
 namespace Thalia.Services.Cache
 {
     public class CacheRepository<T> : ICacheRepository<T>
     {
-        private ThaliaContext _context;
+        private readonly ThaliaContext _context;
 
         public CacheRepository(ThaliaContext context)
         {
@@ -27,7 +22,7 @@ namespace Thalia.Services.Cache
                 expired = DateTime.Now.Add((TimeSpan)operation.Expiration);
             }
 
-            var item = new Entities.Cache()
+            var item = new Data.Entities.Cache()
             {
                 Service = service,
                 Operation = operation.GetType().Name,
@@ -41,7 +36,7 @@ namespace Thalia.Services.Cache
             _context.SaveChanges();
         }
 
-        public Entities.Cache Find(string service, string parameters) 
+        public Data.Entities.Cache Find(string service, string parameters) 
         {
             // todo error handling, loging
 

@@ -50,7 +50,7 @@ namespace Thalia.Services.Locations.Providers
             public string Message { get; set; }
         }
 
-        private readonly ILogger _logger;
+        private readonly ILogger<IpGeolocationService> _logger;
         #endregion
 
         public string Parameters { get; set; }
@@ -58,7 +58,7 @@ namespace Thalia.Services.Locations.Providers
         public int? RequestsPerMinute { get; }
         public TimeSpan? Expiration { get; }
 
-        public IpGeolocationService(ILogger logger)
+        public IpGeolocationService(ILogger<IpGeolocationService> logger)
         {
             _logger = logger;
             RequestsPerMinute = 140;

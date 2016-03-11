@@ -16,11 +16,11 @@ namespace Thalia.Services.Weather.OpenWeatherMap
     {
         #region Private Fields
         private readonly IOptions<YahooWeatherKeys> _keys;
-        private readonly ILogger _logger;
+        private readonly ILogger<OpenWeatherMapService> _logger;
         #endregion
 
         #region Constructors
-        public OpenWeatherMapService(ILogger logger, IOptions<YahooWeatherKeys> keys)
+        public OpenWeatherMapService(ILogger<OpenWeatherMapService> logger, IOptions<YahooWeatherKeys> keys)
         {
             _logger = logger;
             _keys = keys;

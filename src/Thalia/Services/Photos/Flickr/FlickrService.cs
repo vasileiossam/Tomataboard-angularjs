@@ -18,7 +18,7 @@ namespace Thalia.Services.Photos.Flickr
     {
         #region Private Fields
         private readonly IOptions<FlickrKeys> _keys;
-        private readonly ILogger _logger;
+        private readonly ILogger<FlickrService> _logger;
         #endregion
 
         // 3600 per hour
@@ -28,7 +28,7 @@ namespace Thalia.Services.Photos.Flickr
         public string Result { get; set; }
 
         #region Constructors
-        public FlickrService(ILogger logger, IOptions<FlickrKeys> keys)
+        public FlickrService(ILogger<FlickrService> logger, IOptions<FlickrKeys> keys)
         {
             _logger = logger;
             _keys = keys;

@@ -67,14 +67,14 @@ namespace Thalia.Controllers
         {
             IServiceOperation<List<Photo>> service;
 
-            var weatherService = new YahooWeatherService(_logger, _yahooWeatherKeys);
-            await weatherService.Execute("Melbourne");
+            //var weatherService = new YahooWeatherService(_logger, _yahooWeatherKeys);
+            //await weatherService.Execute("Melbourne");
 
             //service = new FlickrService(_logger, _flickrSettings);
             //ViewData.Model = await service.Execute("winter,snow,landscape");
 
-            service = new Api500px(_logger, _api500pxKeys);
-            ViewData.Model = await service.Execute("inspirational");
+           // service = new Api500px(_logger, _api500pxKeys);
+           // ViewData.Model = await service.Execute("inspirational");
 
             var repo = new QuoteRepository(_context);
             var quote = repo.GetQuoteOfTheDay();
@@ -88,8 +88,8 @@ namespace Thalia.Controllers
 
             }
 #endif      
-            var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
-            var o = await locationExecutor.Execute(ip);
+            //var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
+            //var o = await locationExecutor.Execute(ip);
             return View();
         }
     }
