@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using System.Collections.Generic;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -15,6 +16,8 @@ using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Weather.Yahoo;
 using Thalia.Services.Locations.Abstract;
 using Thalia.Services.Locations.Providers;
+using Thalia.Services.Photos;
+using Thalia.Services.Weather;
 using Thalia.Services.Weather.OpenWeatherMap;
 
 namespace Thalia
@@ -61,20 +64,25 @@ namespace Thalia
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<ICacheRepository<Location>, CacheRepository<Location>>();
-            
+
             // location services
+            services.AddTransient<ILocationProvider, LocationProvider>();
             services.AddTransient<IFreegeoipService, FreegeoipService>();
             services.AddTransient<IGeoLiteService, GeoLiteService>();
             services.AddTransient<IIpGeolocationService, IpGeolocationService>();
-            
+            services.AddTransient<ICacheRepository<Location>, CacheRepository<Location>>();
+
             // photo services
+            services.AddTransient<IPhotoProvider, PhotoProvider>();
             services.AddTransient<IApi500px, Api500px>();
             services.AddTransient<IFlickrService, FlickrService>();
+            services.AddTransient<ICacheRepository<List<Photo>>, CacheRepository<List<Photo>>>();
 
             // weather services
+            services.AddTransient<IWeatherProvider, WeatherProvider>();
             services.AddTransient<IYahooWeatherService, YahooWeatherService>();
             services.AddTransient<IOpenWeatherMapService, OpenWeatherMapService>();
+            services.AddTransient<ICacheRepository<WeatherConditions>, CacheRepository<WeatherConditions>> ();
 
             services.AddLogging();
 

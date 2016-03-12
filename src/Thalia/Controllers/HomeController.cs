@@ -1,19 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Mvc;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
-using Thalia.Services;
-using Thalia.Services.Photos;
-using Thalia.Services.Photos.Api500px;
-using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Quotes;
-using Thalia.Services.Weather.Yahoo;
 using Thalia.Services.Locations;
-using Thalia.Services.Cache;
+using Thalia.Services.Photos;
+using Thalia.Services.Weather;
 
 namespace Thalia.Controllers
 {
@@ -21,23 +14,20 @@ namespace Thalia.Controllers
     {
         private ILogger _logger;
         private ThaliaContext _context;
-        private IOptions<Api500pxKeys> _api500pxKeys;
-        private IOptions<FlickrKeys> _flickrKeys;
-        private IOptions<DataSettings> _dataSettings;
-        private IOptions<YahooWeatherKeys> _yahooWeatherKeys;
-        
+        private ILocationProvider _locationProvider;
+        private IPhotoProvider _photoProvider;
+        private IWeatherProvider _weatherProvider;
+
         public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
-            IOptions<Api500pxKeys> api500pxKeys,
-            IOptions<FlickrKeys> flickrKeys,
-            IOptions<DataSettings> dataSettings,
-            IOptions<YahooWeatherKeys> yahooWeatherKeys)
+            ILocationProvider locationProvider,
+            IPhotoProvider photoProvider,
+            IWeatherProvider weatherProvider)
         {
             _logger = logger;
             _context = context;
-            _api500pxKeys = api500pxKeys;
-            _dataSettings = dataSettings;
-            _flickrKeys = flickrKeys;
-            _yahooWeatherKeys = yahooWeatherKeys;
+            _locationProvider = locationProvider;
+            _photoProvider = photoProvider;
+            _weatherProvider = weatherProvider;
         }
         
         public IActionResult Index()
@@ -66,17 +56,6 @@ namespace Thalia.Controllers
 
         public async Task<IActionResult> Test()
         {
-            //IServiceOperation<List<Photo>> service;
-
-            //var weatherService = new YahooWeatherService(_logger, _yahooWeatherKeys);
-            //await weatherService.Execute("Melbourne");
-
-            //service = new FlickrService(_logger, _flickrSettings);
-            //ViewData.Model = await service.Execute("winter,snow,landscape");
-
-           // service = new Api500px(_logger, _api500pxKeys);
-           // ViewData.Model = await service.Execute("inspirational");
-
             var repo = new QuoteRepository(_context);
             var quote = repo.GetQuoteOfTheDay();
 
@@ -89,10 +68,7 @@ namespace Thalia.Controllers
 
             }
 #endif
-           // var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
-           // var o = await locationExecutor.Execute(ip);
-         
-           
+           var o = await _locationProvider.Execute(ip);
             return View();
         }
     }

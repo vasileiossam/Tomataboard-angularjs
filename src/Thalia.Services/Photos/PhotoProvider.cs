@@ -8,7 +8,7 @@ namespace Thalia.Services.Photos
 {
     public class PhotoProvider : Provider<List<Photo>>, IPhotoProvider
     {
-        public PhotoProvider(ILogger logger, ICacheRepository<List<Photo>> cacheRepository,
+        public PhotoProvider(ILogger<PhotoProvider> logger, ICacheRepository<List<Photo>> cacheRepository,
             // ReSharper disable once InconsistentNaming
             IApi500px api500px,
             IFlickrService flickrService) 

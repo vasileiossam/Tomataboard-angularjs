@@ -7,7 +7,7 @@ namespace Thalia.Services.Weather
 {
     public class WeatherProvider : Provider<WeatherConditions>, IWeatherProvider
     {
-        public WeatherProvider(ILogger logger, ICacheRepository<WeatherConditions> cacheRepository,
+        public WeatherProvider(ILogger<WeatherProvider> logger, ICacheRepository<WeatherConditions> cacheRepository,
             IOpenWeatherMapService openWeatherMapService,
             IYahooWeatherService yahooWeatherService)
             : base(logger, cacheRepository)
