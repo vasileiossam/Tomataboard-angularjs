@@ -19,11 +19,7 @@ using Thalia.Services.Weather.OpenWeatherMap;
 
 namespace Thalia
 {
-    public class DataSettings
-    {
-        public string ConnectionString { get; set; }
-        public string ThaliaContextConnection { get; set; }
-    }
+
 
     public class Startup
     {

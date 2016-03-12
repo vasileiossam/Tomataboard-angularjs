@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C59D817B
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thalia.xUnitTests", "Thalia.xUnitTests\Thalia.xUnitTests.xproj", "{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thalia.Data", "src\Thalia.Data\Thalia.Data.xproj", "{3BB87656-50A6-46C2-911A-92CF5804F10A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,5 +46,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2A216B13-46FE-4155-B806-76EE5275EBE4} = {909861CB-C578-4C33-9CE3-C76BF5716197}
 		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B} = {C59D817B-1DE1-4A24-8B73-2E35D07E1D20}
+		{3BB87656-50A6-46C2-911A-92CF5804F10A} = {909861CB-C578-4C33-9CE3-C76BF5716197}
 	EndGlobalSection
 EndGlobal

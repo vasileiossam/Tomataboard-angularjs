@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Thalia.Data;
+using Thalia.Services.Cache;
 using Thalia.Services.Photos;
+using Thalia.xUnitTests.Stubs;
 using Xunit;
 
 namespace Thalia.xUnitTests
@@ -16,11 +19,14 @@ namespace Thalia.xUnitTests
         {
         }
 
-        
+        /// <summary>
+        /// http://dotnetliberty.com/index.php/2015/12/14/asp-net-5-web-api-unit-testing/
+        /// </summary>
         [Fact]
-        public void PassingTest()
+        public void GetPhotos()
         {
-            var provider = new PhotoProvider();
+            //var cache = new CacheRepository<List<Photo>(new ThaliaContext(null));
+            //var provider = new PhotoProvider(new StubLogger<PhotoProvider>(), );
         }
     }
 }
