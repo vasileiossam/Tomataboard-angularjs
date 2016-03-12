@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Mvc;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
-using Thalia.Services.Cache;
 using Microsoft.Extensions.OptionsModel;
 using Thalia.Services;
-using Thalia.Services.Locations;
 using Thalia.Services.Photos;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Quotes;
 using Thalia.Services.Weather.Yahoo;
+using Thalia.Services.Locations;
+using Thalia.Services.Cache;
 
 namespace Thalia.Controllers
 {
@@ -65,7 +66,7 @@ namespace Thalia.Controllers
 
         public async Task<IActionResult> Test()
         {
-            IServiceOperation<List<Photo>> service;
+            //IServiceOperation<List<Photo>> service;
 
             //var weatherService = new YahooWeatherService(_logger, _yahooWeatherKeys);
             //await weatherService.Execute("Melbourne");
@@ -87,9 +88,11 @@ namespace Thalia.Controllers
                 ip = "175.34.25.23";
 
             }
-#endif      
-            //var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
-            //var o = await locationExecutor.Execute(ip);
+#endif
+           // var locationExecutor = new LocationProvider(_logger, new CacheRepository<Location>(_context), _context);
+           // var o = await locationExecutor.Execute(ip);
+         
+           
             return View();
         }
     }

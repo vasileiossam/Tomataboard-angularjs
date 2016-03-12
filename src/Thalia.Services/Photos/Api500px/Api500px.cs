@@ -12,7 +12,7 @@ using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Thalia.Services.Photos.Api500px.Contracts;
 using Thalia.Services.Photos.Api500px.Models;
-using Thalia.Extensions;
+using Thalia.Services.Extensions;
 
 // ReSharper disable InconsistentNaming
 

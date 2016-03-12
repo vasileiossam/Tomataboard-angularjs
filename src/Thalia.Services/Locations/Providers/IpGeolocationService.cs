@@ -4,8 +4,8 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Thalia.Extensions;
 using Thalia.Services.Locations.Abstract;
+using Thalia.Services.Extensions;
 
 namespace Thalia.Services.Locations.Providers
 {

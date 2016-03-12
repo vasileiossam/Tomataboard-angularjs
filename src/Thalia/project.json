@@ -28,9 +28,10 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "System.Runtime.Serialization.Json": "4.0.0",
-    "System.Runtime.Serialization.Primitives": "4.0.0-beta-22605",
-    "Thalia.Data": "1.0.0-*"
+    "System.Runtime.Serialization.Json": "4.0.1-beta-23516",
+    "System.Runtime.Serialization.Primitives": "4.1.0-beta-23516",
+    "Thalia.Data": "1.0.0-*",
+    "Thalia.Services": "1.0.0-*"
   },
 
   "commands": {
@@ -40,17 +41,18 @@
 
   "frameworks": {
     "dnx451": {
-      "frameworkAssemblies": {
-        "System.Runtime.Serialization": ""
+      "dependencies": {
 
       },
-      "dependencies": {
+      "frameworkAssemblies": {
+        "System.Runtime.Serialization": ""
 
       }
     },
     "dnxcore50": {
       "dependencies": {
-        "System.ComponentModel.Annotations": "4.0.11-beta-23516"
+        "System.ComponentModel.Annotations": "4.0.11-beta-23516",
+        "System.Net.Http": "4.0.1-beta-23516"
       }
     }
   },

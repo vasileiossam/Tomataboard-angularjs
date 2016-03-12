@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
-using Thalia.Extensions;
 using Thalia.Services.Weather.Yahoo;
+using Thalia.Services.Extensions;
 
 namespace Thalia.Services.Weather.OpenWeatherMap
 {

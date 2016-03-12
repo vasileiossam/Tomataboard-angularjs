@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Thalia.Extensions;
+using Thalia.Services.Extensions;
 
 namespace Thalia.Services.Photos.Flickr
 {

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Thalia.Extensions;
+using Thalia.Services.Extensions;
 
 namespace Thalia.Services.Weather.Yahoo
 {

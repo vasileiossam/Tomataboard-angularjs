@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Thalia.Extensions
+namespace Thalia.Services.Extensions
 {
     public static class Errors
     {
