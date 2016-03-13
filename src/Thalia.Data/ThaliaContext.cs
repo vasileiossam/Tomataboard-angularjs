@@ -12,7 +12,7 @@ namespace Thalia.Data
         public DbSet<Cache> Cache { get; set; }
         public DbSet<Quote> Quotes { get; set; }
 
-        private IOptions<DataSettings> _settings;
+        private readonly IOptions<DataSettings> _settings;
 
         public ThaliaContext(IOptions<DataSettings> settings)
         {
