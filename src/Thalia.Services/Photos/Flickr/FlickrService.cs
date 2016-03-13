@@ -24,9 +24,7 @@ namespace Thalia.Services.Photos.Flickr
         // 3600 per hour
         public int? RequestsPerMinute => 3600 / 60;
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
-        public string Parameters { get; set; }
-        public string Result { get; set; }
-
+        
         #region Constructors
         public FlickrService(ILogger<FlickrService> logger, IOptions<FlickrKeys> keys)
         {
@@ -43,8 +41,6 @@ namespace Thalia.Services.Photos.Flickr
         /// <returns></returns>
         public async Task<List<Photo>> Execute(string parameters)
         {
-            Parameters = parameters;
-
             try
             {
                 var queryParams = new Dictionary<string, string>()
@@ -97,12 +93,8 @@ namespace Thalia.Services.Photos.Flickr
             return null;
         }
 
-
-        public List<Photo> GetResult(string json)
+        private List<Photo> GetResult(string json)
         {
-            // todo Code smell, it shouldn't even be here. Result is used in cache because it is in the interface but what will make sure that it has a value?
-            Result = json;
-
             var photosResponse = JsonConvert.DeserializeObject<GetPhotosResponse>(json);
             if (photosResponse?.Page == null) return null;
 

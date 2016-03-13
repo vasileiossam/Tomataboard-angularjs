@@ -1,4 +1,4 @@
-﻿namespace Thalia.Services.Locations.Abstract
+﻿namespace Thalia.Services.Locations.Freegeoip
 {
     public interface IFreegeoipService : IServiceOperation<Location>
     {

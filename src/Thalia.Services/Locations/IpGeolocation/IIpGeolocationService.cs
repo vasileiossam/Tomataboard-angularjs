@@ -1,4 +1,4 @@
-﻿namespace Thalia.Services.Locations.Abstract
+﻿namespace Thalia.Services.Locations.IpGeolocation
 {
     public interface IIpGeolocationService : IServiceOperation<Location>
     {

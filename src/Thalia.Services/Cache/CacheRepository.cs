@@ -13,7 +13,7 @@ namespace Thalia.Services.Cache
             _context = context;
         }
 
-        public void Add(string service, IServiceOperation<T> operation)
+        public void Add(string service, IServiceOperation<T> operation, string parameters, string result)
         {
 
             DateTime? expired = null;
@@ -26,8 +26,8 @@ namespace Thalia.Services.Cache
             {
                 Service = service,
                 Operation = operation.GetType().Name,
-                Params = operation.Parameters,
-                Result = operation.Result,
+                Params = parameters,
+                Result = result,
                 Created = DateTime.Now,
                 Expired = expired
             };

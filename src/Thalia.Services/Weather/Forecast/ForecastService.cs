@@ -18,8 +18,6 @@ namespace Thalia.Services.Weather.Forecast
         private readonly ILogger<ForecastService> _logger;
         #endregion
 
-        public string Parameters { get; set; }
-        public string Result { get; set; }
         /// <summary>
         /// 1000 calls a day
         /// </summary>
@@ -41,8 +39,6 @@ namespace Thalia.Services.Weather.Forecast
         /// <returns></returns>
         public async Task<WeatherConditions> Execute(string parameters)
         {
-            Parameters = parameters;
-            
             try
             {
                 var queryString = $"{_keys.Value.ConsumerKey}/{parameters}";
@@ -77,11 +73,8 @@ namespace Thalia.Services.Weather.Forecast
             return null;
         }
 
-        public WeatherConditions GetResult(string json)
+        private WeatherConditions GetResult(string json)
         {
-            // todo Code smell, it shouldn't even be here. Result is used in cache because it is in the interface but what will make sure that it has a value?
-            Result = json;
-
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
             if (weatherDto == null) return null;
 

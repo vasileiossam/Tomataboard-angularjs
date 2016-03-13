@@ -49,9 +49,7 @@ namespace Thalia.Services.Photos.Api500px
         /// </summary>
         public int? RequestsPerMinute => 23;
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
-        public string Parameters { get; set; }
-        public string Result { get; set; }
-
+        
         #region Constructors
         public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys)
         {
@@ -309,9 +307,6 @@ namespace Thalia.Services.Photos.Api500px
         public async Task<List<Photo>> Execute(string parameters)
         {
             // "term=inspire&rpp=30
-
-            Parameters = parameters;
-
             try
             {
                 AuthorizationParameters = new Dictionary<string, string>()
@@ -351,11 +346,8 @@ namespace Thalia.Services.Photos.Api500px
             return null;
         }
 
-        public List<Photo> GetResult(string json)
+        private List<Photo> GetResult(string json)
         {
-            // todo Code smell, it shouldn't even be here. Result is used in cache because it is in the interface but what will make sure that it has a value?
-            Result = json;
-
             var photosResponse = JsonConvert.DeserializeObject<GetPhotosResponse>(json);
             if (photosResponse?.Photos == null) return null;
 

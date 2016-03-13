@@ -29,8 +29,6 @@ namespace Thalia.Services.Weather.Yahoo
 
         public async Task<WeatherConditions> Execute(string parameters)
         {
-           // Parameters = parameters;
-
             try
             {
                 var queryString = $"q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='{parameters}')&format=json";
@@ -66,9 +64,7 @@ namespace Thalia.Services.Weather.Yahoo
             return null;
         }
 
-        public string Parameters { get; set; }
-        public string Result { get; set; }
-        public WeatherConditions GetResult(string json)
+        private WeatherConditions GetResult(string json)
         {
             throw new NotImplementedException();
         }

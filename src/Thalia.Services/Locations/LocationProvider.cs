@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Thalia.Services.Cache;
-using Thalia.Services.Locations.Abstract;
+using Thalia.Services.Locations.Freegeoip;
+using Thalia.Services.Locations.GeoLite;
+using Thalia.Services.Locations.IpGeolocation;
 
 namespace Thalia.Services.Locations
 {

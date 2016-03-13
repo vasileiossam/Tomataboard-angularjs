@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Thalia.Services.Cache;
 
 namespace Thalia.Services
@@ -27,7 +28,7 @@ namespace Thalia.Services
             {
                 if (operation.GetType().Name == item.Operation)
                 {
-                    return operation.GetResult(item.Result);
+                    return JsonConvert.DeserializeObject<T>(item.Result);
                 }
             }
             return default(T);                
@@ -35,10 +36,10 @@ namespace Thalia.Services
 
         public async Task<T> Execute(string parameters)
         {
-            var result = GetFromCache(parameters);
-            if (result != null)
+            var resultObj = GetFromCache(parameters);
+            if (resultObj != null)
             {
-                return result;
+                return resultObj;
             }
 
             // iterate and execute until we get a result from any operation
@@ -52,11 +53,12 @@ namespace Thalia.Services
                     continue;
                 }
 
-                result = await operation.Execute(parameters);
-                if (result != null)
+                resultObj = await operation.Execute(parameters);
+                if (resultObj != null)
                 {
-                    _cacheRepository.Add(GetType().Name, operation);
-                    return result;
+                    var json = JsonConvert.SerializeObject(resultObj);
+                    _cacheRepository.Add(GetType().Name, operation, parameters, json);
+                    return resultObj;
                 }
             }
             
