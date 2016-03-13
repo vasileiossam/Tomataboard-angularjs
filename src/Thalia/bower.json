@@ -6,6 +6,7 @@
     "jquery": "2.1.4",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
-    "Font-Awesome": "4.5.0"
+    "Font-Awesome": "4.5.0",
+    "weather-icons": "~2.0.10"
   }
 }

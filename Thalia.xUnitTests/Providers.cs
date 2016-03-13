@@ -4,6 +4,9 @@ using Thalia.Services.Cache;
 using Thalia.Services.Photos;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
+using Thalia.Services.Weather;
+using Thalia.Services.Weather.OpenWeatherMap;
+using Thalia.Services.Weather.Yahoo;
 using Thalia.xUnitTests.Stubs;
 using Xunit;
 
@@ -17,6 +20,8 @@ namespace Thalia.xUnitTests
         private readonly ThaliaContext _thaliaContext;
         private readonly StubOptions<Api500pxKeys> _api500pxKeys;
         private readonly StubOptions<FlickrKeys> _flickrKeys;
+        private readonly StubOptions<OpenWeatherMapKeys> _openWeatherMapKeys;
+        private readonly StubOptions<YahooWeatherKeys> _yahooWeatherKeys;
 
         public Providers()
         {
@@ -42,6 +47,17 @@ namespace Thalia.xUnitTests
               ConsumerKey = "ae047ff46d722cdec62a140589ff56d5",
               ConsumerSecret = "48b96aeb42e8ac2e"
             });
+
+            _openWeatherMapKeys = new StubOptions<OpenWeatherMapKeys>(new OpenWeatherMapKeys()
+            {
+                ConsumerKey = "c4cb39457a6fd5b7c5c17bd8027f4eea"
+            });
+
+            _yahooWeatherKeys = new StubOptions<YahooWeatherKeys>(new YahooWeatherKeys()
+            {
+                ConsumerKey = "dj0yJmk9MExOUEpDRzI0dFlsJmQ9WVdrOWRVdHphMHRWTkdzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--",
+                ConsumerSecret = "ef5e83e1aa41158f0fb486b073ed0a695806466b"
+            });
         }
 
         /// <summary>
@@ -51,12 +67,22 @@ namespace Thalia.xUnitTests
         public async void GetPhotos()
         {
             var cacheRepository = new CacheRepository<List<Photo>>(_thaliaContext);
-
             var api500px = new Api500px(new StubLogger<Api500px>(), _api500pxKeys);
             var flickrService = new FlickrService(new StubLogger<FlickrService>(), _flickrKeys);
             var provider = new PhotoProvider(new StubLogger<PhotoProvider>(), cacheRepository, api500px, flickrService);
 
             var photos = await provider.Execute("landscape");
+        }
+
+        [Fact]
+        public async void GetWeather()
+        {
+            var cacheRepository = new CacheRepository<WeatherConditions>(_thaliaContext);
+            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(), _openWeatherMapKeys);
+            var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
+            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, openWeatherMapService, yahooWeatherService);
+
+            var weather = await provider.Execute("Melbourne,AUS");
         }
     }
 }
