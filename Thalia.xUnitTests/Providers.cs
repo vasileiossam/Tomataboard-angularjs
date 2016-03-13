@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using Thalia.Data;
 using Thalia.Services.Cache;
+using Thalia.Services.Locations;
+using Thalia.Services.Locations.Freegeoip;
+using Thalia.Services.Locations.GeoLite;
+using Thalia.Services.Locations.IpGeolocation;
 using Thalia.Services.Photos;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
@@ -29,8 +33,10 @@ namespace Thalia.xUnitTests
         {
             var dataSettings = new DataSettings()
             {
-                ConnectionString = @"Server=(localdb)\\mssqllocaldb;Database=aspnet5-Thalia-2758b425-7740-4589-825a-42e8d05436f5;Trusted_Connection=True;MultipleActiveResultSets=true",
-                ThaliaContextConnection = @"Server=.;Database=Thalia;Trusted_Connection=True;MultipleActiveResultSets=true"
+                ConnectionString =
+                    @"Server=(localdb)\\mssqllocaldb;Database=aspnet5-Thalia-2758b425-7740-4589-825a-42e8d05436f5;Trusted_Connection=True;MultipleActiveResultSets=true",
+                ThaliaContextConnection =
+                    @"Server=.;Database=Thalia;Trusted_Connection=True;MultipleActiveResultSets=true"
             };
             var settings = new StubOptions<DataSettings>(dataSettings);
             _thaliaContext = new ThaliaContext(settings);
@@ -46,8 +52,8 @@ namespace Thalia.xUnitTests
 
             _flickrKeys = new StubOptions<FlickrKeys>(new FlickrKeys()
             {
-              ConsumerKey = "ae047ff46d722cdec62a140589ff56d5",
-              ConsumerSecret = "48b96aeb42e8ac2e"
+                ConsumerKey = "ae047ff46d722cdec62a140589ff56d5",
+                ConsumerSecret = "48b96aeb42e8ac2e"
             });
 
             _openWeatherMapKeys = new StubOptions<OpenWeatherMapKeys>(new OpenWeatherMapKeys()
@@ -57,7 +63,8 @@ namespace Thalia.xUnitTests
 
             _yahooWeatherKeys = new StubOptions<YahooWeatherKeys>(new YahooWeatherKeys()
             {
-                ConsumerKey = "dj0yJmk9MExOUEpDRzI0dFlsJmQ9WVdrOWRVdHphMHRWTkdzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--",
+                ConsumerKey =
+                    "dj0yJmk9MExOUEpDRzI0dFlsJmQ9WVdrOWRVdHphMHRWTkdzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--",
                 ConsumerSecret = "ef5e83e1aa41158f0fb486b073ed0a695806466b"
             });
 
@@ -85,12 +92,37 @@ namespace Thalia.xUnitTests
         public async void GetWeather()
         {
             var cacheRepository = new CacheRepository<WeatherConditions>(_thaliaContext);
-            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(), _openWeatherMapKeys);
+            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(),
+                _openWeatherMapKeys);
             var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
             var forecastService = new ForecastService(new StubLogger<ForecastService>(), _forecastKeys);
-            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService, openWeatherMapService, yahooWeatherService);
+            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService,
+                openWeatherMapService, yahooWeatherService);
 
             var weather = await provider.Execute("Melbourne,AUS");
+        }
+
+        [Fact]
+        public async void GetLocation()
+        {
+            const string ip = "175.34.25.23";
+            var cacheRepository = new CacheRepository<Location>(_thaliaContext);
+
+            var ipGeolocationService = new IpGeolocationService(new StubLogger<IpGeolocationService>());
+            var location = await ipGeolocationService.Execute(ip);
+            Assert.NotNull(location);
+
+            var geoLiteService = new GeoLiteService(new StubLogger<GeoLiteService>(), _thaliaContext);
+            location = await geoLiteService.Execute(ip);
+            Assert.NotNull(location);
+
+            var freegeoipService = new FreegeoipService(new StubLogger<FreegeoipService>());
+            location = await freegeoipService.Execute(ip);
+            Assert.NotNull(location);
+
+            var provider = new LocationProvider(new StubLogger<LocationProvider>(), cacheRepository, ipGeolocationService, geoLiteService, freegeoipService);
+            location = await provider.Execute(ip);
+            Assert.NotNull(location);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace Thalia.Services.Locations
 {
     public class LocationProvider : Provider<Location>, ILocationProvider
     {
-        public LocationProvider(ILogger<LocationProvider> logger, ICacheRepository<Location> cacheRepository,
+        public LocationProvider(ILogger<LocationProvider> logger, 
+            ICacheRepository<Location> cacheRepository,
             IIpGeolocationService ipGeolocationService,
             IGeoLiteService geoLiteService,
             IFreegeoipService freegeoipService)

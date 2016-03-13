@@ -26,7 +26,7 @@ namespace Thalia.Services.Locations.GeoLite
 
         public Task<Location> Execute(string parameters)
         {
-            var ipNum = ConvertIPToLong(parameters);
+            var ipNum = ConvertIpToLong(parameters);
 
             var geoBlock = _context.GeoLite2IPv4.FirstOrDefault(x => ipNum >= x.StartIpNum && ipNum <= x.EndIpNum);
             if (geoBlock != null)
@@ -51,7 +51,7 @@ namespace Thalia.Services.Locations.GeoLite
             return null;
         }
 
-        public static long ConvertIPToLong(string ipAddress)
+        public static long ConvertIpToLong(string ipAddress)
         {
             System.Net.IPAddress ip;
 
