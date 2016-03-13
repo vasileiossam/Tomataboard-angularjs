@@ -18,6 +18,7 @@ using Thalia.Services.Locations.Abstract;
 using Thalia.Services.Locations.Providers;
 using Thalia.Services.Photos;
 using Thalia.Services.Weather;
+using Thalia.Services.Weather.Forecast;
 using Thalia.Services.Weather.OpenWeatherMap;
 
 namespace Thalia
@@ -82,6 +83,7 @@ namespace Thalia
             services.AddTransient<IWeatherProvider, WeatherProvider>();
             services.AddTransient<IYahooWeatherService, YahooWeatherService>();
             services.AddTransient<IOpenWeatherMapService, OpenWeatherMapService>();
+            services.AddTransient<IForecastService, ForecastService>();
             services.AddTransient<ICacheRepository<WeatherConditions>, CacheRepository<WeatherConditions>> ();
 
             services.AddLogging();
@@ -90,7 +92,8 @@ namespace Thalia
             services.Configure<Api500pxKeys>(Configuration.GetSection("ApiSettings:Api500pxKeys"));
             services.Configure<FlickrKeys>(Configuration.GetSection("ApiSettings:FlickrKeys"));
             services.Configure<YahooWeatherKeys>(Configuration.GetSection("ApiSettings:YahooWeatherKeys"));
-
+            services.Configure<OpenWeatherMapKeys>(Configuration.GetSection("ApiSettings:OpenWeatherMapKeys"));
+            services.Configure<ForecastKeys>(Configuration.GetSection("ApiSettings:ForecastKeys"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

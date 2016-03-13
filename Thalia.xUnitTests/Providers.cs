@@ -5,6 +5,7 @@ using Thalia.Services.Photos;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
 using Thalia.Services.Weather;
+using Thalia.Services.Weather.Forecast;
 using Thalia.Services.Weather.OpenWeatherMap;
 using Thalia.Services.Weather.Yahoo;
 using Thalia.xUnitTests.Stubs;
@@ -22,6 +23,7 @@ namespace Thalia.xUnitTests
         private readonly StubOptions<FlickrKeys> _flickrKeys;
         private readonly StubOptions<OpenWeatherMapKeys> _openWeatherMapKeys;
         private readonly StubOptions<YahooWeatherKeys> _yahooWeatherKeys;
+        private readonly StubOptions<ForecastKeys> _forecastKeys;
 
         public Providers()
         {
@@ -58,6 +60,11 @@ namespace Thalia.xUnitTests
                 ConsumerKey = "dj0yJmk9MExOUEpDRzI0dFlsJmQ9WVdrOWRVdHphMHRWTkdzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--",
                 ConsumerSecret = "ef5e83e1aa41158f0fb486b073ed0a695806466b"
             });
+
+            _forecastKeys = new StubOptions<ForecastKeys>(new ForecastKeys()
+            {
+                ConsumerKey = "62888b611b3ffd9d6fc0601dfde59850",
+            });
         }
 
         /// <summary>
@@ -80,7 +87,8 @@ namespace Thalia.xUnitTests
             var cacheRepository = new CacheRepository<WeatherConditions>(_thaliaContext);
             var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(), _openWeatherMapKeys);
             var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
-            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, openWeatherMapService, yahooWeatherService);
+            var forecastService = new ForecastService(new StubLogger<ForecastService>(), _forecastKeys);
+            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService, openWeatherMapService, yahooWeatherService);
 
             var weather = await provider.Execute("Melbourne,AUS");
         }
