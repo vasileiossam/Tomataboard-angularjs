@@ -3,10 +3,12 @@ using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Mvc;
 using Thalia.Data;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.OptionsModel;
 using Thalia.Services.Quotes;
 using Thalia.Services.Locations;
 using Thalia.Services.Photos;
 using Thalia.Services.Weather;
+using Thalia.Services.Weather.Yahoo;
 
 namespace Thalia.Controllers
 {
@@ -17,17 +19,23 @@ namespace Thalia.Controllers
         private ILocationProvider _locationProvider;
         private IPhotoProvider _photoProvider;
         private IWeatherProvider _weatherProvider;
+        private IOptions<YahooWeatherKeys> _yahooWeatherKeys;
+        private ILogger<YahooWeatherService> _yahooLogger;
 
         public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
             ILocationProvider locationProvider,
             IPhotoProvider photoProvider,
-            IWeatherProvider weatherProvider)
+            IWeatherProvider weatherProvider,
+            IOptions<YahooWeatherKeys> yahooWeatherKeys,
+            ILogger<YahooWeatherService> yahooLogger)
         {
             _logger = logger;
             _context = context;
             _locationProvider = locationProvider;
             _photoProvider = photoProvider;
             _weatherProvider = weatherProvider;
+            _yahooWeatherKeys = yahooWeatherKeys;
+            _yahooLogger = yahooLogger;
         }
         
         public IActionResult Index()
@@ -71,5 +79,15 @@ namespace Thalia.Controllers
            var o = await _locationProvider.Execute(ip);
             return View();
         }
+
+        public async Task<ActionResult> YahooAuthenticate()
+        {
+            var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
+            var token = await service.GetRequestToken(_yahooWeatherKeys.Value.ConsumerKey, _yahooWeatherKeys.Value.ConsumerSecret, _yahooWeatherKeys.Value.CallbackUrl);
+            //var uri = service.GetAuthorizationUrl(token);
+            //return new RedirectResult(uri);
+            return View();
+        }
+
     }
 }

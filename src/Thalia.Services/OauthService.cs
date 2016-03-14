@@ -7,19 +7,32 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Thalia.Services
 {
+    /// <summary>
+    /// OAuth 1.0
+    /// http://oauth.googlecode.com/svn/code/javascript/example/signature.html
+    /// </summary>
     public class OauthService
     {
         #region Protected Fields
         protected Dictionary<string, string> AuthorizationParameters;
+        protected ILogger<OauthService> _logger;
         protected OauthToken _accessToken;
         protected const string OAuthSignatureMethod = "HMAC-SHA1";
         protected const string OAuthVersion = "1.0";
         protected string AccessUrl;
         protected string AuthorizeUrl;
         protected string RequestTokenUrl;
+        #endregion
+
+        #region Constructors
+        public OauthService(ILogger<OauthService> logger)
+        {
+            _logger = logger;
+        }
         #endregion
 
         #region Protected Methods        
@@ -65,14 +78,15 @@ namespace Thalia.Services
             }
 
             // sorting all params is important
-            var signatureParams = string.Join("&", parameters.OrderBy(x => x.Key).Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
+            var signatureParams = string.Join("&", parameters.OrderBy(x => x.Key).Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value ?? string.Empty)));
             var signatureBase = requestType + "&" + Uri.EscapeDataString(url) + "&" + Uri.EscapeDataString(signatureParams);
 
             var hash = GetHash(tokenSecret1, tokenSecret2);
             var dataBuffer = Encoding.ASCII.GetBytes(signatureBase);
             var hashBytes = hash.ComputeHash(dataBuffer);
 
-            AuthorizationParameters.Add(OauthParameter.OauthSignature, Uri.EscapeDataString(Convert.ToBase64String(hashBytes)));
+           // AuthorizationParameters.Add(OauthParameter.OauthSignature, Uri.EscapeDataString(Convert.ToBase64String(hashBytes)));
+            AuthorizationParameters.Add(OauthParameter.OauthSignature,  Convert.ToBase64String(hashBytes));
         }
 
         protected HashAlgorithm GetHash(string tokenSecret1, string tokenSecret2)
@@ -106,11 +120,14 @@ namespace Thalia.Services
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", oauthString);
                 var response = await client.PostAsync(new Uri(url, UriKind.Absolute), null);
+                var content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    return content;
                 }
+
+                _logger.LogError($"{GetType().Name}: Error posting request. Url: '{url}'. Status code: {response.StatusCode} Content: {content}");
             }
 
             return string.Empty;

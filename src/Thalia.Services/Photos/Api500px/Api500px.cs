@@ -42,6 +42,7 @@ namespace Thalia.Services.Photos.Api500px
         
         #region Constructors
         public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys)
+            :base(logger)
         {
             _logger = logger;
             _keys = keys;

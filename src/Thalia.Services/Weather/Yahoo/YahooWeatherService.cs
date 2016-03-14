@@ -10,12 +10,13 @@ namespace Thalia.Services.Weather.Yahoo
 {
     /// <summary>
     /// https://developer.yahoo.com/weather/
+    /// https://developer.yahoo.com/apps/
+    /// https://developer.yahoo.com/oauth/guide/
     /// </summary>
-    public class YahooWeatherService : IYahooWeatherService
+    public class YahooWeatherService : OauthService, IYahooWeatherService
     {
         #region Private Fields
         private readonly IOptions<YahooWeatherKeys> _keys;
-        private readonly ILogger<YahooWeatherService> _logger;
         #endregion
 
         /// <summary>
@@ -26,55 +27,17 @@ namespace Thalia.Services.Weather.Yahoo
 
         #region Constructors
         public YahooWeatherService(ILogger<YahooWeatherService> logger, IOptions<YahooWeatherKeys> keys)
+            :base(logger)
         {
             _logger = logger;
             _keys = keys;
+            _accessToken = new OauthToken() { Token = _keys.Value.AccessToken, Secret = _keys.Value.AccessSecret };
+            AccessUrl = "https://api.login.yahoo.com/oauth/v2/get_token";
+            AuthorizeUrl = "https://api.login.yahoo.com/oauth/v2/request_auth";
+            RequestTokenUrl = "https://api.login.yahoo.com/oauth/v2/get_request_token";
+
         }
         #endregion
-
-        //public async Task<List<Photo>> Execute(string parameters)
-        //{
-        //    // "term=inspire&rpp=30
-        //    try
-        //    {
-        //        AuthorizationParameters = new Dictionary<string, string>()
-        //        {
-        //            {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-        //            {OauthParameter.OauthNonce, GetNonce()},
-        //            {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
-        //            {OauthParameter.OauthTimestamp, GetTimeStamp()},
-        //            {OauthParameter.OauthToken, _accessToken.Token},
-        //            {OauthParameter.OauthVersion, OAuthVersion}
-        //        };
-
-        //        var queryParams = new Dictionary<string, string>()
-        //        {
-        //            {"term", parameters},
-        //            {"rpp", "30" }
-        //        };
-        //        var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
-
-        //        var url = "https://api.500px.com/v1/photos/search";
-        //        Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString);
-        //        var response = await GetRequest(url, queryString);
-        //        var content = await response.Content.ReadAsStringAsync();
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return GetResult(content);
-        //        }
-
-        //        _logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Exception: " + ex.GetError());
-        //    }
-
-        //    return null;
-        //}
-
 
         public async Task<WeatherConditions> Execute(string parameters)
         {
@@ -111,16 +74,6 @@ namespace Thalia.Services.Weather.Yahoo
             }
 
             return null;
-        }
-
-        private WeatherConditions GetResult(string json)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<WeatherConditions> IServiceOperation<WeatherConditions>.Execute(string parameters)
-        {
-            throw new NotImplementedException();
         }
     }
 }
