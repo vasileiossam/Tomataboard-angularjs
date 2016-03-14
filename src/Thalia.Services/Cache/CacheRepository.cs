@@ -13,7 +13,7 @@ namespace Thalia.Services.Cache
             _context = context;
         }
 
-        public void Add(string service, IServiceOperation<T> operation, string parameters, string result)
+        public void Add(string service, IServiceOperation<T> operation, string parameters, string result, bool hasErrored)
         {
 
             DateTime? expired = null;
@@ -29,7 +29,8 @@ namespace Thalia.Services.Cache
                 Params = parameters,
                 Result = result,
                 Created = DateTime.Now,
-                Expired = expired
+                Expired = expired,
+                HasErrored = hasErrored
             };
 
             _context.Add(item);
@@ -42,7 +43,8 @@ namespace Thalia.Services.Cache
 
             var cacheItem = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
                     ((x.Expired == null) || (x.Expired > DateTime.Now)) &&
-                    (x.Service == service) &&
+                    (x.Service == service) && 
+                    (x.HasErrored == false) &&
                     (x.Params == parameters)
                 );
 
@@ -63,9 +65,10 @@ namespace Thalia.Services.Cache
 
         public int CountItems(string service, DateTime created)
         {
-            return _context.Cache.Where(x => 
+            return _context.Cache.Count(x => 
                 ((x.Expired == null) || (x.Expired > DateTime.Now)) && 
-                x.Service == service && x.Created >= created && x.Created <= DateTime.Now).Count();
+                x.Service == service && 
+                x.Created >= created && x.Created <= DateTime.Now);
         }
 
     }

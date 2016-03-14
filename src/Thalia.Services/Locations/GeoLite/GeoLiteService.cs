@@ -48,7 +48,7 @@ namespace Thalia.Services.Locations.GeoLite
                 }
             }
 
-            return null;
+            return Task.FromResult(default(Location));
         }
 
         public static long ConvertIpToLong(string ipAddress)

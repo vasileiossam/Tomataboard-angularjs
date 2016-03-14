@@ -105,24 +105,33 @@ namespace Thalia.xUnitTests
         [Fact]
         public async void GetLocation()
         {
+            Location location;
             const string ip = "175.34.25.23";
             var cacheRepository = new CacheRepository<Location>(_thaliaContext);
 
             var ipGeolocationService = new IpGeolocationService(new StubLogger<IpGeolocationService>());
-            var location = await ipGeolocationService.Execute(ip);
-            Assert.NotNull(location);
+            //location = await ipGeolocationService.Execute(ip);
+            //Assert.NotNull(location);
 
             var geoLiteService = new GeoLiteService(new StubLogger<GeoLiteService>(), _thaliaContext);
-            location = await geoLiteService.Execute(ip);
-            Assert.NotNull(location);
+            //location = await geoLiteService.Execute(ip);
+            //Assert.NotNull(location);
 
             var freegeoipService = new FreegeoipService(new StubLogger<FreegeoipService>());
-            location = await freegeoipService.Execute(ip);
-            Assert.NotNull(location);
+            //location = await freegeoipService.Execute(ip);
+           // Assert.NotNull(location);
 
             var provider = new LocationProvider(new StubLogger<LocationProvider>(), cacheRepository, ipGeolocationService, geoLiteService, freegeoipService);
             location = await provider.Execute(ip);
             Assert.NotNull(location);
+            
+            // invalid ip
+            location = await provider.Execute("asdfasdF");
+            Assert.Null(location);
+
+            location = await provider.Execute(ip);
+            Assert.NotNull(location);
+
         }
     }
 }

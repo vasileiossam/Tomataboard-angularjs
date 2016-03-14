@@ -10,8 +10,8 @@ namespace Thalia.Services
     public class Provider<T> : IProvider<T> where T : class
     {
         protected List<IServiceOperation<T>> _operations = new List<IServiceOperation<T>>();
-        protected ICacheRepository<T> _cacheRepository;
-        protected ILogger _logger;
+        protected readonly ICacheRepository<T> _cacheRepository;
+        protected readonly ILogger _logger;
 
         public Provider(ILogger logger, ICacheRepository<T> cacheRepository)
         {
@@ -57,9 +57,12 @@ namespace Thalia.Services
                 if (resultObj != null)
                 {
                     var json = JsonConvert.SerializeObject(resultObj);
-                    _cacheRepository.Add(GetType().Name, operation, parameters, json);
+                    _cacheRepository.Add(GetType().Name, operation, parameters, json, false);
                     return resultObj;
                 }
+
+                // add in cache even if its errored because it has to count in the service's quota
+                _cacheRepository.Add(GetType().Name, operation, parameters, string.Empty, true);
             }
             
             // todo WRITE something for the alert manager to send the email immediately
