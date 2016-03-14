@@ -1,4 +1,4 @@
-﻿namespace Thalia.Services.Photos.Api500px.Models
+﻿namespace Thalia.Services
 {
     public class OauthParameter
     {

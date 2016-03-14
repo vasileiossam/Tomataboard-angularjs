@@ -10,7 +10,6 @@ namespace Thalia.Services.Weather.Yahoo
 {
     /// <summary>
     /// https://developer.yahoo.com/weather/
-    /// OAuth 2.0
     /// </summary>
     public class YahooWeatherService : IYahooWeatherService
     {

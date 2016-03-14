@@ -81,12 +81,21 @@ namespace Thalia.xUnitTests
         [Fact]
         public async void GetPhotos()
         {
-            var cacheRepository = new CacheRepository<List<Photo>>(_thaliaContext);
-            var api500px = new Api500px(new StubLogger<Api500px>(), _api500pxKeys);
-            var flickrService = new FlickrService(new StubLogger<FlickrService>(), _flickrKeys);
-            var provider = new PhotoProvider(new StubLogger<PhotoProvider>(), cacheRepository, api500px, flickrService);
+            List<Photo> photos;
 
-            var photos = await provider.Execute("landscape");
+            var cacheRepository = new CacheRepository<List<Photo>>(_thaliaContext);
+
+            var api500px = new Api500px(new StubLogger<Api500px>(), _api500pxKeys);
+            photos = await api500px.Execute("Greece");
+            Assert.NotNull(photos);
+
+            var flickrService = new FlickrService(new StubLogger<FlickrService>(), _flickrKeys);
+            photos = await api500px.Execute("Greece");
+            Assert.NotNull(photos);
+
+            var provider = new PhotoProvider(new StubLogger<PhotoProvider>(), cacheRepository, api500px, flickrService);
+            photos = await provider.Execute("landscape");
+            Assert.NotNull(photos);
         }
 
         [Fact]

@@ -26,19 +26,9 @@ namespace Thalia.Services.Photos.Api500px
     /// Good ideas here: http://www.rahulpnath.com/blog/exploring-oauth-c-and-500px/
     /// To check the signature: http://oauth.googlecode.com/svn/code/javascript/example/signature.html
     /// </summary>
-    public class Api500px  : IApi500px
+    public class Api500px  : OauthService, IApi500px
     {
-        #region Private Constants
-        private const string AccessUrl = "https://api.500px.com/v1/oauth/access_token";
-        private const string AuthorizeUrl = "https://api.500px.com/v1/oauth/authorize";
-        private const string RequestTokenUrl = "https://api.500px.com/v1/oauth/request_token";
-        private const string OAuthSignatureMethod = "HMAC-SHA1";
-        private const string OAuthVersion = "1.0";
-        #endregion
-
         #region Private Fields
-        private Dictionary<string, string> AuthorizationParameters;
-        private OauthToken _accessToken;
         private readonly IOptions<Api500pxKeys> _keys;
         private readonly ILogger<Api500px> _logger;
         #endregion
@@ -56,149 +46,11 @@ namespace Thalia.Services.Photos.Api500px
             _logger = logger;
             _keys = keys;
             _accessToken = new OauthToken() { Token = _keys.Value.AccessToken, Secret = _keys.Value.AccessSecret };
+            AccessUrl = "https://api.500px.com/v1/oauth/access_token";
+            AuthorizeUrl = "https://api.500px.com/v1/oauth/authorize";
+            RequestTokenUrl = "https://api.500px.com/v1/oauth/request_token";
         }
         #endregion
-        
-        #region Private Methods        
-        private static string GetNonce()
-        {
-            var rand = new Random();
-            var nonce = rand.Next(1000000000);
-            return nonce.ToString();
-        }
-
-        private static string GetTimeStamp()
-        {
-            var sinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            return Math.Round(sinceEpoch.TotalSeconds).ToString(CultureInfo.InvariantCulture);
-        }
-
-        private static Dictionary<string, string> ParseQueryString(String query)
-        {
-            Dictionary<string, string> queryDict = new Dictionary<string, string>();
-            foreach (var token in query.TrimStart('?').Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                var parts = token.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length == 2)
-                {
-                    queryDict[parts[0].Trim()] = parts[1].Trim();
-                }
-            }
-            return queryDict;
-        }
-
-        private Api500px Sign(string url, string tokenSecret1, string tokenSecret2, string requestType, string query)
-        {
-            // join the Oauth and query parameters in one dictionary
-            
-            // get Oauth params first
-            var parameters = new Dictionary<string, string>(AuthorizationParameters);
-            
-            //  add the query params
-            var queryParams = ParseQueryString(query);
-            foreach (var param in queryParams)
-            {
-                if (!parameters.ContainsKey(param.Key)) parameters.Add(param.Key, param.Value);
-            }
-             
-            // sorting all params is important
-            var signatureParams = string.Join("&", parameters.OrderBy(x=>x.Key).Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
-            var signatureBase = requestType + "&" + Uri.EscapeDataString(url) + "&" + Uri.EscapeDataString(signatureParams);
-
-            var hash = GetHash(tokenSecret1, tokenSecret2);
-            var dataBuffer = Encoding.ASCII.GetBytes(signatureBase);
-            var hashBytes = hash.ComputeHash(dataBuffer);
-
-            AuthorizationParameters.Add(OauthParameter.OauthSignature, Uri.EscapeDataString(Convert.ToBase64String(hashBytes)));
-            return this;
-        }
-
-        private HashAlgorithm GetHash(string tokenSecret1, string tokenSecret2)
-        {
-            var keystring = $"{Uri.EscapeDataString(tokenSecret1)}&{Uri.EscapeDataString(tokenSecret2)}";
-
-            var hmacsha1 = new HMACSHA1
-            {
-                Key = Encoding.ASCII.GetBytes(keystring)
-            };
-            return hmacsha1;
-        }
-
-        private async Task<string> PostRequest(string url)
-        {
-            var oauthString = string.Empty;
-            if (AuthorizationParameters != null)
-            {
-                oauthString = string.Join(", ",
-                                               AuthorizationParameters.Select(
-                                                   key =>
-                                                   key.Key +
-                                                   (string.IsNullOrEmpty(key.Value)
-                                                        ? string.Empty
-                                                        : "=\"" + Uri.EscapeDataString(key.Value) + "\"")));
-                AuthorizationParameters.Clear();
-            }
-
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", oauthString);
-                var response = await client.PostAsync(new Uri(url, UriKind.Absolute), null);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
-            }
-
-            return string.Empty;
-        }
-
-        private async Task<HttpResponseMessage> GetRequest(string url, string parameters)
-        {
-            var oauthString = string.Empty;
-            if (AuthorizationParameters != null)
-            {
-                //oauthString = "realm=\"" + url + "\", "; 
-                oauthString += string.Join(", ",
-                                               AuthorizationParameters.Select(
-                                                   key =>
-                                                   key.Key +
-                                                   (string.IsNullOrEmpty(key.Value)
-                                                        ? string.Empty
-                                                        : "=\"" + key.Value + "\"")));
-                AuthorizationParameters.Clear();
-            }
-
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", oauthString);
-                return await client.GetAsync(new Uri(url + "?" + parameters, UriKind.Absolute));
-            }
-        }
-
-        private OauthToken ParseReponse(string response)
-        {
-            var token = new OauthToken();
-            if (string.IsNullOrEmpty(response)) return token;
-
-            //  "oauth_token=qWnfRDBG47T57ud3peQeYtWHjoGSlbYtAwboQZuD&oauth_token_secret=iZJG3SKMA8BJexk4iEtQTwZmbstfR1TqoY1yKBo6&oauth_callback_confirmed=true"    string
-            var keyValPairs = response.Split('&');
-            foreach (var splits in keyValPairs.Select(t => t.Split('=')))
-            {
-                switch (splits[0])
-                {
-                    case "oauth_token":
-                        token.Token = splits[1];
-                        break;
-                    case "oauth_token_secret":
-                        token.Secret = splits[1];
-                        break;
-                }
-            }
-
-            return token;
-        }
 
         private static async Task<T> DeserializeResponse<T>(HttpResponseMessage httpResponse) where T : Response, new()
         {
@@ -211,12 +63,11 @@ namespace Thalia.Services.Photos.Api500px
 
             if (!httpResponse.IsSuccessStatusCode)
             {
-             //   Debug.WriteLine("HttpResponseMessage failed: " + httpResponse + "\r\n -- Content: " + content + ((!string.IsNullOrWhiteSpace(response.Error)) ? "\r\n -- Error: " + response.Error : string.Empty));
+                //   Debug.WriteLine("HttpResponseMessage failed: " + httpResponse + "\r\n -- Content: " + content + ((!string.IsNullOrWhiteSpace(response.Error)) ? "\r\n -- Error: " + response.Error : string.Empty));
             }
 
             return response;
         }
-        #endregion
 
         #region Public Methods
 
@@ -240,7 +91,8 @@ namespace Thalia.Services.Photos.Api500px
                 {OauthParameter.OauthVersion, OAuthVersion}
             };
 
-            var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
+            Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters);
+            var response = await GetRequest(url, parameters);
             return await DeserializeResponse<GetPhotosResponse>(response);
         }
 
@@ -257,51 +109,10 @@ namespace Thalia.Services.Photos.Api500px
             };
 
             var url = "https://api.500px.com/v1/photos/search";
-            var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters).GetRequest(url, parameters);
+
+            Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters);
+            var response = await GetRequest(url, parameters);
             return await DeserializeResponse<GetPhotosResponse>(response);
-        }
-
-        public async Task<OauthToken> GetRequestToken()
-        {
-            AuthorizationParameters = new Dictionary<string, string>()
-            {
-                {OauthParameter.OauthCallback, _keys.Value.CallbackUrl},
-                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-                {OauthParameter.OauthNonce, GetNonce()},
-                {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
-                {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthVersion, OAuthVersion}
-            };
-
-            var response = await Sign(RequestTokenUrl, _keys.Value.ConsumerSecret, string.Empty, "POST", "").PostRequest(RequestTokenUrl);
-            return ParseReponse(response);
-        }
-
-        /// <summary>
-        /// A callback is needed to get back oauth_token and oauth_verifier
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public string GetAuthorizationUrl(OauthToken token)
-        {
-            return AuthorizeUrl + "?oauth_token=" + token.Token;
-        }
-
-        public async Task<OauthToken> GetAccessToken(OauthToken token)
-        {
-            AuthorizationParameters = new Dictionary<string, string>()
-            {
-                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-                {OauthParameter.OauthNonce, GetNonce()},
-                {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
-                {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthToken, token.Token},
-                {OauthParameter.OauthVerifier, token.Verifier},
-                {OauthParameter.OauthVersion, OAuthVersion}
-             };
-
-            var response = await Sign(AccessUrl, _keys.Value.ConsumerSecret, token.Secret, "POST", "").PostRequest(AccessUrl);
-            return ParseReponse(response);
         }
 
         public async Task<List<Photo>> Execute(string parameters)
@@ -327,7 +138,8 @@ namespace Thalia.Services.Photos.Api500px
                 var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
 
                 var url = "https://api.500px.com/v1/photos/search";
-                var response = await Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString).GetRequest(url, queryString);
+                Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString);
+                var response = await GetRequest(url, queryString);
                 var content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
