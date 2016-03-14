@@ -62,6 +62,7 @@ namespace Thalia.Services.Locations.Freegeoip
             return new Location()
             {
                 Country = locationDto.CountryName,
+                CountryCode = locationDto.CountryCode,
                 Region = locationDto.RegionName,
                 StateCode = locationDto.RegionCode,
                 City = locationDto.City,

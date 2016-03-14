@@ -37,6 +37,7 @@ namespace Thalia.Services.Locations.GeoLite
                     var location = new Location()
                     {
                         Country = geoLocation.CountryName,
+                        CountryCode = geoLocation.CountryIsoCode,
                         Region = geoLocation.Subdivision1Name,
                         StateCode = geoLocation.Subdivision1IsoCode,
                         City = geoLocation.CityName,

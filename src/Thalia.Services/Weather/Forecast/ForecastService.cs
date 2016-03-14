@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Thalia.Services.Extensions;
+using Thalia.Services.Locations;
 
 namespace Thalia.Services.Weather.Forecast
 {
@@ -32,21 +33,33 @@ namespace Thalia.Services.Weather.Forecast
         }
         #endregion
 
+        private string GetQueryString(Location location)
+        {
+            // Forecast allows geographical search only
+            return  $"{_keys.Value.ConsumerKey}/{location.Latitude},{location.Longitude}";
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="parameters">{LATITUDE},{LONGITUDE}</param>
+        /// <param name="parameters">serialized Location</param>
         /// <returns></returns>
         public async Task<WeatherConditions> Execute(string parameters)
         {
+            var location = JsonConvert.DeserializeObject<Location>(parameters);
+            if (location == null)
+            {
+                _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Cannot deserialize parameters");
+                return null;
+            }
+
             try
             {
-                var queryString = $"{_keys.Value.ConsumerKey}/{parameters}";
                 var url = "https://api.forecast.io/forecast/";
 
                 using (var client = new HttpClient())
                 {
-                    var response = await client.GetAsync(new Uri(url + queryString, UriKind.Absolute));
+                    var response = await client.GetAsync(new Uri(url + GetQueryString(location), UriKind.Absolute));
                     var content = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)
@@ -54,12 +67,12 @@ namespace Thalia.Services.Weather.Forecast
                         var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(content);
                         if (weatherDto == null) return null;
 
-                        if (weatherDto.Code == null)
+                        if ((weatherDto.Code == null) && (weatherDto.currently != null))
                         {
                             return GetResult(content);
                         }
 
-                        _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Code: {weatherDto.Code}, Message: {weatherDto.Message}");
+                        _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Code: {weatherDto.Code}, Message: {weatherDto.Message}, Content: {content}");
                     }
 
                     _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
@@ -82,8 +95,8 @@ namespace Thalia.Services.Weather.Forecast
             {
                 Title = weatherDto.currently.summary,
                 Description = weatherDto.currently.summary,
-                TemperatureC = Convert.ToInt32(TemperatureConverter.FahrenheitToCelsius(weatherDto.currently.temperature)),
-                TemperatureF = Convert.ToInt32(weatherDto.currently.temperature),
+                TemperatureC = (int)Math.Ceiling(TemperatureConverter.FahrenheitToCelsius(weatherDto.currently.temperature)),
+                TemperatureF = (int)Math.Ceiling(weatherDto.currently.temperature),
                 Icon = Icons.GetCssClass(weatherDto.currently.icon)
             };
             return weatherConditions;

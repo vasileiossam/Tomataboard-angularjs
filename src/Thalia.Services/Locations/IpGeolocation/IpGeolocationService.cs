@@ -63,6 +63,7 @@ namespace Thalia.Services.Locations.IpGeolocation
             return new Location()
             {
                 Country = locationDto.Country,
+                CountryCode = locationDto.CountryCode,
                 Region = locationDto.RegionName,
                 StateCode = locationDto.Region,
                 City = locationDto.City,

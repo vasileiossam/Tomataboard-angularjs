@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Thalia.Data;
 using Thalia.Services.Cache;
 using Thalia.Services.Locations;
@@ -91,15 +92,30 @@ namespace Thalia.xUnitTests
         [Fact]
         public async void GetWeather()
         {
-            var cacheRepository = new CacheRepository<WeatherConditions>(_thaliaContext);
-            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(),
-                _openWeatherMapKeys);
-            var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
-            var forecastService = new ForecastService(new StubLogger<ForecastService>(), _forecastKeys);
-            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService,
-                openWeatherMapService, yahooWeatherService);
+            WeatherConditions weather;
 
-            var weather = await provider.Execute("Melbourne,AUS");
+            var melbourneLocation = new Location()
+            {
+                Latitude = "-37.8136",
+                Longitude = "144.9631"
+            };
+            var serializedMelbourne = JsonConvert.SerializeObject(melbourneLocation);
+
+            var cacheRepository = new CacheRepository<WeatherConditions>(_thaliaContext);
+
+            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(),_openWeatherMapKeys);
+            weather = await openWeatherMapService.Execute(serializedMelbourne);
+            Assert.NotNull(weather);
+
+            var forecastService = new ForecastService(new StubLogger<ForecastService>(), _forecastKeys);
+            weather = await forecastService.Execute(serializedMelbourne);
+            Assert.NotNull(weather);
+
+            var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
+
+            var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService,openWeatherMapService, yahooWeatherService);
+            weather = await provider.Execute(serializedMelbourne);
+            Assert.NotNull(weather);
         }
 
         [Fact]
@@ -110,16 +126,16 @@ namespace Thalia.xUnitTests
             var cacheRepository = new CacheRepository<Location>(_thaliaContext);
 
             var ipGeolocationService = new IpGeolocationService(new StubLogger<IpGeolocationService>());
-            //location = await ipGeolocationService.Execute(ip);
-            //Assert.NotNull(location);
+            location = await ipGeolocationService.Execute(ip);
+            Assert.NotNull(location);
 
             var geoLiteService = new GeoLiteService(new StubLogger<GeoLiteService>(), _thaliaContext);
-            //location = await geoLiteService.Execute(ip);
-            //Assert.NotNull(location);
+            location = await geoLiteService.Execute(ip);
+            Assert.NotNull(location);
 
             var freegeoipService = new FreegeoipService(new StubLogger<FreegeoipService>());
-            //location = await freegeoipService.Execute(ip);
-           // Assert.NotNull(location);
+            location = await freegeoipService.Execute(ip);
+            Assert.NotNull(location);
 
             var provider = new LocationProvider(new StubLogger<LocationProvider>(), cacheRepository, ipGeolocationService, geoLiteService, freegeoipService);
             location = await provider.Execute(ip);
@@ -131,7 +147,6 @@ namespace Thalia.xUnitTests
 
             location = await provider.Execute(ip);
             Assert.NotNull(location);
-
         }
     }
 }

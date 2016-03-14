@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Thalia.Services.Extensions;
+using Thalia.Services.Locations;
 
 namespace Thalia.Services.Weather.OpenWeatherMap
 {
@@ -30,21 +31,40 @@ namespace Thalia.Services.Weather.OpenWeatherMap
         }
         #endregion
 
+        private string GetQueryString(Location location)
+        {
+            // use geographic coordinates 
+            if (!string.IsNullOrEmpty(location.Latitude) && !string.IsNullOrEmpty(location.Longitude))
+            {
+                return $"lat={location.Latitude}&&lon={location.Longitude}&appid={_keys.Value.ConsumerKey}";
+            }
+
+            // use city and country names
+            var country = string.IsNullOrEmpty(location.CountryCode) ? location.Country : location.CountryCode;
+            var cityName = $"{location.City},{location.StateCode},{country}".Replace(",,", "");
+            return  $"q={cityName}&appid={_keys.Value.ConsumerKey}";
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="parameters">{city name},{country code}</param>
+        /// <param name="parameters">serialized Location</param>
         /// <returns></returns>
         public async Task<WeatherConditions> Execute(string parameters)
         {
             try
             {
-                var queryString = $"q={parameters}&appid={_keys.Value.ConsumerKey}";
-                var url = "http://api.openweathermap.org/data/2.5/weather";
+                var location = JsonConvert.DeserializeObject<Location>(parameters);
+                if (location == null)
+                {
+                    _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Cannot deserialize parameters");
+                    return null;
+                }
 
                 using (var client = new HttpClient())
                 {
-                    var response = await client.GetAsync(new Uri(url + "?" + queryString, UriKind.Absolute));
+                    var url = "http://api.openweathermap.org/data/2.5/weather";
+                    var response = await client.GetAsync(new Uri(url + "?" + GetQueryString(location), UriKind.Absolute));
                     var content = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)
@@ -80,8 +100,8 @@ namespace Thalia.Services.Weather.OpenWeatherMap
             {
                 Title = weatherDto.Title,
                 Description = weatherDto.Description,
-                TemperatureC = Convert.ToInt32(TemperatureConverter.KelvinToCelsius(weatherDto.Main.Temperature)),
-                TemperatureF = Convert.ToInt32(TemperatureConverter.KelvinToFahrenheit(weatherDto.Main.Temperature)),
+                TemperatureC = (int)Math.Ceiling(TemperatureConverter.KelvinToCelsius(weatherDto.Main.Temperature)),
+                TemperatureF = (int)Math.Ceiling(TemperatureConverter.KelvinToFahrenheit(weatherDto.Main.Temperature)),
                 Icon = Icons.GetCssClass(weatherDto.IconCode)
             };
             return weatherConditions;
