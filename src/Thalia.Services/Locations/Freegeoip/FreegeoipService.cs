@@ -16,13 +16,12 @@ namespace Thalia.Services.Locations.Freegeoip
         private readonly ILogger<FreegeoipService> _logger;
         #endregion
 
-        public int? RequestsPerMinute { get; }
+        public Quota Quota => new Quota() { Requests = 150, Time = TimeSpan.FromMinutes(1) };
         public TimeSpan? Expiration { get; }
 
         public FreegeoipService(ILogger<FreegeoipService> logger)
         {
             _logger = logger;
-            RequestsPerMinute = 150;
             Expiration = null;
         }
 

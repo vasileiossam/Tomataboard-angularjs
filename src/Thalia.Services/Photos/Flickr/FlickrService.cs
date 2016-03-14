@@ -22,7 +22,7 @@ namespace Thalia.Services.Photos.Flickr
         #endregion
 
         // 3600 per hour
-        public int? RequestsPerMinute => 3600 / 60;
+        public Quota Quota => new Quota() { Requests = 3600, Time = TimeSpan.FromHours(1) };
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
         
         #region Constructors

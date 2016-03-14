@@ -17,13 +17,12 @@ namespace Thalia.Services.Locations.IpGeolocation
         private readonly ILogger<IpGeolocationService> _logger;
         #endregion
 
-        public int? RequestsPerMinute { get; }
+        public Quota Quota => new Quota() { Requests = 140, Time = TimeSpan.FromMinutes(1) };
         public TimeSpan? Expiration { get; }
 
         public IpGeolocationService(ILogger<IpGeolocationService> logger)
         {
             _logger = logger;
-            RequestsPerMinute = 140;
         }
 
         public async Task<Location> Execute(string parameters)

@@ -35,9 +35,9 @@ namespace Thalia.Services.Photos.Api500px
 
         /// <summary>
         /// https://github.com/500px/api-documentation
-        /// 1,0000,000 requesters per month = 1000000/30/24/60
+        /// 1,000,000 requesters per month 
         /// </summary>
-        public int? RequestsPerMinute => 23;
+        public Quota Quota => new Quota() { Requests = 1000000 / 30, Time = TimeSpan.FromDays(1) };
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
         
         #region Constructors

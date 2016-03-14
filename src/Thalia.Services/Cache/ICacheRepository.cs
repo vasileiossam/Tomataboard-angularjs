@@ -9,6 +9,6 @@ namespace Thalia.Services.Cache
         void Add(string service, IServiceOperation<T> operation, string parameters, string result, bool hasErrored);
         void PurgedAll();
         void PurgedExpired();
-        int CountItems(string service, DateTime created);
+        int CountItems(string operation, DateTime created);
     }
 }

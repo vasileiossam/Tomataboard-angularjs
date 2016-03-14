@@ -22,7 +22,7 @@ namespace Thalia.Services.Weather.Forecast
         /// <summary>
         /// 1000 calls a day
         /// </summary>
-        public int? RequestsPerMinute => 1000/24;
+        public Quota Quota => new Quota() { Requests = 1000, Time = TimeSpan.FromDays(1) };
         public TimeSpan? Expiration => TimeSpan.FromHours(1);
 
         #region Constructors

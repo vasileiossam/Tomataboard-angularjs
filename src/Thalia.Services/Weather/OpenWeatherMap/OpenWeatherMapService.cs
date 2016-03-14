@@ -19,8 +19,9 @@ namespace Thalia.Services.Weather.OpenWeatherMap
         private readonly IOptions<OpenWeatherMapKeys> _keys;
         private readonly ILogger<OpenWeatherMapService> _logger;
         #endregion
-
-        public int? RequestsPerMinute => 60;
+        
+        // 60 calls a min
+        public Quota Quota => new Quota() { Requests = 60, Time = TimeSpan.FromMinutes(1) };
         public TimeSpan? Expiration => TimeSpan.FromHours(1);
 
         #region Constructors

@@ -63,11 +63,10 @@ namespace Thalia.Services.Cache
             throw new NotImplementedException();
         }
 
-        public int CountItems(string service, DateTime created)
+        public int CountItems(string operation, DateTime created)
         {
             return _context.Cache.Count(x => 
-                ((x.Expired == null) || (x.Expired > DateTime.Now)) && 
-                x.Service == service && 
+                x.Operation == operation && 
                 x.Created >= created && x.Created <= DateTime.Now);
         }
 

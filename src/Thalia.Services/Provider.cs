@@ -73,11 +73,10 @@ namespace Thalia.Services
 
         public bool CheckQuota(IServiceOperation<T> operation)
         {
-            if ((operation.RequestsPerMinute == null) || (operation.RequestsPerMinute == 0))
-                return true;
+            if (operation.Quota == null) return true;
 
-            var count = _cacheRepository.CountItems(operation.GetType().Name, DateTime.Now.AddMinutes(-1));
-            return count <= operation.RequestsPerMinute;
+            var count = _cacheRepository.CountItems(operation.GetType().Name, DateTime.Now.Subtract(operation.Quota.Time));
+            return count <= operation.Quota.Requests;
         }
     }
 }

@@ -18,6 +18,12 @@ namespace Thalia.Services.Weather.Yahoo
         private readonly ILogger<YahooWeatherService> _logger;
         #endregion
 
+        /// <summary>
+        /// access is limited to 2,000 signed calls per day  
+        /// </summary>
+        public Quota Quota => new Quota() { Requests = 2000, Time = TimeSpan.FromDays(1) };
+        public TimeSpan? Expiration => TimeSpan.FromHours(1);
+
         #region Constructors
         public YahooWeatherService(ILogger<YahooWeatherService> logger, IOptions<YahooWeatherKeys> keys)
         {
@@ -25,6 +31,50 @@ namespace Thalia.Services.Weather.Yahoo
             _keys = keys;
         }
         #endregion
+
+        //public async Task<List<Photo>> Execute(string parameters)
+        //{
+        //    // "term=inspire&rpp=30
+        //    try
+        //    {
+        //        AuthorizationParameters = new Dictionary<string, string>()
+        //        {
+        //            {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
+        //            {OauthParameter.OauthNonce, GetNonce()},
+        //            {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
+        //            {OauthParameter.OauthTimestamp, GetTimeStamp()},
+        //            {OauthParameter.OauthToken, _accessToken.Token},
+        //            {OauthParameter.OauthVersion, OAuthVersion}
+        //        };
+
+        //        var queryParams = new Dictionary<string, string>()
+        //        {
+        //            {"term", parameters},
+        //            {"rpp", "30" }
+        //        };
+        //        var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
+
+        //        var url = "https://api.500px.com/v1/photos/search";
+        //        Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString);
+        //        var response = await GetRequest(url, queryString);
+        //        var content = await response.Content.ReadAsStringAsync();
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            return GetResult(content);
+        //        }
+
+        //        _logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Exception: " + ex.GetError());
+        //    }
+
+        //    return null;
+        //}
+
 
         public async Task<WeatherConditions> Execute(string parameters)
         {
@@ -67,9 +117,6 @@ namespace Thalia.Services.Weather.Yahoo
         {
             throw new NotImplementedException();
         }
-
-        public int? RequestsPerMinute { get; }
-        public TimeSpan? Expiration { get; }
 
         Task<WeatherConditions> IServiceOperation<WeatherConditions>.Execute(string parameters)
         {

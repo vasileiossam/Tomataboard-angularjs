@@ -15,7 +15,8 @@ namespace Thalia.Services.Locations.GeoLite
         private ThaliaContext _context;
         #endregion
 
-        public int? RequestsPerMinute { get; }
+        // no quota since we always read from our database
+        public Quota Quota => null;
         public TimeSpan? Expiration { get; }
         
         public GeoLiteService(ILogger<GeoLiteService> logger, ThaliaContext context)
