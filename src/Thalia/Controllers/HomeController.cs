@@ -83,11 +83,31 @@ namespace Thalia.Controllers
         public async Task<ActionResult> YahooAuthenticate()
         {
             var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
+
+            // get request token
             var token = await service.GetRequestToken(_yahooWeatherKeys.Value.ConsumerKey, _yahooWeatherKeys.Value.ConsumerSecret, _yahooWeatherKeys.Value.CallbackUrl);
-            //var uri = service.GetAuthorizationUrl(token);
-            //return new RedirectResult(uri);
-            return View();
+            // get autho
+            var uri = service.GetAuthorizationUrl(token);
+            return new RedirectResult(uri);
         }
 
+        public async Task<ActionResult> Callback(string oauth_token, string oauth_verifier)
+        {
+            //var service = new Api500px();
+            //var requestToken = LoadToken("RequestToken");
+            //var accessToken = await service.GetAccessToken(new OauthToken() { Token = oauth_token, Secret = requestToken.Secret, Verifier = oauth_verifier });
+
+            //if ((accessToken != null) && (!string.IsNullOrEmpty(accessToken.Token)))
+            //{
+            //    SaveToken("AccessToken", accessToken);
+            //    ViewBag.IsAuthenticated = 1;
+            //}
+            //else
+            //{
+            //    ViewBag.IsAuthenticated = 0;
+            //}
+
+            return View("Index");
+        }
     }
 }
