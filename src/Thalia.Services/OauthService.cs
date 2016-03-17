@@ -20,7 +20,6 @@ namespace Thalia.Services
         #region Protected Fields
         protected Dictionary<string, string> AuthorizationParameters;
         protected ILogger<OauthService> _logger;
-        protected OauthToken _accessToken;
         protected const string OAuthSignatureMethod = "HMAC-SHA1";
         protected const string OAuthVersion = "1.0";
         protected string AccessUrl;
@@ -172,6 +171,14 @@ namespace Thalia.Services
                         break;
                     case "oauth_token_secret":
                         token.Secret = splits[1];
+                        break;
+                    case "oauth_expires_in":
+                        int seconds;
+                        if (int.TryParse(splits[1], out seconds))
+                            token.Expires = DateTime.Now.AddSeconds(seconds);
+                        break;
+                    case "oauth_session_handle":
+                        token.SessionHandle = splits[1];
                         break;
                 }
             }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Thalia.Data.Entities;
 using Thalia.Services.Extensions;
 
 namespace Thalia.Services.Weather.Yahoo
@@ -17,6 +18,7 @@ namespace Thalia.Services.Weather.Yahoo
     {
         #region Private Fields
         private readonly IOptions<YahooWeatherKeys> _keys;
+        private readonly OauthToken _accessToken;
         #endregion
 
         /// <summary>
@@ -36,6 +38,10 @@ namespace Thalia.Services.Weather.Yahoo
             AuthorizeUrl = "https://api.login.yahoo.com/oauth/v2/request_auth";
             RequestTokenUrl = "https://api.login.yahoo.com/oauth/v2/get_request_token";
 
+        }
+        public YahooWeatherService(ILogger<YahooWeatherService> logger, IOptions<YahooWeatherKeys> keys, AccessToken accessToken) : this(logger, keys)
+        {
+            _accessToken = new OauthToken() { Token = accessToken.Token, Secret = accessToken.Secret };
         }
         #endregion
 

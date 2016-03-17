@@ -2,47 +2,38 @@
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
+using Thalia.Data.Entities;
 using Thalia.Services;
+using Thalia.Services.AccessTokens;
 using Thalia.Services.Weather.Yahoo;
 
 namespace Thalia.Controllers
 {
     public class YahooController : Controller
     {
-        private ILogger<YahooWeatherService> _yahooLogger;
-        private IOptions<YahooWeatherKeys> _yahooWeatherKeys;
+        private readonly ILogger<YahooWeatherService> _yahooLogger;
+        private readonly IOptions<YahooWeatherKeys> _yahooWeatherKeys;
+        private readonly ICookiesService<OauthToken> _cookiesService;
+        private readonly IAccessTokensRepository _accessTokensRepository;
 
-        #region private methods
-        private void SaveToken(string key, OauthToken token)
-        {
-            HttpContext.Response.Cookies.Append(key + ".Token", token.Token ?? string.Empty);
-            HttpContext.Response.Cookies.Append(key + ".Secret", token.Secret ?? string.Empty);
-            HttpContext.Response.Cookies.Append(key + ".Verifier", token.Verifier ?? string.Empty);
-        }
-
-        private OauthToken LoadToken(string key)
-        {
-            return new OauthToken()
-            {
-                Token = HttpContext.Request.Cookies[key + ".Token"],
-                Secret = HttpContext.Request.Cookies[key + ".Secret"],
-                Verifier = HttpContext.Request.Cookies[key + ".Verifier"]
-            };
-        }
-        #endregion
-
-        public YahooController(ILogger<YahooWeatherService> yahooLogger, IOptions<YahooWeatherKeys> yahooWeatherKeys
+        public YahooController(
+            ILogger<YahooWeatherService> yahooLogger, 
+            IOptions<YahooWeatherKeys> yahooWeatherKeys,
+            ICookiesService<OauthToken>  cookiesService,
+            IAccessTokensRepository accessTokensRepository
 )       {
             _yahooWeatherKeys = yahooWeatherKeys;
             _yahooLogger = yahooLogger;
-        }
+            _cookiesService = cookiesService;
+            _accessTokensRepository = accessTokensRepository;
+}
         
         public async Task<ActionResult> Authenticate()
         {
             var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
 
             var token = await service.GetRequestToken(_yahooWeatherKeys.Value.ConsumerKey, _yahooWeatherKeys.Value.ConsumerSecret, _yahooWeatherKeys.Value.CallbackUrl);
-            SaveToken("YahooRequestToken", token);
+            _cookiesService.Save("YahooRequestToken", token);
 
             var uri = service.GetAuthorizationUrl(token);
 
@@ -53,7 +44,7 @@ namespace Thalia.Controllers
         {
             var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
 
-            var requestToken = LoadToken("YahooRequestToken");
+            var requestToken = _cookiesService.Load("YahooRequestToken");
             var accessToken =
                 await
                     service.GetAccessToken(
@@ -61,17 +52,13 @@ namespace Thalia.Controllers
                         _yahooWeatherKeys.Value.ConsumerKey,
                         _yahooWeatherKeys.Value.ConsumerSecret);
 
-            if ((accessToken != null) && (!string.IsNullOrEmpty(accessToken.Token)))
+            if (!string.IsNullOrEmpty(accessToken?.Token))
             {
-                SaveToken("AccessToken", accessToken);
-                ViewBag.IsAuthenticated = 1;
-            }
-            else
-            {
-                ViewBag.IsAuthenticated = 0;
+                _accessTokensRepository.Add(service.GetType().Name, accessToken);
+                RedirectToAction("Index", "Home");
             }
 
-            return View("Index");
+            return View("Error");
         }
     }
 }

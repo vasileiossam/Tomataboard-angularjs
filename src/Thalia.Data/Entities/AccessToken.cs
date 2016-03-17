@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Thalia.Data.Entities
 {
-    [Table("Cache")]
-    public class Cache
+    [Table("AccessTokens")]
+    public class AccessToken
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Service { get; set; }
-        public string Operation { get; set; }
-        public string Params { get; set; }
-        public string Result { get; set; }
+        public string Token { get; set; }
+        public string Secret { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Expires { get; set; }
-        public bool HasErrored { get; set; }
+        public string SessionHandle { get; set; }
     }
 }

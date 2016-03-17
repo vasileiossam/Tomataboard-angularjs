@@ -11,6 +11,7 @@ namespace Thalia.Data
         public DbSet<GeoLite2Location> GeoLite2Locations { get; set; }
         public DbSet<Cache> Cache { get; set; }
         public DbSet<Quote> Quotes { get; set; }
+        public DbSet<AccessToken> AccessTokens { get; set; }
 
         private readonly IOptions<DataSettings> _settings;
 

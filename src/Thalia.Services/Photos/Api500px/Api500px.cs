@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
+using Thalia.Data.Entities;
 using Thalia.Services.Photos.Api500px.Contracts;
 using Thalia.Services.Photos.Api500px.Models;
 using Thalia.Services.Extensions;
@@ -30,7 +31,7 @@ namespace Thalia.Services.Photos.Api500px
     {
         #region Private Fields
         private readonly IOptions<Api500pxKeys> _keys;
-        private readonly ILogger<Api500px> _logger;
+        private readonly OauthToken _accessToken;
         #endregion
 
         /// <summary>
@@ -46,10 +47,14 @@ namespace Thalia.Services.Photos.Api500px
         {
             _logger = logger;
             _keys = keys;
-            _accessToken = new OauthToken() { Token = _keys.Value.AccessToken, Secret = _keys.Value.AccessSecret };
             AccessUrl = "https://api.500px.com/v1/oauth/access_token";
             AuthorizeUrl = "https://api.500px.com/v1/oauth/authorize";
             RequestTokenUrl = "https://api.500px.com/v1/oauth/request_token";
+        }
+
+        public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys, AccessToken accessToken) : this(logger, keys)
+        {
+            _accessToken = new OauthToken() { Token = accessToken.Token, Secret = accessToken.Secret };
         }
         #endregion
 

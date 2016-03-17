@@ -46,9 +46,7 @@ namespace Thalia.xUnitTests
             {
                 ConsumerKey = "3Pyv3z7C11R0HGVDv4xdkql76Z0MpLGITwY8n5pK",
                 ConsumerSecret = "kkfszxzVQcBxqLZfa605PvXf1ye7iO2PiTzaMudN",
-                CallbackUrl = "http://localhost:4840/Home/Callback",
-                AccessToken = "x05M0RlcIKgtfeErvaZJVqbWAHfSPwhkK3UELfnn",
-                AccessSecret = "xJTPoSXuJu06fWIuewvp3wEPYDG0gJ0QyxaBMfzN"
+                CallbackUrl = "http://localhost:4840/Home/Callback"
             });
 
             _flickrKeys = new StubOptions<FlickrKeys>(new FlickrKeys()

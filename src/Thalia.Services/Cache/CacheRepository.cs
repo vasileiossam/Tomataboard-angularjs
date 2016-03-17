@@ -16,10 +16,10 @@ namespace Thalia.Services.Cache
         public void Add(string service, IServiceOperation<T> operation, string parameters, string result, bool hasErrored)
         {
 
-            DateTime? expired = null;
+            DateTime? expires = null;
             if (operation.Expiration != null)
             {
-                expired = DateTime.Now.Add((TimeSpan)operation.Expiration);
+                expires = DateTime.Now.Add((TimeSpan)operation.Expiration);
             }
 
             var item = new Data.Entities.Cache()
@@ -29,7 +29,7 @@ namespace Thalia.Services.Cache
                 Params = parameters,
                 Result = result,
                 Created = DateTime.Now,
-                Expired = expired,
+                Expires = expires,
                 HasErrored = hasErrored
             };
 
@@ -42,7 +42,7 @@ namespace Thalia.Services.Cache
             // todo error handling, loging
 
             var cacheItem = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
-                    ((x.Expired == null) || (x.Expired > DateTime.Now)) &&
+                    ((x.Expires == null) || (x.Expires > DateTime.Now)) &&
                     (x.Service == service) && 
                     (x.HasErrored == false) &&
                     (x.Params == parameters)
