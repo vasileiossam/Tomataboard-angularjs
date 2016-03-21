@@ -41,14 +41,18 @@ namespace Thalia.Services.AccessTokens
             _context.SaveChanges();
         }
 
-        public AccessToken Find(string service)
+        public OauthToken Find(string service)
         {
             var token = _context.AccessTokens.FirstOrDefault(x => x.Service == service);
             if (token == null) return null;
 
-            token.Token = _encryptor.Decrypt(token.Token);
-            token.Secret = _encryptor.Decrypt(token.Secret);
-            return null;
+            return new OauthToken()
+            {
+                Token = _encryptor.Decrypt(token.Token),
+                Secret = _encryptor.Decrypt(token.Secret),
+                Expires = token.Expires,
+                SessionHandle = token.SessionHandle
+            };
         }
     }
 }

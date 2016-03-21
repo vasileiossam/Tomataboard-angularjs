@@ -25,6 +25,11 @@ namespace Thalia.Services.Locations.IpGeolocation
             _logger = logger;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters">IPv4</param>
+        /// <returns></returns>
         public async Task<Location> Execute(string parameters)
         {
             try

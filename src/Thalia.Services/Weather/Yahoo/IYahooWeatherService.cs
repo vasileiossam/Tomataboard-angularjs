@@ -1,6 +1,6 @@
 ﻿namespace Thalia.Services.Weather.Yahoo
 {
-    public interface IYahooWeatherService : IServiceOperation<WeatherConditions>
+    public interface IYahooWeatherService : IOauthService, IServiceOperation<WeatherConditions>
     {
     }
 }

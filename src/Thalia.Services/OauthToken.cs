@@ -9,5 +9,7 @@ namespace Thalia.Services
         public string Verifier { get; set; }
         public DateTime? Expires { get; set; }
         public string SessionHandle { get; set; }
+
+        public bool IsExpired => (Expires != null) && (Expires < DateTime.Now);
     }
 }

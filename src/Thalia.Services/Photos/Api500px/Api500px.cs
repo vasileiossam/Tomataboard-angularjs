@@ -29,11 +29,6 @@ namespace Thalia.Services.Photos.Api500px
     /// </summary>
     public class Api500px  : OauthService, IApi500px
     {
-        #region Private Fields
-        private readonly IOptions<Api500pxKeys> _keys;
-        private readonly OauthToken _accessToken;
-        #endregion
-
         /// <summary>
         /// https://github.com/500px/api-documentation
         /// 1,000,000 requesters per month 
@@ -47,16 +42,19 @@ namespace Thalia.Services.Photos.Api500px
         {
             _logger = logger;
             _keys = keys;
-            AccessUrl = "https://api.500px.com/v1/oauth/access_token";
+            AccessTokenUrl = "https://api.500px.com/v1/oauth/access_token";
             AuthorizeUrl = "https://api.500px.com/v1/oauth/authorize";
             RequestTokenUrl = "https://api.500px.com/v1/oauth/request_token";
-        }
-
-        public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys, AccessToken accessToken) : this(logger, keys)
-        {
-            _accessToken = new OauthToken() { Token = accessToken.Token, Secret = accessToken.Secret };
+            AlwaysEscapeSignature = true;
         }
         #endregion
+
+        private static async Task<T> DeserializeContent<T>(string content) where T : Response, new()
+        {
+            var response = JsonConvert.DeserializeObject<T>(content) ?? new T();
+            response.Content = content;
+            return response;
+        }
 
         private static async Task<T> DeserializeResponse<T>(HttpResponseMessage httpResponse) where T : Response, new()
         {
@@ -93,13 +91,13 @@ namespace Thalia.Services.Photos.Api500px
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthToken, _accessToken.Token},
+                {OauthParameter.OauthToken, AccessToken.Token},
                 {OauthParameter.OauthVersion, OAuthVersion}
             };
 
-            Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters);
-            var response = await GetRequest(url, parameters);
-            return await DeserializeResponse<GetPhotosResponse>(response);
+            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", parameters);
+            var content = await GetRequest(url, ParseQueryString(parameters));
+            return await DeserializeContent<GetPhotosResponse>(content);
         }
 
         public async Task<GetPhotosResponse> Search(string parameters)
@@ -110,15 +108,15 @@ namespace Thalia.Services.Photos.Api500px
                 {OauthParameter.OauthNonce, GetNonce()},
                 {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                 {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthToken, _accessToken.Token},
+                {OauthParameter.OauthToken, AccessToken.Token},
                 {OauthParameter.OauthVersion, OAuthVersion}
             };
 
             var url = "https://api.500px.com/v1/photos/search";
 
-            Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", parameters);
-            var response = await GetRequest(url, parameters);
-            return await DeserializeResponse<GetPhotosResponse>(response);
+            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", parameters);
+            var content = await GetRequest(url, ParseQueryString(parameters));
+            return await DeserializeContent<GetPhotosResponse>(content);
         }
 
         public async Task<List<Photo>> Execute(string parameters)
@@ -132,7 +130,7 @@ namespace Thalia.Services.Photos.Api500px
                     {OauthParameter.OauthNonce, GetNonce()},
                     {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                     {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                    {OauthParameter.OauthToken, _accessToken.Token},
+                    {OauthParameter.OauthToken, AccessToken.Token},
                     {OauthParameter.OauthVersion, OAuthVersion}
                 };
 
@@ -141,20 +139,14 @@ namespace Thalia.Services.Photos.Api500px
                     {"term", parameters},
                     {"rpp", "30" }
                 };
-                var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
 
                 var url = "https://api.500px.com/v1/photos/search";
-                Sign(url, _keys.Value.ConsumerSecret, _accessToken.Secret, "GET", queryString);
-                var response = await GetRequest(url, queryString);
-                var content = await response.Content.ReadAsStringAsync();
+                Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", queryParams);
+                var content = await GetRequest(url, queryParams);
+                return GetResult(content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return GetResult(content);
-                }
-
-                _logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
-                return null;
+                //_logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
+                //return null;
             }
             catch (Exception ex)
             {

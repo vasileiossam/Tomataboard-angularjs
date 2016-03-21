@@ -18,13 +18,18 @@ namespace Thalia.Services.Locations.GeoLite
         // no quota since we always read from our database
         public Quota Quota => null;
         public TimeSpan? Expiration { get; }
-        
+
         public GeoLiteService(ILogger<GeoLiteService> logger, ThaliaContext context)
         {
             _logger = logger;
             _context = context;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters">IPv4</param>
+        /// <returns></returns>
         public Task<Location> Execute(string parameters)
         {
             var ipNum = ConvertIpToLong(parameters);

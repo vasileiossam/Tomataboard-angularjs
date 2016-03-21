@@ -17,7 +17,7 @@ namespace Thalia.Services.Photos.Flickr
     public class FlickrService : IFlickrService
     {
         #region Private Fields
-        private readonly IOptions<FlickrKeys> _keys;
+        private readonly IOptions<FlickrServiceKeys> _keys;
         private readonly ILogger<FlickrService> _logger;
         #endregion
 
@@ -26,7 +26,7 @@ namespace Thalia.Services.Photos.Flickr
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
         
         #region Constructors
-        public FlickrService(ILogger<FlickrService> logger, IOptions<FlickrKeys> keys)
+        public FlickrService(ILogger<FlickrService> logger, IOptions<FlickrServiceKeys> keys)
         {
             _logger = logger;
             _keys = keys;

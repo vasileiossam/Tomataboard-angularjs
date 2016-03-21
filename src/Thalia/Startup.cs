@@ -97,8 +97,8 @@ namespace Thalia
 
             services.Configure<DataSettings>(Configuration.GetSection("Data:DefaultConnection"));
             services.Configure<Api500pxKeys>(Configuration.GetSection("ApiSettings:Api500pxKeys"));
-            services.Configure<FlickrKeys>(Configuration.GetSection("ApiSettings:FlickrKeys"));
-            services.Configure<YahooWeatherKeys>(Configuration.GetSection("ApiSettings:YahooWeatherKeys"));
+            services.Configure<FlickrServiceKeys>(Configuration.GetSection("ApiSettings:FlickrKeys"));
+            services.Configure<YahooWeatherServiceKeys>(Configuration.GetSection("ApiSettings:YahooWeatherKeys"));
             services.Configure<OpenWeatherMapKeys>(Configuration.GetSection("ApiSettings:OpenWeatherMapKeys"));
             services.Configure<ForecastKeys>(Configuration.GetSection("ApiSettings:ForecastKeys"));
             services.Configure<EncryptionServiceKeys>(Configuration.GetSection("ApiSettings:EncryptionServiceKeys"));

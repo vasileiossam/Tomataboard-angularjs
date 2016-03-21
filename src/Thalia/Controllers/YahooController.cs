@@ -1,63 +1,49 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
-using Thalia.Data.Entities;
 using Thalia.Services;
 using Thalia.Services.AccessTokens;
 using Thalia.Services.Weather.Yahoo;
+using System;
+using Newtonsoft.Json;
+using Thalia.Services.Locations;
 
 namespace Thalia.Controllers
 {
-    public class YahooController : Controller
+    public class YahooController : OauthController
     {
-        private readonly ILogger<YahooWeatherService> _yahooLogger;
-        private readonly IOptions<YahooWeatherKeys> _yahooWeatherKeys;
-        private readonly ICookiesService<OauthToken> _cookiesService;
-        private readonly IAccessTokensRepository _accessTokensRepository;
-
         public YahooController(
-            ILogger<YahooWeatherService> yahooLogger, 
-            IOptions<YahooWeatherKeys> yahooWeatherKeys,
-            ICookiesService<OauthToken>  cookiesService,
-            IAccessTokensRepository accessTokensRepository
-)       {
-            _yahooWeatherKeys = yahooWeatherKeys;
-            _yahooLogger = yahooLogger;
-            _cookiesService = cookiesService;
-            _accessTokensRepository = accessTokensRepository;
-}
-        
-        public async Task<ActionResult> Authenticate()
+            ILogger<YahooWeatherService> logger,
+            IYahooWeatherService service,
+            ICookiesService<OauthToken> cookiesService,
+            IAccessTokensRepository accessTokensRepository) : base(logger, service, cookiesService, accessTokensRepository)
         {
-            var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
-
-            var token = await service.GetRequestToken(_yahooWeatherKeys.Value.ConsumerKey, _yahooWeatherKeys.Value.ConsumerSecret, _yahooWeatherKeys.Value.CallbackUrl);
-            _cookiesService.Save("YahooRequestToken", token);
-
-            var uri = service.GetAuthorizationUrl(token);
-
-            return new RedirectResult(uri);
+            _cookieKey = "YahooRequestToken";
         }
 
-        public async Task<ActionResult> Callback(string oauth_token, string oauth_verifier)
+        public override async Task<ActionResult> Execute()
         {
-            var service = new YahooWeatherService(_yahooLogger, _yahooWeatherKeys);
-
-            var requestToken = _cookiesService.Load("YahooRequestToken");
-            var accessToken =
-                await
-                    service.GetAccessToken(
-                        new OauthToken() { Token = oauth_token, Secret = requestToken.Secret, Verifier = oauth_verifier }, 
-                        _yahooWeatherKeys.Value.ConsumerKey,
-                        _yahooWeatherKeys.Value.ConsumerSecret);
-
-            if (!string.IsNullOrEmpty(accessToken?.Token))
+            try
             {
-                _accessTokensRepository.Add(service.GetType().Name, accessToken);
-                RedirectToAction("Index", "Home");
-            }
+                var melbourneLocation = new Location()
+                {
+                    City = "Melbournze",
+                    CountryCode = "AUS"
+                };
+                var serializedMelbourne = JsonConvert.SerializeObject(melbourneLocation);
 
+                var service = _service as YahooWeatherService;
+                if (service != null)
+                {
+                    service.AccessToken = _accessTokensRepository.Find(_service.GetType().Name);
+                    return View(await service.Execute(serializedMelbourne));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("Error");
+            }
             return View("Error");
         }
     }

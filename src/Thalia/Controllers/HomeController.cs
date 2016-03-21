@@ -19,14 +19,12 @@ namespace Thalia.Controllers
         private ILocationProvider _locationProvider;
         private IPhotoProvider _photoProvider;
         private IWeatherProvider _weatherProvider;
-        private IOptions<YahooWeatherKeys> _yahooWeatherKeys;
         private ILogger<YahooWeatherService> _yahooLogger;
 
         public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
             ILocationProvider locationProvider,
             IPhotoProvider photoProvider,
             IWeatherProvider weatherProvider,
-            IOptions<YahooWeatherKeys> yahooWeatherKeys,
             ILogger<YahooWeatherService> yahooLogger)
         {
             _logger = logger;
@@ -34,7 +32,6 @@ namespace Thalia.Controllers
             _locationProvider = locationProvider;
             _photoProvider = photoProvider;
             _weatherProvider = weatherProvider;
-            _yahooWeatherKeys = yahooWeatherKeys;
             _yahooLogger = yahooLogger;
         }
         
@@ -67,16 +64,6 @@ namespace Thalia.Controllers
             var repo = new QuoteRepository(_context);
             var quote = repo.GetQuoteOfTheDay();
 
-            var ip = HttpContext.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress.MapToIPv4().ToString();
-#if DEBUG
-            if ((ip == "0.0.0.1") || (ip == "127.0.0.1"))
-            {
-                //ip = "175342523";
-                ip = "175.34.25.23";
-
-            }
-#endif
-           var o = await _locationProvider.Execute(ip);
             return View();
         }
     }

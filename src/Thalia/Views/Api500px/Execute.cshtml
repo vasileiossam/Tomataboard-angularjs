@@ -1,0 +1,22 @@
+﻿@model List<Thalia.Services.Photos.Photo>
+
+<h3>@ViewData["Message"]</h3>
+
+<div class="container">
+    <table class="table-bordered">
+        @foreach (var photo in Model)
+        {
+            <tr>
+                <td>
+                    <h2>@photo.Name</h2>
+                    <small>@photo.AuthorName</small>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@photo.Url" alt=""/>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
