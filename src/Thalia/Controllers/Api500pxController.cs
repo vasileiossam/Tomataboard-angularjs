@@ -38,5 +38,10 @@ namespace Thalia.Controllers
             }
             return View("Error");
         }
+
+        public override Task<ActionResult> Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

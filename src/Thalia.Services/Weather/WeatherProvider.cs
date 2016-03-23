@@ -29,8 +29,8 @@ namespace Thalia.Services.Weather
 
             _serializedLocation = JsonConvert.SerializeObject(location);
 
-            _operations.Add(forecastService);
             _operations.Add(openWeatherMapService);
+            _operations.Add(forecastService);
             _operations.Add(yahooWeatherService);
         }
 

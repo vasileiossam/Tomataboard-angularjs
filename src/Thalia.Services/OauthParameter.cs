@@ -11,5 +11,6 @@
         public const string OauthSignature = "oauth_signature";
         public const string OauthToken = "oauth_token";
         public const string OauthVerifier = "oauth_verifier";
+        public const string OauthSessionHandle = "oauth_session_handle";
     }
 }

@@ -72,5 +72,8 @@ namespace Thalia.Controllers
         }
 
         public abstract Task<ActionResult> Execute();
+
+        public abstract Task<ActionResult> Refresh();
+
     }
 }

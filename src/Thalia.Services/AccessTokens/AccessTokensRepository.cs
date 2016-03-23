@@ -28,7 +28,7 @@ namespace Thalia.Services.AccessTokens
                 Secret = _encryptor.Encrypt(token.Secret),
                 Created = DateTime.Now,
                 Expires = token.Expires,
-                SessionHandle = token.SessionHandle,
+                SessionHandle = _encryptor.Encrypt(token.SessionHandle)
             });
             _context.SaveChanges();
         }
@@ -51,7 +51,7 @@ namespace Thalia.Services.AccessTokens
                 Token = _encryptor.Decrypt(token.Token),
                 Secret = _encryptor.Decrypt(token.Secret),
                 Expires = token.Expires,
-                SessionHandle = token.SessionHandle
+                SessionHandle = _encryptor.Decrypt(token.SessionHandle)
             };
         }
     }

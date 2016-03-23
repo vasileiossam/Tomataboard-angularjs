@@ -1,125 +1,142 @@
-﻿/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-
-.carousel-caption {
-    z-index: 10 !important;
-}
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-}*/
-
-/* my styles */
- 
-
- /* Sticky footer styles
--------------------------------------------------- */
-/*
-    
-    html {
-  position: relative;
-  min-height: 100%;
+﻿html {
+    position: relative;
+    min-height: 100%;    
+    height: 100%;
 }
 body {
-  /
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  
-  height: 60px;
-  background-color: #f5f5f5;
-}*/
-
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-/*body > .container {
-  padding: 60px 15px 0;
-}
-.container .text-muted {
-  margin: 20px 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: normal;
 }
 
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+.main {
+    height: 100%;
 }
 
-code {
-  font-size: 80%;
-}*/
+/* http://stackoverflow.com/questions/22196587/how-to-center-align-vertically-the-container-in-bootstrap */
+.vertical-center {
+  height:100%;
+  width:100%;
 
-    
-    html {
-  position: relative;
-  min-height: 100%;     height: 100%;
+  text-align: center;  /* align the inline(-block) elements horizontally */
+  font: 0/0 a;         /* remove the gap between inline(-block) elements */
 }
-body {
-      height: 100%;
-  /*margin-bottom: 60px;*/
+.vertical-center:before {    /* create a full-height inline block pseudo=element */
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;    /* vertical alignment of the inline element */
+  height: 100%;
 }
-/*.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  opacity:  28;
-  height: 60px;
-  background-color: #f5f5f5;
-  margin:0;
-  padding:0;
-}*/
+.vertical-center > .container {
+  max-width: 100%;
 
-body{
+  display: inline-block;
+  vertical-align: middle;  /* vertical alignment of the inline element */
+                           /* reset the font property */
+  font: 16px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#header {
+    z-index: 100;
+}
+
+#footer {
+    z-index: 100;
+    padding: 20px;
+}
+
+.photo-background{
     background: url('/images/keeper.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
+    height: 100%;
 }
 
 .well {
    background-color: rgba(0, 0, 0, 0.15);
    border: none;
-   width: 25%;
+   width: 20%;
+   margin: 0;
 }
 
-.mycontent{
-   
+.well2 {
+    border: 1px solid red;
+  
+   width: 70%;
+   margin: 0;
+}
+
+#top-left {
  
-   vertical-align: middle;
-       border: 5px solid red;
-       height: 100%;
-        text-align:center;
+}
+
+#top-center {
+ 
+}
+
+#top-right {
+ 
+}
+
+#bottom-left:hover #bottom-left, #bottom-left.focus {
+ 
+}
+
+#bottom-center {
     
 }
 
-div.ext-box { display: table; }
-div.int-box { display: table-cell; vertical-align: middle; }
+#bottom-right {
+
+}
+
+.main-color, .main-color:hover, .main-color:focus {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+
+.shadow {
+    -webkit-transition: text-shadow .3s ease;
+    -moz-transition: text-shadow .3s ease;
+    -ms-transition: text-shadow .3s ease;
+    -o-transition: text-shadow .3s ease;
+    transition: text-shadow .3s ease;
+}
+
+#photo  {
+   font-size: 1em;
+}
+
+#weather {
+  
+}
+
+#weather-icon {
+    font-size: 2.5em;   
+}
+
+#weather-temperature {
+    font-size: 2.5em;   
+}
+
+#weather-location {
+    font-size: 1.5em;   
+}
+
+#time {
+    font-size: 8em;      
+}
+
+#greeting {
+    font-size: 4em;      
+}
+
+#quote {
+    font-size: 2em;
+}

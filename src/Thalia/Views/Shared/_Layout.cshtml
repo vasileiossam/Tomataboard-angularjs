@@ -1,171 +1,113 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Thalia</title>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Thalia</title>
 
-        <environment names="Development">
-            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/lib/Font-Awesome/css/font-awesome.min.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
-        </environment>
-        <environment names="Staging,Production">
-            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        </environment>
-    </head>
-    <body style="border: 5px solid black;">
-                 <div class="navbar navbar-inverse navbar-fixed-top  well" >
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a asp-controller="Home" asp-action="Index" class="navbar-brand">Thalia</a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li><a asp-controller="Home" asp-action="About">About</a></li>
-                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>
+    <environment names="Development">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/Font-Awesome/css/font-awesome.min.css" />
+        <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="~/css/site.css" />
+        
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-default"><i class="fa fa-automobile"></i> hh</a></li>
-                            <li><a asp-controller="Home" asp-action="About">About</a></li>
-                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>
-                        @await Html.PartialAsync("_LoginPartial")
-                    </div>
-                </div>
-            </div> 
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
 
- 
+<body style="border: 2px solid black;" class="photo-background">
+<!--<div id="photo-background" class="container-fluid"></div>-->
 
-            @*<footer class="container-fluid text-center">
-                <p>Footer Text</p>
-            </footer>*@
-
-        <!-- Fixed navbar -->
-   <!--      <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Project name</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div> 
+<header id="header" class="container-fluid navbar-fixed-top ">
+    <div class="row">
+        <div id="top-left" class="col-sm-2">
+            <div>
+                <a href="#">LEFT</a>
             </div>
-        </nav>-->
-        <p></p>
-        <!-- Begin page content -->
-        <div class="container-fluid ext-box">
-            
-           
-                <div class="int-box">
-                    <h2>Some txt</h2>
-                    <p>
-                        dd a
-                        sdfa s
-                        df
-                        asd
-                        fas
-                        df
-                        a
-                        sd
-                        fas
-                        d
-                    </p>
-                    <p>
-                        asdfasd
-                    </p>
-                    <p>
-                        asdfasd
-                        fas
-                        df
-                        asd
-                        fa
-                        sd
-                        <input value="" /><i class="fa fa-4x fa-meh-o"></i>
-                        content
-                    </p>
+        </div>
+        <div id="top-center" class="col-sm-8 box text-center">
+            <div>
+                <a href="#">CENTER</a>
+            </div>
+        </div>
+        <div id="top-right" class="col-sm-2 box text-right">
+            <div>
+                <a href="#">RIGHT</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="vertical-center">
+    <div class="container">
+        <div class="col-sm-12 box text-center">
+            <div>
+                <div id="time" class="main-color">
+                    <a href="#" class="main-color">2:27</a>
+                </div>
+                <div id="greeting" class="main-color">
+                    <a href="#" class="main-color">Good afternoon, Vasileios</a>
                 </div>
 
-            @RenderBody()
-            </div>
+                    @RenderBody()
+                    
+                </div>
+        </div>
+    </div>
+</div>
 
-            
-   
+<footer id="footer" class="container-fluid navbar-fixed-bottom ">
+    <div class="row">
+        <div id="bottom-left" class="col-sm-2 box">
+            <div id="photo" class="main-color" >
+                <a href="#" class="main-color shadow hover-item">Machu Picchu, Peru</a>
+            </div>
+        </div>
+        <div id="bottom-center" class="col-sm-8 box text-center">
+            <div id="quote" class="main-color">
+                <a href="#" class="main-color shadow">"Don't let perfection become procrastination. Do it now." </a>
+            </div>
+        </div>
+        <div id="bottom-right" class="col-sm-2 box text-right">
+            <div id="weather" class="main-color">
+                <span id="weather-icon">
+                    <i class="wi wi-cloud"></i>
+                </span>
+                <span id="weather-temperature">
+                    26 <i class="wi wi-celsius"></i>
+                </span>
+                <div id ="weather-location">
+                    Werribee
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
     
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
 
-          <footer class="container-fluid">
-              <div class="navbar navbar-inverse navbar-fixed-bottom  navbar-right well">
-                  <div class="navbar-collapse collapse">
-                      <ul class="nav navbar-nav">
-                          <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                          <li><a asp-controller="Home" asp-action="About">About</a></li>
-                          <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                      </ul>
-
-                      <ul class="nav navbar-nav navbar-right">
-                          <li><a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-default"><i class="fa fa-automobile"></i> hh</a></li>
-                          <li><a asp-controller="Home" asp-action="About">
-                              
-                                  <h1>About</h1></a></li>
-                          <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                      </ul>
-                      
-                  </div>
-              </div>
-        </footer> 
-
-
-            <environment names="Development">
-                <script src="~/lib/jquery/dist/jquery.js"></script>
-                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-                <script src="~/js/site.js" asp-append-version="true"></script>
-            </environment>
-            <environment names="Staging,Production">
-                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                        asp-fallback-test="window.jQuery">
-                </script>
-                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-                </script>
-                <script src="~/js/site.min.js" asp-append-version="true"></script>
-            </environment>
-
-            @RenderSection("scripts", required: false)
- 
+    @RenderSection("scripts", required: false)
 </body>
 </html>

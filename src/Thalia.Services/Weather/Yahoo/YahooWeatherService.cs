@@ -92,7 +92,6 @@ namespace Thalia.Services.Weather.Yahoo
             return null;
         }
     
-
         private WeatherConditions GetResult(string json)
         {
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
@@ -116,6 +115,30 @@ namespace Thalia.Services.Weather.Yahoo
             };
             
             return weatherConditions;
+        }
+
+        /// <summary>
+        /// https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<OauthToken> RefreshAccessToken(OauthToken accessToken)
+        {
+            AuthorizationParameters = new Dictionary<string, string>()
+            {
+                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
+                {OauthParameter.OauthNonce, GetNonce()},
+                {OauthParameter.OauthSessionHandle, accessToken.SessionHandle},
+                {OauthParameter.OauthSignatureMethod, "PLAINTEXT"},
+                {OauthParameter.OauthTimestamp, GetTimeStamp()},
+                {OauthParameter.OauthToken, accessToken.Token},
+                {OauthParameter.OauthVersion, OAuthVersion},
+                {OauthParameter.OauthSignature, _keys.Value.ConsumerSecret + "&" + accessToken.Secret}
+             };
+
+           // Sign(AccessTokenUrl, _keys.Value.ConsumerSecret, accessToken.Secret, "POST", "");
+            var response = await PostRequest(AccessTokenUrl);
+            return ParseReponse(response);
         }
     }
 }

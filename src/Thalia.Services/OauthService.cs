@@ -240,8 +240,7 @@ namespace Thalia.Services
             var response = await PostRequest(AccessTokenUrl);
             return ParseReponse(response);
         }
-
-
+        
         /// <summary>
         /// A callback is needed to get back oauth_token and oauth_verifier
         /// </summary>

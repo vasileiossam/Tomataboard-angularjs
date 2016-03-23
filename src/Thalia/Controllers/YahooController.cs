@@ -46,5 +46,30 @@ namespace Thalia.Controllers
             }
             return View("Error");
         }
+
+        public override async Task<ActionResult> Refresh()
+        {
+            try
+            {
+                var accessToken =_accessTokensRepository.Find(_service.GetType().Name);
+                if (accessToken != null)
+                {
+                    var service = _service as YahooWeatherService;
+                    var newAccessToken = await service.RefreshAccessToken(accessToken);
+                    if (newAccessToken != null)
+                    {
+                        _accessTokensRepository.Add(_service.GetType().Name, newAccessToken);
+                    }
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return View("Error");
+            }
+        }
+
     }
 }
