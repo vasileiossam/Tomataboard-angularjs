@@ -34,20 +34,21 @@ $(function () {
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 
-    function dashboardController($cookies, $http) {
+    function dashboardController($cookies, $http, $interval) {
         var vm = this;
-        
+    
         vm.dashboard = $cookies.getObject("dashboard");
 
         if (vm.dashboard) {
            
             var offsetMins = new Date().getTimezoneOffset();
             var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
-
+        
             // get a default dashboard
             $http.get("/api/dashboard/" + localMilliseconds)
                 .then(
                 function (response) {
+                   
                     // on sucess
                     vm.dashboard = response.data;
                     vm.dashboard.quote = vm.dashboard.quotes[vm.dashboard.quoteIndex];
@@ -64,9 +65,16 @@ $(function () {
                             }
                         }
                     }
+                  
+                    var tick = function () {
+                        vm.time = Date.now();
+                    }
+                    tick();
+                    $interval(tick, 60*1000);
                 },
                 function (error) {
                     // on failure
+                   
                     vm.errorMessage = "Failed to load data: " + error;
                 });
         };

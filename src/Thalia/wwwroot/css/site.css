@@ -166,6 +166,18 @@ body {
     font-size: 4em;      
 }
 
+#name {
+    margin-top: 50px;
+    font-size: 3em;
+}
+#name input {
+    font-size: 1em;    
+    background-color:rgba(0,0,0,0) !important;
+    /*background-color:transparent !important;*/
+    border:none !important;
+    height: 100px;
+}
+
 #quote {
     font-size: 2em;
 }

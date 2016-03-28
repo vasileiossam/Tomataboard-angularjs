@@ -52,12 +52,16 @@
     <div class="vertical-center">
         <div class="container">
             <div class="col-sm-12 text-center">
-                <div>
-                    <div id="time" class="main-color">
-                        <a href="#" class="main-color">2:27</a>
+                <div class="hover-container">
+                    <div id="time" class="hover-item">
+                        <a href="#">{{vm.time | date: 'HH:mm'}}</a>
                     </div>
-                    <div id="greeting" class="main-color">
-                        <a href="#" class="main-color">{{vm.dashboard.greeting}}, Pav Legoman</a>
+                    <div id="greeting" class="hover-item">
+                        <a href="#">{{vm.dashboard.greeting}},e Pav Legoman</a>
+                        
+                    </div>
+                    <div id="name">
+                        <input value="adfasd"/>
                     </div>
                 </div>
             </div>
@@ -80,7 +84,7 @@
                             <strong>{{vm.dashboard.photo.name}}</strong> 
                         </div>
                         <div>
-                            By {{vm.dashboard.photo.authorName}}
+                            &copy; {{vm.dashboard.photo.authorName}}
                         </div>
                         <div>
                             Powered by {{vm.dashboard.photo.service}}
@@ -98,7 +102,7 @@
                         </a>
                     </div>
                     <div id="quote-popover" style="display: none">
-                        By {{vm.dashboard.quote.author}}
+                        {{vm.dashboard.quote.author}}
                     </div>
                 </div>
             </div>
@@ -109,11 +113,11 @@
                     <div id="weather" class="hover-item">
                         <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
                             <span id="weather-icon">
-                                        <i class="wi {{vm.dashboard.weather.icon}}"></i>
-                                    </span>
+                                <i class="wi {{vm.dashboard.weather.icon}}"></i>
+                            </span>
                             <span id="weather-temperature">
-                                        {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
-                                    </span>
+                                {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
+                            </span>
                             <div id="weather-location">
                                 {{vm.dashboard.weather.location}}
                             </div>
