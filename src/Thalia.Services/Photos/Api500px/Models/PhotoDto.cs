@@ -89,6 +89,11 @@ namespace Thalia.Services.Photos.Api500px.Models
             if (!string.IsNullOrEmpty(photo.HttpsUrl)) return photo.Url;
             return string.Empty;
         }
+
+        public string GetAuthorUrl()
+        {
+            return $"https://marketplace.500px.com/photos/{Id}/";
+        }
         #endregion
     }
 }

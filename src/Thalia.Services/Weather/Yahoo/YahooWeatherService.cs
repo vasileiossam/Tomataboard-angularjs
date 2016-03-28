@@ -78,7 +78,7 @@ namespace Thalia.Services.Weather.Yahoo
                 var url = "https://query.yahooapis.com/v1/yql";
                 var content = await GetRequest(url, GetQueryParameters(location));
 
-                var weatherDto = GetResult(content);
+                var weatherDto = GetResult(content, location);
                 if (weatherDto != null)
                 {
                     return weatherDto;
@@ -92,7 +92,7 @@ namespace Thalia.Services.Weather.Yahoo
             return null;
         }
     
-        private WeatherConditions GetResult(string json)
+        private WeatherConditions GetResult(string json, Location location)
         {
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
             if (weatherDto?.query?.results?.channel?.item?.condition == null) return null;
@@ -111,7 +111,10 @@ namespace Thalia.Services.Weather.Yahoo
                 Description = condition.text,
                 TemperatureC = (int)Math.Ceiling(TemperatureConverter.FahrenheitToCelsius(temperatureF)),
                 TemperatureF = (int) temperatureF,
-                Icon = Icons.GetCssClass(condition.code)
+                Icon = Icons.GetCssClass(condition.code),
+                Location = location.City,
+                Service = "Yahoo",
+                ServiceUrl = "https://weather.yahoo.com/"
             };
             
             return weatherConditions;

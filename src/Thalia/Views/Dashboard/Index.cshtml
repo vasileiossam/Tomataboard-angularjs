@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thalia Dashboard</title>
+
+    <environment names="Development">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+
+<body ng-app="dashboard-app" ng-controller="dashboardController as vm" 
+      ng-style="{'background': '#000000 url(' + vm.dashboard.photo.url + ') no-repeat center center fixed'}" 
+      class="photo-background">
+
+@*<div id="photo-background" class="container-fluid">dfghdfhdfhdfghdf</div>*@
+    
+    <header id="header" class="container-fluid navbar-fixed-top ">
+        <div class="row">
+            <div id="top-left" class="col-sm-2">
+                <div>
+                    <a href="#">LEFT</a>
+                </div>
+            </div>
+            <div id="top-center" class="col-sm-8 text-center">
+                <div>
+                    <a href="#">CENTER</a>
+                </div>
+            </div>
+            <div id="top-right" class="col-sm-2 text-right">
+                <div>
+                    <a href="#">RIGHT</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="vertical-center">
+        <div class="container">
+            <div class="col-sm-12 text-center">
+                <div>
+                    <div id="time" class="main-color">
+                        <a href="#" class="main-color">2:27</a>
+                    </div>
+                    <div id="greeting" class="main-color">
+                        <a href="#" class="main-color">{{vm.dashboard.greeting}}, Pav Legoman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" class="container-fluid navbar-fixed-bottom ">
+        <div class="row">
+
+            @*Photo*@
+            <div id="bottom-left" class="col-sm-2 ">
+                <div class="hover-container">
+                    <div id="photo" class="hover-item">
+                        <a href="{{vm.dashboard.photo.authorUrl}}" target="_blank">
+                            <i class="fa fa-photo">&nbsp;</i>{{vm.dashboard.photo.shortName}}
+                        </a>
+                    </div>
+                    <div id="photo-popover" style="display: none">
+                        <div>
+                            <strong>{{vm.dashboard.photo.name}}</strong> 
+                        </div>
+                        <div>
+                            By {{vm.dashboard.photo.authorName}}
+                        </div>
+                        <div>
+                            Powered by {{vm.dashboard.photo.service}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Quote*@
+            <div id="bottom-center" class="col-sm-8 text-center">
+                <div class="hover-container">
+                    <div id="quote" class="hover-item">
+                        <a ng-href="https://en.wikipedia.org/wiki/{{vm.dashboard.quote.author}}" target="_blank">
+                            "{{vm.dashboard.quote.wording}}"
+                        </a>
+                    </div>
+                    <div id="quote-popover" style="display: none">
+                        By {{vm.dashboard.quote.author}}
+                    </div>
+                </div>
+            </div>
+
+            @*Weather*@
+            <div id="bottom-right" class="col-sm-2 text-right">
+                <div class="hover-container">
+                    <div id="weather" class="hover-item">
+                        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
+                            <span id="weather-icon">
+                                        <i class="wi {{vm.dashboard.weather.icon}}"></i>
+                                    </span>
+                            <span id="weather-temperature">
+                                        {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
+                                    </span>
+                            <div id="weather-location">
+                                {{vm.dashboard.weather.location}}
+                            </div>
+                        </a>
+                    </div>
+                    <div id="weather-popover" style="display: none">
+                        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">Power by {{vm.dashboard.weather.service}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/angular/angular.min.js"></script>
+        <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
+        <script src="~/js/dashboard-app.js"></script>
+        <script src="~/js/dashboardcontroller.js"></script>
+
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+</body>
+</html>

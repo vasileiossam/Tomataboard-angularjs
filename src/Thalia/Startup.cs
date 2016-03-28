@@ -6,12 +6,14 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using Thalia.Models;
 using Thalia.Services;
 using Thalia.Data;
 using Thalia.Services.AccessTokens;
 using Thalia.Services.Cache;
 using Thalia.Services.Encryption;
+using Thalia.Services.Greetings;
 using Thalia.Services.Locations;
 using Thalia.Services.Photos.Api500px;
 using Thalia.Services.Photos.Flickr;
@@ -20,6 +22,7 @@ using Thalia.Services.Locations.Freegeoip;
 using Thalia.Services.Locations.GeoLite;
 using Thalia.Services.Locations.IpGeolocation;
 using Thalia.Services.Photos;
+using Thalia.Services.Quotes;
 using Thalia.Services.Weather;
 using Thalia.Services.Weather.Forecast;
 using Thalia.Services.Weather.OpenWeatherMap;
@@ -63,7 +66,10 @@ namespace Thalia
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                    // will camel case all web api responses
+                    opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -92,6 +98,8 @@ namespace Thalia
             services.AddTransient<IEncryptionService, EncryptionService>();
             services.AddTransient<ICookiesService<OauthToken>, CookiesService<OauthToken>>();
             services.AddTransient<IAccessTokensRepository, AccessTokensRepository>();
+            services.AddTransient<IQuoteRepository, QuoteRepository>();
+            services.AddTransient<IGreetingsService, GreetingsService>();
 
             services.AddLogging();
 

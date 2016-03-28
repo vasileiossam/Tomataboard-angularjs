@@ -23,8 +23,8 @@ namespace Thalia.Services.Locations
         {
             _httpContextAccessor = httpContextAccessor;
 
-            _operations.Add(ipGeolocationService);
             _operations.Add(geoLiteService);
+            _operations.Add(ipGeolocationService);
             _operations.Add(freegeoipService);
         }
 

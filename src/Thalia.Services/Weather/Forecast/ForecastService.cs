@@ -69,7 +69,7 @@ namespace Thalia.Services.Weather.Forecast
 
                         if ((weatherDto.Code == null) && (weatherDto.currently != null))
                         {
-                            return GetResult(content);
+                            return GetResult(content, location);
                         }
 
                         _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Code: {weatherDto.Code}, Message: {weatherDto.Message}, Content: {content}");
@@ -86,7 +86,7 @@ namespace Thalia.Services.Weather.Forecast
             return null;
         }
 
-        private WeatherConditions GetResult(string json)
+        private WeatherConditions GetResult(string json, Location location)
         {
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
             if (weatherDto == null) return null;
@@ -97,7 +97,10 @@ namespace Thalia.Services.Weather.Forecast
                 Description = weatherDto.currently.summary,
                 TemperatureC = (int)Math.Ceiling(TemperatureConverter.FahrenheitToCelsius(weatherDto.currently.temperature)),
                 TemperatureF = (int)Math.Ceiling(weatherDto.currently.temperature),
-                Icon = Icons.GetCssClass(weatherDto.currently.icon)
+                Icon = Icons.GetCssClass(weatherDto.currently.icon),
+                Location = location.City,
+                Service = "Forecast.io",
+                ServiceUrl = "http://forecast.io/"
             };
             return weatherConditions;
         }

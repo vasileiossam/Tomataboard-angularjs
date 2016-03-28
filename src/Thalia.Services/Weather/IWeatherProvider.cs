@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Thalia.Services.Locations;
 
 namespace Thalia.Services.Weather
 {

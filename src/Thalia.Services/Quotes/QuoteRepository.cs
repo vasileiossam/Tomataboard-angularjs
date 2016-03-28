@@ -128,15 +128,29 @@ namespace Thalia.Services.Quotes
 
     public class QuoteRepository : IQuoteRepository
     {
-        private ThaliaContext _context;
-        private Random _rnd = new Random();
+        private const int MaxWordingLength = 150;
+
+        private readonly ThaliaContext _context;
+        private readonly Random _rnd = new Random();
 
         public QuoteRepository(ThaliaContext context)
         {
             _context = context;
         }
 
-        private List<Quote> GetRandomQuotes(string tags)
+        private List<Quote> GetQuotes(string tags)
+        {
+            var quotes = new List<Quote>();
+            var tagArray = tags.Split(',');
+            foreach (var tag in tagArray)
+            {
+                var q = _context.Quotes.Where(x => x.Tag == tag && (x.Wording.Length <= MaxWordingLength) ).ToList();
+                quotes.AddRange(q);
+            }
+            return quotes;
+        }
+
+        public List<Quote> GetRandomQuotes(string tags)
         {
             var quotes = from quote in GetQuotes(tags)
                          select new { Quote = quote, Rnd = _rnd.Next() };
@@ -147,21 +161,9 @@ namespace Thalia.Services.Quotes
             return randomQuotes;
         }
 
-        private List<Quote> GetQuotes(string tags)
-        {
-            var quotes = new List<Quote>();
-            var tagArray = tags.Split(',');
-            foreach(var tag in tagArray)
-            {
-                var q = _context.Quotes.Where(x => x.Tag == tag).ToList();
-                quotes.AddRange(q);
-            }
-            return quotes;
-        }
-
         public Quote GetQuoteOfTheDay()
         {
-            var quote = GetRandomQuotes("inspirational,intelligence,motivational").FirstOrDefault();
+            var quote = GetRandomQuotes("inspirational,motivational").FirstOrDefault();
              return quote;
         }
     }

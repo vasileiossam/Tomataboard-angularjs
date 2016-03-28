@@ -77,9 +77,9 @@ namespace Thalia.Services.Photos.Flickr
         public string GetPhotoUrl()
         {
             // https://www.flickr.com/services/api/misc.urls.html
+            if (!string.IsNullOrEmpty(UrlK)) return UrlK;
             if (!string.IsNullOrEmpty(UrlH)) return UrlH;
-            if (!string.IsNullOrEmpty(UrlL)) return UrlL;
-            return UrlK;
+            return UrlL;
         }
 
         public string GetAuthorUrl()

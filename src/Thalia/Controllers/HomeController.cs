@@ -22,16 +22,16 @@ namespace Thalia.Controllers
         private ILogger<YahooWeatherService> _yahooLogger;
 
         public HomeController(ILogger<HomeController> logger, ThaliaContext context, 
-            ILocationProvider locationProvider,
+        //    ILocationProvider locationProvider,
             IPhotoProvider photoProvider,
-            IWeatherProvider weatherProvider,
+        //    IWeatherProvider weatherProvider,
             ILogger<YahooWeatherService> yahooLogger)
         {
             _logger = logger;
             _context = context;
-            _locationProvider = locationProvider;
+         //   _locationProvider = locationProvider;
             _photoProvider = photoProvider;
-            _weatherProvider = weatherProvider;
+          //  _weatherProvider = weatherProvider;
             _yahooLogger = yahooLogger;
         }
         

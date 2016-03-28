@@ -49,7 +49,6 @@ body {
 }
 
 .photo-background{
-    background: url('/images/keeper.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -83,16 +82,53 @@ body {
  
 }
 
-#bottom-left:hover #bottom-left, #bottom-left.focus {
- 
-}
-
 #bottom-center {
-    
+    height: 100px;
+    display: flex;
+    justify-content:center;
+    align-items: center;     
 }
 
 #bottom-right {
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+}
 
+/*http://stackoverflow.com/questions/8865458/how-to-align-text-vertically-center-in-div-with-css*/
+#bottom-left {
+    height: 100px;
+    display: flex;
+    justify-content:flex-start; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+.hover-container {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    -webkit-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+}
+
+.hover-item  a {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.80);
+    text-decoration: none;
+}
+
+.hover-container:hover .hover-item a {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 .main-color, .main-color:hover, .main-color:focus {
@@ -100,21 +136,14 @@ body {
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
 }
-
-.shadow {
-    -webkit-transition: text-shadow .3s ease;
-    -moz-transition: text-shadow .3s ease;
-    -ms-transition: text-shadow .3s ease;
-    -o-transition: text-shadow .3s ease;
-    transition: text-shadow .3s ease;
+.main-color:hover, .main-color:focus {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
 }
 
 #photo  {
    font-size: 1em;
-}
-
-#weather {
-  
 }
 
 #weather-icon {
@@ -139,4 +168,13 @@ body {
 
 #quote {
     font-size: 2em;
+}
+
+/* overwriting bootstrap */
+.popover {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.popover > .arrow {
+    display: none;
 }

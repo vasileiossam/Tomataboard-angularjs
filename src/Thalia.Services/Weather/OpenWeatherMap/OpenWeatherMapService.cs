@@ -75,7 +75,7 @@ namespace Thalia.Services.Weather.OpenWeatherMap
 
                         if (weatherDto.Code == 200)
                         {
-                            return GetResult(content);
+                            return GetResult(content, location);
                         }
 
                         _logger.LogError($"{GetType().Name}: Cannot get weather for '{parameters}'. Code: {weatherDto.Code}, Message: {weatherDto.Message}");
@@ -92,7 +92,7 @@ namespace Thalia.Services.Weather.OpenWeatherMap
             return null;
         }
 
-        private WeatherConditions GetResult(string json)
+        private WeatherConditions GetResult(string json, Location location)
         {
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
             if (weatherDto == null) return null;
@@ -103,7 +103,10 @@ namespace Thalia.Services.Weather.OpenWeatherMap
                 Description = weatherDto.Description,
                 TemperatureC = (int)Math.Ceiling(TemperatureConverter.KelvinToCelsius(weatherDto.Main.Temperature)),
                 TemperatureF = (int)Math.Ceiling(TemperatureConverter.KelvinToFahrenheit(weatherDto.Main.Temperature)),
-                Icon = Icons.GetCssClass(weatherDto.IconCode)
+                Icon = Icons.GetCssClass(weatherDto.IconCode),
+                Location = location.City,
+                Service = "OpenWeatherMap",
+                ServiceUrl = "http://openweathermap.org/"
             };
             return weatherConditions;
         }

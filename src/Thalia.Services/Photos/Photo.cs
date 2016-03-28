@@ -21,5 +21,6 @@ namespace Thalia.Services.Photos
         public double Rating { get; set; }
         public int Views { get; set; }
         public string Url { get; set; }
+        public string Service { get; set; }
     }
 }

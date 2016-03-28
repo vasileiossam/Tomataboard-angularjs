@@ -24,7 +24,7 @@ namespace Thalia.Services.Weather
             IYahooWeatherService yahooWeatherService)
             : base(logger, cacheRepository)
         {
-            var location = locationProvider.Execute();
+            var location = locationProvider.Execute().Result;
             if (location == null) throw new Exception("Cannot determine location");
 
             _serializedLocation = JsonConvert.SerializeObject(location);

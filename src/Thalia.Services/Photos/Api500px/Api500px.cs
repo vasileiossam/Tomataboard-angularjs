@@ -164,6 +164,9 @@ namespace Thalia.Services.Photos.Api500px
             var photos = new List<Photo>();
             foreach (var item in photosResponse.Photos)
             {
+                var url = item.GetPhotoUrl();
+                if (string.IsNullOrEmpty(url)) continue;
+
                 var photo = new Photo()
                 {
                     Id = item.Id.ToString(),
@@ -181,7 +184,9 @@ namespace Thalia.Services.Photos.Api500px
                     Likes = item.Likes,
                     Rating = item.Rating,
                     Views = item.TimesViewed,
-                    Url = item.GetPhotoUrl(),
+                    Url = url,
+                    AuthorUrl = item.GetAuthorUrl(),
+                    Service = "500px"
                 };
                 photos.Add(photo);
             }
