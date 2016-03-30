@@ -167,15 +167,13 @@ body {
 }
 
 #name {
-    margin-top: 50px;
-    font-size: 3em;
 }
-#name input {
-    font-size: 1em;    
-    background-color:rgba(0,0,0,0) !important;
-    /*background-color:transparent !important;*/
-    border:none !important;
-    height: 100px;
+
+#name:hover {
+    border: 2px solid #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    color: #ffffff;
+    padding: 10px;
 }
 
 #quote {

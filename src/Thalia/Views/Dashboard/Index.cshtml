@@ -35,7 +35,7 @@
                 <div>
                     <a href="#">LEFT</a>
                 </div>
-            </div>
+            </div> 
             <div id="top-center" class="col-sm-8 text-center">
                 <div>
                     <a href="#">CENTER</a>
@@ -57,11 +57,7 @@
                         <a href="#">{{vm.time | date: 'HH:mm'}}</a>
                     </div>
                     <div id="greeting" class="hover-item">
-                        <a href="#">{{vm.dashboard.greeting}},e Pav Legoman</a>
-                        
-                    </div>
-                    <div id="name">
-                        <input value="adfasd"/>
+                        {{vm.dashboard.greeting}}, <span id="name" contenteditable ng-model="vm.name" defaultname="{{vm.defaultname}}" spellcheck="false"></span>
                     </div>
                 </div>
             </div>

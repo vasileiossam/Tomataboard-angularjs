@@ -34,12 +34,19 @@ $(function () {
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 
-    function dashboardController($cookies, $http, $interval) {
+    function dashboardController($scope, $cookies, $http, $interval) {
         var vm = this;
     
         vm.dashboard = $cookies.getObject("dashboard");
+        vm.defaultname = "young grasshopper";
+        vm.name = vm.defaultname;
+        $scope.$watch('vm.name', function(newValue, oldValue) {
+            if (!newValue.trim()) {
+                // vm.name = vm.defaultname;
+            }
+        }, true);
 
-        if (vm.dashboard) {
+        if (!vm.dashboard) {
            
             var offsetMins = new Date().getTimezoneOffset();
             var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
