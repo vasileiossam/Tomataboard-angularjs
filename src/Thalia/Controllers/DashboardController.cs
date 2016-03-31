@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
@@ -42,20 +40,20 @@ namespace Thalia.Controllers
         [HttpGet("api/dashboard/{milliseconds}")]
         public async Task<JsonResult> Get(long milliseconds)
         {
-            var rnd = new Random();
             var weather = await _weatherProvider.Execute();
             var photos = await _photoProvider.Execute("Lego");
            
-            var dashboardDto = new DashboardDto()
+            var dashboardDto = new DashboardDto
             {
+                Name = "Young Grasshopper",
+                DefaultName = "Young Grasshopper",
+                Photos = photos.Take(4).ToArray(),
+                Quotes = _quoteRepository.GetRandomQuotes("inspirational,motivational").Take(4).ToArray(),
+                Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather,
-                Photos = photos.Take(10).ToArray(),
-                Quotes = _quoteRepository.GetRandomQuotes("inspirational,motivational").Take(10).ToArray(),
-                Greeting = _greetingsService.GetGreeting(milliseconds)
+                Question = "What is my main main focus for today?",
+                DefaultQuestion = "What is my main main focus for today?"
             };
-            dashboardDto.PhotoIndex = rnd.Next(dashboardDto.Photos.Length - 1);
-            dashboardDto.QuoteIndex = rnd.Next(dashboardDto.Quotes.Length - 1);
-
             return Json(dashboardDto);
         }
     }

@@ -10,6 +10,7 @@
 
     <environment names="Development">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet" type="text/css">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" />
@@ -57,7 +58,15 @@
                         <a href="#">{{vm.time | date: 'HH:mm'}}</a>
                     </div>
                     <div id="greeting" class="hover-item">
-                        {{vm.dashboard.greeting}}, <span id="name" contenteditable ng-model="vm.name" defaultname="{{vm.defaultname}}" spellcheck="false"></span>
+                        {{vm.dashboard.greeting}}, <span id="name" contenteditable ng-model="vm.dashboard.name" defaultvalue="{{vm.dashboard.defaultName}}" spellcheck="false"></span>
+                    </div>
+                    <div id="focus" class="hover-item">
+                        <div>
+                            <span id="question" contenteditable ng-model="vm.dashboard.question" defaultvalue="{{vm.dashboard.defaultQuestion}}" spellcheck="false"></span>
+                        </div>
+                        <div id="answerContainer">
+                            <span id="answer" contenteditable ng-model="vm.dashboard.answer" defaultvalue="" spellcheck="false"></span>
+                        </div>
                     </div>
                 </div>
             </div>

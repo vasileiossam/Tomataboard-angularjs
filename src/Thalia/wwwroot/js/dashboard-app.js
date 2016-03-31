@@ -27,7 +27,7 @@
                element.bind("blur", function () {
                    var value = ngModel.$viewValue.trim();
                    if (!value) {
-                       value = attrs.defaultname;
+                       value = attrs.defaultvalue;
                        ngModel.$setViewValue(value);
                        ngModel.$render();
                    }

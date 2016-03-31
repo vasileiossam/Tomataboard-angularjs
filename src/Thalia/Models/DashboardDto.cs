@@ -7,12 +7,12 @@ namespace Thalia.Models
     public class DashboardDto
     {
         public string Name { get; set; }
-        public string City { get; set; }
+        public string DefaultName { get; set; }
         public Photo[] Photos { get; set; }
-        public int PhotoIndex { get; set; }
         public Quote[] Quotes { get; set; }
-        public int QuoteIndex { get; set; }
         public string Greeting { get; set; }
         public WeatherConditions Weather { get; set; }
+        public string Question { get; set; }
+        public string DefaultQuestion { get; set; }
     }
 }

@@ -28,7 +28,6 @@ $(function () {
 });
 
 (function () {
-
     "use strict";
 
     angular.module("dashboard-app")
@@ -36,56 +35,71 @@ $(function () {
 
     function dashboardController($scope, $cookies, $http, $interval) {
         var vm = this;
-    
         vm.dashboard = $cookies.getObject("dashboard");
-        vm.defaultname = "young grasshopper";
-        vm.name = vm.defaultname;
-        $scope.$watch('vm.name', function(newValue, oldValue) {
-            if (!newValue.trim()) {
-                // vm.name = vm.defaultname;
-            }
+
+        $scope.$watch("[vm.dashboard.name,vm.dashboard.question,vm.dashboard.answer]", function () {
+            vm.save();
         }, true);
 
         if (!vm.dashboard) {
-           
             var offsetMins = new Date().getTimezoneOffset();
             var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
-        
+
             // get a default dashboard
             $http.get("/api/dashboard/" + localMilliseconds)
                 .then(
-                function (response) {
-                   
-                    // on sucess
-                    vm.dashboard = response.data;
-                    vm.dashboard.quote = vm.dashboard.quotes[vm.dashboard.quoteIndex];
-                    vm.dashboard.photo = vm.dashboard.photos[vm.dashboard.photoIndex];
+                    function(response) {
+                        // on sucess
+                        vm.dashboard = response.data;
+                        vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
+                        vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
 
-                    // truncate photo names                    
-                    for (var i = 0; i < vm.dashboard.photos.length; i++) {
-                        var name = vm.dashboard.photos[i].name;
-                        vm.dashboard.photos[i].shortName = name;
-                        if (name.length > 20) {
-                            vm.dashboard.photos[i].shortName = name.replace(/^(.{20}[^\s]*).*/, "$1");
-                            if (vm.dashboard.photos[i].shortName.length < (name.length + 3)) {
-                                vm.dashboard.photos[i].shortName = vm.dashboard.photos[i].shortName + "...";
+                        // truncate photo names                    
+                        for (var i = 0; i < vm.dashboard.photos.length; i++) {
+                            var name = vm.dashboard.photos[i].name;
+                            vm.dashboard.photos[i].shortName = name;
+                            if (name.length > 20) {
+                                vm.dashboard.photos[i].shortName = name.replace(/^(.{20}[^\s]*).*/, "$1");
+                                if (vm.dashboard.photos[i].shortName.length < (name.length + 3)) {
+                                    vm.dashboard.photos[i].shortName = vm.dashboard.photos[i].shortName + "...";
+                                }
                             }
                         }
-                    }
-                  
-                    var tick = function () {
-                        vm.time = Date.now();
-                    }
-                    tick();
-                    $interval(tick, 60*1000);
-                },
-                function (error) {
-                    // on failure
-                   
-                    vm.errorMessage = "Failed to load data: " + error;
-                });
+
+                        vm.save();
+                    },
+                    function(error) {
+                        // on failure
+                        vm.errorMessage = "Failed to load data: " + error;
+                    });
+        } else {
+            vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
+            vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
+        }
+
+        // save dashboard to cookie
+        vm.save = function () {
+
+            // expires in one year
+            var now = new Date(),
+            expireDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+            $cookies.putObject("dashboard", vm.dashboard, {expires: expireDate});
         };
+
+        vm.updateTime = function() {
+            var tick = function() {
+                vm.time = Date.now();
+            }
+            tick();
+            $interval(tick, 60 * 1000);
+        };
+
+        vm.updateTime();
     }
 
-    
+    function getRandomElement(arr) {
+        var index = Math.floor(Math.random() * ((arr.length - 1) - 0 + 1)) + 0;
+        return arr[index];
+    }
+   
 })();

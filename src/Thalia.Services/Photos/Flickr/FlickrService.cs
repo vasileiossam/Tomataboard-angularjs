@@ -106,10 +106,9 @@ namespace Thalia.Services.Photos.Flickr
                 
                 var photo = new Photo()
                 {
-                       
-                    Id = item.Id,
-                    Name = item.Title,
-                    Created = item.DateUpload.GetDateTimeFromUnixString(),
+                    //Id = item.Id,
+                    Name = item.Title.LimitTo(PhotoConstants.MaxNameLength),
+                    //Created = item.DateUpload.GetDateTimeFromUnixString(),
                     AuthorName = item.AuthorName,
                     //Location = item.Location,
                     //Latitude = item.Latitude,
