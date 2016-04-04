@@ -51,8 +51,8 @@ namespace Thalia.Controllers
                 Quotes = _quoteRepository.GetRandomQuotes("inspirational,motivational").Take(4).ToArray(),
                 Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather,
-                Question = "What is my main main focus for today?",
-                DefaultQuestion = "What is my main main focus for today?"
+                Question = "What is your goal for today?",
+                DefaultQuestion = "What is your goal for today?"
             };
             return Json(dashboardDto);
         }

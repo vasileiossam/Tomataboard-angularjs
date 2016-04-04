@@ -1,4 +1,13 @@
 $(function () {
+    $(function ($) {
+        $(".editable").focusout(function () {
+            var element = $(this);
+            if (!element.text().replace(" ", "").length) {
+                element.empty();
+            }
+        });
+    });
+
     $("#quote a").popover({
         html: "true",
         placement: "top",
@@ -36,7 +45,7 @@ $(function () {
     function dashboardController($scope, $cookies, $http, $interval) {
         var vm = this;
         vm.dashboard = $cookies.getObject("dashboard");
-
+        
         $scope.$watch("[vm.dashboard.name,vm.dashboard.question,vm.dashboard.answer]", function () {
             vm.save();
         }, true);

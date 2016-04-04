@@ -34,17 +34,17 @@
         <div class="row">
             <div id="top-left" class="col-sm-2">
                 <div>
-                    <a href="#">LEFT</a>
+                    <a href="#"></a>
                 </div>
             </div> 
             <div id="top-center" class="col-sm-8 text-center">
                 <div>
-                    <a href="#">CENTER</a>
+                    <a href="#"></a>
                 </div>
             </div>
             <div id="top-right" class="col-sm-2 text-right">
                 <div>
-                    <a href="#">RIGHT</a>
+                    <a href="#"></a>
                 </div>
             </div>
         </div>
@@ -58,14 +58,14 @@
                         <a href="#">{{vm.time | date: 'HH:mm'}}</a>
                     </div>
                     <div id="greeting" class="hover-item">
-                        {{vm.dashboard.greeting}}, <span id="name" contenteditable ng-model="vm.dashboard.name" defaultvalue="{{vm.dashboard.defaultName}}" spellcheck="false"></span>
+                        {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.dashboard.name" defaultvalue="{{vm.dashboard.defaultName}}" spellcheck="false"></span>
                     </div>
                     <div id="focus" class="hover-item">
                         <div>
-                            <span id="question" contenteditable ng-model="vm.dashboard.question" defaultvalue="{{vm.dashboard.defaultQuestion}}" spellcheck="false"></span>
+                           <span class="editable" contenteditable ng-model="vm.dashboard.question" defaultvalue="{{vm.dashboard.defaultQuestion}}" spellcheck="false"></span>
                         </div>
-                        <div id="answerContainer">
-                            <span id="answer" contenteditable ng-model="vm.dashboard.answer" defaultvalue="" spellcheck="false"></span>
+                        <div id="answer">
+                            <span class="editable" contenteditable ng-model="vm.dashboard.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
                         </div>
                     </div>
                 </div>

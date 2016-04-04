@@ -177,23 +177,43 @@ body {
     font-size: 2.5em;      
 }
 
-#answerContainer {
-    padding: 25px;
-    width: 200px;
-}
-
-#name, #question, #answer {
+.editable {
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0);
     padding: 10px;
 }
 
-#name:hover, #question:hover, #answer:hover {
+.editable:hover {
+    padding: 10px;
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0.85);
-    padding: 10px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+
+.editable:focus {
     color: #ffffff;
+    background-color: #000000;
     background-color: rgba(0, 0, 0, 0.4);
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+    -ms-transition: background-color 1s;
+    -o-transition: background-color 1s;
+    transition: background-color 1s;
+}
+
+.editable[placeholder]:empty:before {
+
+    padding: 10px;
+    content: attr(placeholder);
+    margin: 0;
+}
+
+#answer {
+    margin-top: 25px;
 }
 
 #quote {
@@ -210,3 +230,4 @@ body {
 .popover > .arrow {
     display: none;
 }
+

@@ -12,7 +12,6 @@
                    var html = element.html();
                    html = html.replace(/&nbsp;/g, "\u00a0");
                    ngModel.$setViewValue(html);
-                   
                }
 
                ngModel.$render = function () {
@@ -39,6 +38,7 @@
                    // http://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
                    var key = typeof event.which === "undefined" ? event.keyCode : event.which;
                    if (key === 13) {
+                       element.blur();
                        event.preventDefault();
                    }
                });
