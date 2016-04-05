@@ -41,7 +41,7 @@ namespace Thalia.Controllers
         public async Task<JsonResult> Get(long milliseconds)
         {
             var weather = await _weatherProvider.Execute();
-            var photos = await _photoProvider.Execute("Lego");
+            var photos = await _photoProvider.Execute("landscape");
            
             var dashboardDto = new DashboardDto
             {

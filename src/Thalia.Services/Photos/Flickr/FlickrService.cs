@@ -59,6 +59,8 @@ namespace Thalia.Services.Photos.Flickr
                     {"media", "photos"},
                     //{"min_upload_date", new DateTime(2013, 1, 1).GetUnixTimestamp().ToString()},
                     {"tags", parameters},
+                    {"tag_mode", "any"},
+                    {"safe_search", "1"}, // 1 = safe
                     {"extras", "date_upload,owner_name,geo,o_dims,views,url_l,url_h,url_k" }
                 };
                 var queryString = string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));

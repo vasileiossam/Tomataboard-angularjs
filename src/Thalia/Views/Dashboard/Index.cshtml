@@ -24,11 +24,9 @@
     </environment>
 </head>
 
-<body ng-app="dashboard-app" ng-controller="dashboardController as vm" 
-      ng-style="{'background': '#000000 url(' + vm.dashboard.photo.url + ') no-repeat center center fixed'}" 
-      class="photo-background">
+<body ng-app="dashboard-app" ng-controller="dashboardController as vm">
 
-@*<div id="photo-background" class="container-fluid">dfghdfhdfhdfghdf</div>*@
+    <div ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}" class="photo-background"></div>
     
     <header id="header" class="container-fluid navbar-fixed-top ">
         <div class="row">
