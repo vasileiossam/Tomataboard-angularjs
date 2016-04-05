@@ -34,12 +34,15 @@ namespace Thalia.Services
             return default(T);                
         }
 
-        public async Task<T> Execute(string parameters)
+        public async Task<T> Execute(string parameters, bool canCache)
         {
-            var resultObj = GetFromCache(parameters);
-            if (resultObj != null)
+            if (canCache)
             {
-                return resultObj;
+                var cached = GetFromCache(parameters);
+                if (cached != null)
+                {
+                    return cached;
+                }
             }
 
             // iterate and execute until we get a result from any operation
@@ -53,7 +56,7 @@ namespace Thalia.Services
                     continue;
                 }
 
-                resultObj = await operation.Execute(parameters);
+                var resultObj = await operation.Execute(parameters);
                 if (resultObj != null)
                 {
                     var json = JsonConvert.SerializeObject(resultObj);

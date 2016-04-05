@@ -41,7 +41,7 @@ namespace Thalia.Services.Locations
                 ip = "175.34.25.23";
             }
 #endif
-            return await Execute(ip);
+            return await Execute(ip, true);
         }
     }
 }

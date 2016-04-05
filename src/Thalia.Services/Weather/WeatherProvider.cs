@@ -40,7 +40,7 @@ namespace Thalia.Services.Weather
         /// <returns>Returns the current weather conditions</returns>
         public async Task<WeatherConditions> Execute()
         {
-            return await Execute(_serializedLocation);
+            return await Execute(_serializedLocation, true);
         }
     }
 }
