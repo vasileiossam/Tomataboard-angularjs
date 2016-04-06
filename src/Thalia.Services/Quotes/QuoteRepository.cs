@@ -138,7 +138,7 @@ namespace Thalia.Services.Quotes
             _context = context;
         }
 
-        private List<Quote> GetQuotes(string tags)
+        public List<Quote> GetQuotes(string tags)
         {
             var quotes = new List<Quote>();
             var tagArray = tags.Split(',');
@@ -150,6 +150,7 @@ namespace Thalia.Services.Quotes
             return quotes;
         }
 
+        [Obsolete("Use the Shuffle() extension method instead")]
         public List<Quote> GetRandomQuotes(string tags)
         {
             var quotes = from quote in GetQuotes(tags)

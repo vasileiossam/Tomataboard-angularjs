@@ -8,6 +8,7 @@ using Thalia.Services.Greetings;
 using Thalia.Services.Photos;
 using Thalia.Services.Quotes;
 using Thalia.Services.Weather;
+using Thalia.Services.Extensions;
 
 namespace Thalia.Controllers
 {
@@ -43,23 +44,23 @@ namespace Thalia.Controllers
         /// </summary>
         /// <param name="milliseconds"></param>
         /// <param name="tags"></param>
-        /// <param name="canCache"></param>
+        /// <param name="readCache"></param>
         /// <returns></returns>
         [HttpGet("api/dashboard")]
         [HttpGet("api/dashboard/{milliseconds}")]
-        public async Task<JsonResult> Get(long milliseconds, string tags, bool? canCache)
+        public async Task<JsonResult> Get(long milliseconds, string tags, bool? readCache)
         {
             var weather = await _weatherProvider.Execute();
             var photos = await _photoProvider.Execute(
-                string.IsNullOrEmpty(tags) ? "landscape" : tags, 
-                canCache ?? true);
+                string.IsNullOrEmpty(tags) ? "landscape" : tags,
+                readCache ?? true);
            
             var dashboardDto = new DashboardDto
             {
                 Name = "Young Grasshopper",
                 DefaultName = "Young Grasshopper",
-                Photos = photos.Take(4).ToArray(),
-                Quotes = _quoteRepository.GetRandomQuotes("inspirational,motivational").Take(4).ToArray(),
+                Photos = photos.Shuffle().Take(4).ToArray(),
+                Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(4).ToArray(),
                 Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather,
                 Question = "What is your goal for today?",

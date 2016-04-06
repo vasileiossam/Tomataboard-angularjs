@@ -6,6 +6,6 @@ namespace Thalia.Services.Quotes
     public interface IQuoteRepository
     {
         Quote GetQuoteOfTheDay();
-        List<Quote> GetRandomQuotes(string tags);
+        List<Quote> GetQuotes(string tags);
     }
 }

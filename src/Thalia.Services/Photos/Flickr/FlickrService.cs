@@ -46,12 +46,10 @@ namespace Thalia.Services.Photos.Flickr
         {
             try
             {
-                // get a random page number
-                var page = 1;
-                var totalPages = await GetTotalPages(parameters);
-                if (totalPages > 0) page = _rnd.Next(1, totalPages);
+                var year = GetRandomYear();
+                var page = GetRandomPageNumber(await GetTotalPages(parameters, year));
+                var queryString = GetQueryString(parameters, page, year);
 
-                var queryString = GetQueryString(parameters, page);
                 using (var client = new HttpClient())
                 {
                     var response = await client.GetAsync(new Uri(ServiceUrl + "?" + queryString, UriKind.Absolute));
@@ -82,37 +80,74 @@ namespace Thalia.Services.Photos.Flickr
         }
 
         #region private
-        private string GetQueryString(string tags, int page)
+
+        private int GetRandomYear()
+        {
+            return _rnd.Next(2013, DateTime.Now.Year + 1);
+        }
+
+        private int GetRandomPageNumber(int totalPages)
+        {
+            if (totalPages == 0) return 1;
+            
+            // to compensate for the 4000 results limit which is actually 2000 (per_page = 100)
+            if (totalPages > 20) totalPages = 20;
+
+            return _rnd.Next(1, totalPages + 1);
+        }
+
+        /// <summary>
+        /// https://www.flickr.com/services/api/flickr.photos.search.html
+        /// https://www.flickr.com/services/api/explore/flickr.photos.search
+        /// 
+        /// from the documentation page: flickr.photos.search will return at most the first 4,000 results 
+        ///                              for any given search query. If this is an issue, we recommend 
+        ///                              trying a more specific query. 
+        ///
+        /// This method is very buggy. The limit is not 4000 but 2000 results. 
+        /// Pages after the limit can bring results from Page 1 or return empty.
+        /// Also, pages in the range 1 - 20 might returned empty in successive calls.
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <param name="page"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private string GetQueryString(string tags, int page, int year)
         {
             var queryParams = new Dictionary<string, string>
             {
-                    {"method", "flickr.photos.search"},
-                    {"api_key", _keys.Value.ConsumerKey},
-                    {"format", "json" },
-                    {"nojsoncallback", "1" },
-                    // The order in which to sort returned photos. Deafults to date-posted-desc 
-                    // (unless you are doing a radial geo query, in which case the default sorting is 
-                    // by ascending distance from the point specified). 
-                    // The possible values are: date-posted-asc, date-posted-desc, date-taken-asc, 
-                    // date-taken-desc, interestingness-desc, interestingness-asc, and relevance.
-                    {"sort", "interestingness-desc"},
-                    {"content_type", "1"}, // 1 = photos only
-                    {"media", "photos"},
-                    //{"min_upload_date", new DateTime(2013, 1, 1).GetUnixTimestamp().ToString()},
-                    {"tags", tags},
-                    {"tag_mode", "any"},
-                    {"safe_search", "1"}, // 1 = safe
-                    {"extras", "date_upload,owner_name,geo,o_dims,views,url_l,url_h,url_k" },
-                    {"page", page.ToString()},
-                    {"per_page", "100"},
+                    // no OAuth authentication is required for this method.
+                    { "method", "flickr.photos.search" },
+                    { "api_key", _keys.Value.ConsumerKey },
+
+                    { "format", "json" },
+                    { "nojsoncallback", "1" },
+                    { "content_type", "1" }, // 1 = photos only
+                    { "media", "photos" },
+                    { "safe_search", "1" }, // 1 = safe
+                    { "extras", "date_upload,owner_name,geo,o_dims,views,url_l,url_h,url_k" },
+                    
+                    // possible values are: date-posted-asc, date-posted-desc, date-taken-asc, date-taken-desc, interestingness-desc, interestingness-asc, and relevance.
+                    { "sort", "interestingness-desc" },
+                    
+                    // use the upload date to build a more specific query
+                    //{ "min_upload_date", new DateTime(year, 1, 1).GetUnixTimestamp().ToString() },
+                    //{ "max_upload_date", new DateTime(year, 12, 31).GetUnixTimestamp().ToString() },
+                    { "min_upload_date", new DateTime(year, 1, 1).ToString("yyyy-MM-dd")},
+                    { "max_upload_date", new DateTime(year, 12, 31).ToString("yyyy-MM-dd")},
+                    
+                    { "tags", tags },
+                    { "tag_mode", "any" },
+                    { "page", page.ToString() },
+                    { "per_page", "100" }
                 };
 
             return string.Join("&", queryParams.Select(key => key.Key + "=" + Uri.EscapeDataString(key.Value)));
         }
 
-        private async Task<int> GetTotalPages(string tags)
+        private async Task<int> GetTotalPages(string tags, int year)
         {
-            var queryString = GetQueryString(tags, 1);
+            var queryString = GetQueryString(tags, 1, year);
 
             using (var client = new HttpClient())
             {
@@ -165,7 +200,8 @@ namespace Thalia.Services.Photos.Flickr
 
                 photos.Add(photo);
             }
-            return photos;
+
+            return photos.Count == 0 ? null : photos;
         }
         #endregion
     }

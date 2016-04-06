@@ -72,7 +72,7 @@ namespace Thalia.Services
             // todo WRITE something for the alert manager to send the email immediately
             // all operations failed, alert the admin
 
-            // fall back to any expired cached item
+            // fall back to any cached item even if its expired
             var cachedExpired = GetFromCache(parameters, true);
             return cachedExpired;
         }

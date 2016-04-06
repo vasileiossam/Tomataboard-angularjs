@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Thalia.Services.Cache;
 using Thalia.Services.Photos.Api500px;
