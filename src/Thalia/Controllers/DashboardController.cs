@@ -38,10 +38,12 @@ namespace Thalia.Controllers
         }
 
         [HttpGet("api/dashboard/{milliseconds}")]
-        public async Task<JsonResult> Get(long milliseconds)
+        public async Task<JsonResult> Get(long milliseconds, string tags, bool? canCache)
         {
             var weather = await _weatherProvider.Execute();
-            var photos = await _photoProvider.Execute("landscape", true);
+            var photos = await _photoProvider.Execute(
+                string.IsNullOrEmpty(tags) ? "landscape" : tags, 
+                canCache ?? true);
            
             var dashboardDto = new DashboardDto
             {
@@ -54,6 +56,7 @@ namespace Thalia.Controllers
                 Question = "What is your goal for today?",
                 DefaultQuestion = "What is your goal for today?"
             };
+
             return Json(dashboardDto);
         }
     }
