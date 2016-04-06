@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,14 @@ namespace Thalia.Controllers
             return View();
         }
 
+        /// <summary>
+        /// http://damienbod.com/2014/08/22/web-api-2-exploring-parameter-binding/
+        /// </summary>
+        /// <param name="milliseconds"></param>
+        /// <param name="tags"></param>
+        /// <param name="canCache"></param>
+        /// <returns></returns>
+        [HttpGet("api/dashboard")]
         [HttpGet("api/dashboard/{milliseconds}")]
         public async Task<JsonResult> Get(long milliseconds, string tags, bool? canCache)
         {
@@ -59,5 +68,9 @@ namespace Thalia.Controllers
 
             return Json(dashboardDto);
         }
+    }
+
+    public class FromUriAttribute : Attribute
+    {
     }
 }

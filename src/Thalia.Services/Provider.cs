@@ -19,9 +19,9 @@ namespace Thalia.Services
             _cacheRepository = cacheRepository;
         }
 
-        private T GetFromCache(string parameters)
+        private T GetFromCache(string parameters, bool expired = false)
         {
-            var item = _cacheRepository.Find(GetType().Name, parameters);
+            var item = _cacheRepository.Find(GetType().Name, parameters, expired);
             if (item == null) return null;
 
             foreach (var operation in _operations)
@@ -38,6 +38,7 @@ namespace Thalia.Services
         {
             if (canCache)
             {
+                // get the most recent non expired item from cache
                 var cached = GetFromCache(parameters);
                 if (cached != null)
                 {
@@ -67,11 +68,13 @@ namespace Thalia.Services
                 // add in cache even if its errored because it has to count in the service's quota
                 _cacheRepository.Add(GetType().Name, operation, parameters, string.Empty, true);
             }
-            
+
             // todo WRITE something for the alert manager to send the email immediately
             // all operations failed, alert the admin
-            
-            return default(T);
+
+            // fall back to any expired cached item
+            var cachedExpired = GetFromCache(parameters, true);
+            return cachedExpired;
         }
 
         public bool CheckQuota(IServiceOperation<T> operation)

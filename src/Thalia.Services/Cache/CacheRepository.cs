@@ -37,18 +37,31 @@ namespace Thalia.Services.Cache
             _context.SaveChanges();
         }
 
-        public Data.Entities.Cache Find(string service, string parameters) 
+        public Data.Entities.Cache Find(string service, string parameters, bool expired)
         {
-            // todo error handling, loging
+            Data.Entities.Cache item;
 
-            var cacheItem = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
+            // todo error handling, loging
+            
+            // the most recent non errored item in cache will do regardless if its actually expired or not
+            if (expired)
+            {
+                item = _context.Cache.OrderByDescending(x => x.Created).FirstOrDefault(x =>
+                          (x.Service == service) &&
+                          (x.HasErrored == false) &&
+                          (x.Params == parameters)
+                    );
+                return item;
+            }
+            
+            // return the most recent non errored, non expired item
+            item = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
                     ((x.Expires == null) || (x.Expires > DateTime.Now)) &&
                     (x.Service == service) && 
                     (x.HasErrored == false) &&
                     (x.Params == parameters)
                 );
-
-            return cacheItem;
+            return item;
         }
 
         // todo 
