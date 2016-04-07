@@ -56,14 +56,15 @@
                         <a href="#">{{vm.time | date: 'HH:mm'}}</a>
                     </div>
                     <div id="greeting" class="hover-item">
-                        {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.dashboard.name" defaultvalue="{{vm.dashboard.defaultName}}" spellcheck="false"></span>
+                        {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.settings.name" 
+                                                         defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></span>
                     </div>
                     <div id="focus" class="hover-item">
                         <div>
-                           <span class="editable" contenteditable ng-model="vm.dashboard.question" defaultvalue="{{vm.dashboard.defaultQuestion}}" spellcheck="false"></span>
+                           <span class="editable" contenteditable ng-model="vm.settings.question" defaultvalue="{{vm.settings.defaultQuestion}}" spellcheck="false"></span>
                         </div>
                         <div id="answer">
-                            <span class="editable" contenteditable ng-model="vm.dashboard.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
+                            <span class="editable" contenteditable ng-model="vm.settings.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
                         </div>
                     </div>
                 </div>
@@ -122,7 +123,7 @@
                                 {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
                             </span>
                             <div id="weather-location">
-                                {{vm.dashboard.weather.location}}
+                                {{vm.settings.location}}
                             </div>
                         </a>
                     </div>

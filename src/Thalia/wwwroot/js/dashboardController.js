@@ -44,20 +44,48 @@ $(function () {
 
     function dashboardController($scope, $cookies, $http, $interval) {
         var vm = this;
+
+        // get any data saved in cookies
         vm.dashboard = $cookies.getObject("dashboard");
-        
-        $scope.$watch("[vm.dashboard.name,vm.dashboard.question,vm.dashboard.answer]", function () {
-            vm.save();
+        vm.settings = $cookies.getObject("settings");
+
+        // initialize settings
+        if (!vm.settings) {
+            vm.settings = {};
+            vm.settings.defaultName = "Young Grasshopper";
+            vm.settings.name = vm.settings.defaultName;
+            vm.settings.defaultQuestion = "What is your goal for today?";
+            vm.settings.question = vm.settings.defaultQuestion;
+            vm.settings.location = "";
+        }
+
+        // watch for changes
+        $scope.$watch("[vm.settings.name,vm.settings.question,vm.settings.answer,vm.settings.location]", function () {
+            vm.saveSettings();
         }, true);
 
-        if (!vm.dashboard) {
+        vm.saveDashboard = function () {
+            // expires in 30 mins
+            var expireDate = new Date();
+            expireDate.setTime(expireDate.getTime() + (30 * 60 * 1000));
+            $cookies.putObject("dashboard", vm.dashboard, { expires: expireDate });
+        };
+
+        vm.saveSettings = function () {
+            // never expire (10 years)
+            var now = new Date();
+            var expireDate = new Date(now.getFullYear() + 10, now.getMonth(), now.getDate()); 
+            $cookies.putObject("settings", vm.settings, { expires: expireDate });
+        };
+
+        // gets a dashboard from server
+        vm.getDashboard = function () {
             var offsetMins = new Date().getTimezoneOffset();
             var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
 
-            // get a default dashboard
             $http.get("/api/dashboard/" + localMilliseconds)
                 .then(
-                    function(response) {
+                    function (response) {
                         // on sucess
                         vm.dashboard = response.data;
                         vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
@@ -75,35 +103,34 @@ $(function () {
                             }
                         }
 
-                        vm.save();
+                        vm.settings.location = vm.dashboard.weather.location;
+                        vm.saveDashboard();
                     },
-                    function(error) {
+                    function (error) {
                         // on failure
                         vm.errorMessage = "Failed to load data: " + error;
                     });
-        } else {
-            vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
-            vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
         }
-
-        // save dashboard to cookie
-        vm.save = function () {
-
-            // expires in one year
-            var now = new Date(),
-            expireDate = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
-            $cookies.putObject("dashboard", vm.dashboard, {expires: expireDate});
-        };
 
         vm.updateTime = function() {
             var tick = function() {
                 vm.time = Date.now();
             }
-            tick();
-            $interval(tick, 60 * 1000);
-        };
 
+            tick();
+            $interval(tick, 1 * 60 * 1000);
+        };
         vm.updateTime();
+
+        // setup the interval to refresh the dashboard
+        $interval(vm.getDashboard, 1 * 60 * 1000);
+
+        if (!vm.dashboard) {
+            vm.getDashboard();
+        } else {
+            vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
+            vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
+        }
     }
 
     function getRandomElement(arr) {

@@ -57,14 +57,10 @@ namespace Thalia.Controllers
            
             var dashboardDto = new DashboardDto
             {
-                Name = "Young Grasshopper",
-                DefaultName = "Young Grasshopper",
                 Photos = photos.Shuffle().Take(4).ToArray(),
                 Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(4).ToArray(),
                 Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather,
-                Question = "What is your goal for today?",
-                DefaultQuestion = "What is your goal for today?"
             };
 
             return Json(dashboardDto);
