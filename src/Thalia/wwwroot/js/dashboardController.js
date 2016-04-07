@@ -122,8 +122,8 @@ $(function () {
         };
         vm.updateTime();
 
-        // setup the interval to refresh the dashboard
-        $interval(vm.getDashboard, 1 * 60 * 1000);
+        // setup the interval to refresh the dashboard in 30 mins
+        $interval(vm.getDashboard, 30 * 60 * 1000);
 
         if (!vm.dashboard) {
             vm.getDashboard();
