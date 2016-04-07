@@ -74,18 +74,22 @@ namespace Thalia.Services.Photos.Flickr
         
 
         #region Public Methods
-        public string GetPhotoUrl()
+        public string GetUrl()
         {
             // https://www.flickr.com/services/api/misc.urls.html
             if (!string.IsNullOrEmpty(UrlK)) return UrlK;
-            if (!string.IsNullOrEmpty(UrlH)) return UrlH;
-            return UrlL;
+            return !string.IsNullOrEmpty(UrlH) ? UrlH : UrlL;
         }
 
-        public string GetAuthorUrl()
+        public string GetAuthorProfilePage()
         {
             // https://www.flickr.com/services/api/misc.urls.html
             return $"https://www.flickr.com/people/{Owner}/";
+        }
+
+        public string GetPhotoPage()
+        {
+            return $"https://www.flickr.com/photos/{Owner}/{Id}";
         }
         #endregion
     }

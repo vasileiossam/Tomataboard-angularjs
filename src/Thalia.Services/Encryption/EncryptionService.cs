@@ -54,6 +54,8 @@ namespace Thalia.Services.Encryption
 
         public string Decrypt(string value)
         {
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+
             var vectorBytes = Encoding.ASCII.GetBytes(_keys.Value.Vector);
             var saltBytes = Encoding.ASCII.GetBytes(_keys.Value.Salt);
             var valueBytes = Convert.FromBase64String(value);

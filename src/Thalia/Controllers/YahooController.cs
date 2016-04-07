@@ -35,7 +35,6 @@ namespace Thalia.Controllers
                 var service = _service as YahooWeatherService;
                 if (service != null)
                 {
-                    service.AccessToken = _accessTokensRepository.Find(_service.GetType().Name);
                     return View(await service.Execute(serializedMelbourne));
                 }
             }

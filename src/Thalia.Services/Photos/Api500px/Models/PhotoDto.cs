@@ -75,13 +75,13 @@ namespace Thalia.Services.Photos.Api500px.Models
         public DateTime? Taken { get; set; }
 
         [DataMember(Name = "times_viewed")]
-        public int TimesViewed { get; set; }
+        public int Views { get; set; }
 
         [DataMember(Name = "user")]
         public User User { get; set; }
 
         #region Public Methods
-        public string GetPhotoUrl()
+        public string GetUrl()
         {
             var photo = Images.LastOrDefault();
             if (photo == null) return string.Empty;
@@ -90,9 +90,14 @@ namespace Thalia.Services.Photos.Api500px.Models
             return string.Empty;
         }
 
-        public string GetAuthorUrl()
+        public string GetAuthorProfilePage()
         {
-            return $"https://marketplace.500px.com/photos/{Id}/";
+            return $"https://500px.com/{User.UserName}/";
+        }
+
+        public string GetPhotoPage()
+        {
+            return $"https://500px.com/photo/{Id}/";
         }
         #endregion
     }

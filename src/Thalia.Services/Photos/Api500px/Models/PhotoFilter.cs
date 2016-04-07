@@ -19,7 +19,7 @@ namespace Thalia.Services.Photos.Api500px.Models
             UserId = userId;
         }
 
-        public PhotoFilter(Feature feature, CategoriesDto exclude)
+        public PhotoFilter(Feature feature, Categories exclude)
         {
             Categories = exclude;
             Feature = feature;
@@ -28,7 +28,7 @@ namespace Thalia.Services.Photos.Api500px.Models
         #endregion
         
         #region Public Properties
-        public CategoriesDto Categories { get; set; }
+        public Categories Categories { get; set; }
         public Feature Feature { get; set; }
         public FilterMode FilterMode { get; set; }
         public List<int> Sizes { get; set; }

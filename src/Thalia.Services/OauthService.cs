@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
+using Thalia.Services.AccessTokens;
+// ReSharper disable InconsistentNaming
 
 namespace Thalia.Services
 {
@@ -18,12 +20,11 @@ namespace Thalia.Services
     /// </summary>
     public class OauthService : IOauthService
     {
-        public OauthToken AccessToken { get; set; }
-
         #region Protected Fields
         protected Dictionary<string, string> AuthorizationParameters;
         protected ILogger<OauthService> _logger;
         protected IOptions<OauthKeys> _keys;
+        protected IAccessTokensRepository _accessTokensRepository;
         protected const string OAuthSignatureMethod = "HMAC-SHA1";
         protected const string OAuthVersion = "1.0";
         protected string AccessTokenUrl;
@@ -33,9 +34,10 @@ namespace Thalia.Services
         #endregion
 
         #region Constructors
-        public OauthService(ILogger<OauthService> logger)
+        public OauthService(ILogger<OauthService> logger, IAccessTokensRepository accessTokensRepository)
         {
             _logger = logger;
+            _accessTokensRepository = accessTokensRepository;
         }
         #endregion
 

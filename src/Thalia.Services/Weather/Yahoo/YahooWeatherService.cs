@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Thalia.Services.Extensions;
 using Thalia.Services.Locations;
 using System.Linq;
+using Thalia.Services.AccessTokens;
 
 namespace Thalia.Services.Weather.Yahoo
 {
@@ -26,9 +27,10 @@ namespace Thalia.Services.Weather.Yahoo
 
         #region Constructors
         public YahooWeatherService(
-            ILogger<YahooWeatherService> logger, 
-            IOptions<YahooWeatherServiceKeys> keys)
-            :base(logger)
+            ILogger<YahooWeatherService> logger,
+            IOptions<YahooWeatherServiceKeys> keys,
+            IAccessTokensRepository accessTokensRepository)
+            : base(logger, accessTokensRepository)
         {
             _logger = logger;
             _keys = keys;

@@ -7,6 +7,5 @@ namespace Thalia.Services
         Task<OauthToken> GetRequestToken();
         string GetAuthorizationUrl(OauthToken token);
         Task<OauthToken> GetAccessToken(OauthToken token);
-        OauthToken AccessToken { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace Thalia.Controllers
                 var service = _service as Api500px;
                 if (service != null)
                 {
-                    service.AccessToken = _accessTokensRepository.Find(_service.GetType().Name);
                     var photos = await service.Execute("Greece");
                     return View(photos);
                 }

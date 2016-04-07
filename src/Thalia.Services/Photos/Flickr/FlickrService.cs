@@ -177,25 +177,18 @@ namespace Thalia.Services.Photos.Flickr
             var photos = new List<Photo>();
             foreach (var item in photosResponse.Page.Photos)
             {
-                var url = item.GetPhotoUrl();
+                var url = item.GetUrl();
                 if (string.IsNullOrEmpty(url)) continue;
-                
-                var photo = new Photo()
+                if (item.Views == 0) continue;
+
+                var photo = new Photo
                 {
-                    //Id = item.Id,
+                    Service = "Flickr",
                     Name = item.Title.LimitTo(PhotoConstants.MaxNameLength),
-                    //Created = item.DateUpload.GetDateTimeFromUnixString(),
                     AuthorName = item.AuthorName,
-                    //Location = item.Location,
-                    //Latitude = item.Latitude,
-                    //Longitude = item.Longitude,
-                    //Favorites = item.Favorites,
-                    //Likes = item.Likes,
-                    //Rating = item.Rating,
-                    Views = item.Views,
-                    Url = url,
-                    AuthorUrl = item.GetAuthorUrl(),
-                    Service = "Flickr"
+                    //AuthorProfilePage = item.GetAuthorProfilePage(),
+                    PhotoPage = item.GetPhotoPage(),
+                    Url = url
                 };
 
                 photos.Add(photo);

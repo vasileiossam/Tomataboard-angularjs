@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Thalia.Data.Entities;
+using Thalia.Services.AccessTokens;
 using Thalia.Services.Photos.Api500px.Contracts;
 using Thalia.Services.Photos.Api500px.Models;
 using Thalia.Services.Extensions;
@@ -35,10 +36,17 @@ namespace Thalia.Services.Photos.Api500px
         /// </summary>
         public Quota Quota => new Quota() { Requests = 1000000 / 30, Time = TimeSpan.FromDays(1) };
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
-        
+
+        private OauthToken _accessToken;
+        private OauthToken AccessToken => _accessToken ?? (_accessToken = _accessTokensRepository.Find(GetType().Name));
+        private readonly Random _rnd = new Random();
+
         #region Constructors
-        public Api500px(ILogger<Api500px> logger, IOptions<Api500pxKeys> keys)
-            :base(logger)
+        public Api500px(
+            ILogger<Api500px> logger,
+            IOptions<Api500pxKeys> keys,
+            IAccessTokensRepository accessTokensRepository)
+            : base(logger, accessTokensRepository)
         {
             _logger = logger;
             _keys = keys;
@@ -49,104 +57,69 @@ namespace Thalia.Services.Photos.Api500px
         }
         #endregion
 
-        private static async Task<T> DeserializeContent<T>(string content) where T : Response, new()
-        {
-            var response = JsonConvert.DeserializeObject<T>(content) ?? new T();
-            response.Content = content;
-            return response;
-        }
-
-        private static async Task<T> DeserializeResponse<T>(HttpResponseMessage httpResponse) where T : Response, new()
-        {
-            var content = await httpResponse.Content.ReadAsStringAsync();
-            var response = JsonConvert.DeserializeObject<T>(content) ?? new T();
-
-            response.Content = content;
-            response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
-            response.StatusCode = httpResponse.StatusCode;
-
-            if (!httpResponse.IsSuccessStatusCode)
-            {
-                //   Debug.WriteLine("HttpResponseMessage failed: " + httpResponse + "\r\n -- Content: " + content + ((!string.IsNullOrWhiteSpace(response.Error)) ? "\r\n -- Error: " + response.Error : string.Empty));
-            }
-
-            return response;
-        }
-
         #region Public Methods
 
+        private async Task<int> GetTotalPages(Dictionary<string, string> oauthParams, Dictionary<string, string> queryParams, string url)
+        {
+            AuthorizationParameters = new Dictionary<string, string>(oauthParams);
+            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", queryParams);
+            var json = await GetRequest(url, queryParams);
+            var photosResponse = JsonConvert.DeserializeObject<GetPhotosResponse>(json);
+            return photosResponse?.Photos == null ? 0 : photosResponse.TotalPages;
+        }
+
         /// <summary>
-        /// All subsequent request to any protected resource needs the AccessToken and should be 
-        /// signed using ConsumerKey and the access token's secret code.
+        /// https://github.com/500px/api-documentation/blob/master/endpoints/photo/GET_photos.md
         /// </summary>
-        /// <param name="parameters"></param>
+        /// <param name="category">Case sensitive, separate multiple values with a comma.</param>
         /// <returns></returns>
-        public async Task<GetPhotosResponse> Photos(string parameters)
+        private async Task<List<Photo>> GetPopularPhotos(string category)
         {
             var url = "https://api.500px.com/v1/photos";
 
-            AuthorizationParameters = new Dictionary<string, string>()
+            var oauthParams = new Dictionary<string, string>
             {
-                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-                {OauthParameter.OauthNonce, GetNonce()},
-                {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
-                {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthToken, AccessToken.Token},
-                {OauthParameter.OauthVersion, OAuthVersion}
-            };
-
-            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", parameters);
-            var content = await GetRequest(url, ParseQueryString(parameters));
-            return await DeserializeContent<GetPhotosResponse>(content);
-        }
-
-        public async Task<GetPhotosResponse> Search(string parameters)
-        {
-            AuthorizationParameters = new Dictionary<string, string>()
-            {
-                {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-                {OauthParameter.OauthNonce, GetNonce()},
-                {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
-                {OauthParameter.OauthTimestamp, GetTimeStamp()},
-                {OauthParameter.OauthToken, AccessToken.Token},
-                {OauthParameter.OauthVersion, OAuthVersion}
-            };
-
-            var url = "https://api.500px.com/v1/photos/search";
-
-            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", parameters);
-            var content = await GetRequest(url, ParseQueryString(parameters));
-            return await DeserializeContent<GetPhotosResponse>(content);
-        }
-
-        public async Task<List<Photo>> Execute(string parameters)
-        {
-            // "term=inspire&rpp=30
-            try
-            {
-                AuthorizationParameters = new Dictionary<string, string>()
-                {
                     {OauthParameter.OauthConsumerKey, _keys.Value.ConsumerKey},
-                    {OauthParameter.OauthNonce, GetNonce()},
+                    {OauthParameter.OauthNonce, ""},
                     {OauthParameter.OauthSignatureMethod, OAuthSignatureMethod},
                     {OauthParameter.OauthTimestamp, GetTimeStamp()},
                     {OauthParameter.OauthToken, AccessToken.Token},
                     {OauthParameter.OauthVersion, OAuthVersion}
-                };
+            };
 
-                var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string>
+            {
+                { "feature", "popular"},
+                { "only", category },
+                { "page", "" },
+                { "rpp", "100" },
+                { "image_size", "1080,1600,2048" }
+            };
+
+            oauthParams[OauthParameter.OauthNonce] = GetNonce();
+            queryParams["page"] = "1";
+            var totalPages = await GetTotalPages(oauthParams, queryParams, url);
+
+            oauthParams[OauthParameter.OauthNonce] = GetNonce();
+            queryParams["page"] = GetRandomPageNumber(totalPages).ToString();
+            AuthorizationParameters = oauthParams;
+
+            Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", queryParams);
+            var json = await GetRequest(url, queryParams);
+            return GetResult(json);
+        }
+        
+        public async Task<List<Photo>> Execute(string parameters)
+        {
+            try
+            {
+                if (AccessToken == null)
                 {
-                    {"term", parameters},
-                    {"rpp", "30" }
-                };
+                    throw new Exception("Where is the AccessToken?");
+                }
 
-                var url = "https://api.500px.com/v1/photos/search";
-                Sign(url, _keys.Value.ConsumerSecret, AccessToken.Secret, "GET", queryParams);
-                var content = await GetRequest(url, queryParams);
-                return GetResult(content);
-
-                //_logger.LogError($"{GetType().Name}: Cannot get photos for '{parameters}'. Status code: {response.StatusCode} Content: {content}");
-                //return null;
+                // ignore the parameters for now and always return Landscapes
+                return await GetPopularPhotos("Landscapes");
             }
             catch (Exception ex)
             {
@@ -154,6 +127,12 @@ namespace Thalia.Services.Photos.Api500px
             }
 
             return null;
+        }
+
+        private int GetRandomPageNumber(int totalPages)
+        {
+            if (totalPages == 0) return 1;
+            return _rnd.Next(1, totalPages + 1);
         }
 
         private List<Photo> GetResult(string json)
@@ -164,33 +143,24 @@ namespace Thalia.Services.Photos.Api500px
             var photos = new List<Photo>();
             foreach (var item in photosResponse.Photos)
             {
-                var url = item.GetPhotoUrl();
+                var url = item.GetUrl();
                 if (string.IsNullOrEmpty(url)) continue;
+                if (item.Views == 0) continue;
 
-                var photo = new Photo()
+                var photo = new Photo
                 {
-                    //Id = item.Id.ToString(),
+                    Service = "500px",
                     Name = item.Name.LimitTo(PhotoConstants.MaxNameLength),
-                    //Description = item.Description,
-                    //Created = item.Created,
                     AuthorName = item.User.FullName,
-                    //AuthorCountry = item.User.County,
-                    //AuthorId = item.User.Id,
-                    //AuthorUsername = item.User.UserName,
-                    //Location = item.Location,
-                    //Latitude = item.Latitude,
-                    //Longitude = item.Longitude,
-                    //Favorites = item.Favorites,
-                    //Likes = item.Likes,
-                    //Rating = item.Rating,
-                    Views = item.TimesViewed,
-                    Url = url,
-                    AuthorUrl = item.GetAuthorUrl(),
-                    Service = "500px"
+                    //AuthorProfilePage = item.GetAuthorProfilePage(),
+                    PhotoPage = item.GetPhotoPage(),
+                    Url = url
                 };
+
                 photos.Add(photo);
             }
-            return photos;
+
+            return photos.Count == 0 ? null : photos;
         }
         #endregion
     }

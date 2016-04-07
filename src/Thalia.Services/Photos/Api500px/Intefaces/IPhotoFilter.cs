@@ -6,7 +6,7 @@ namespace Thalia.Services.Photos.Api500px.Intefaces
     public interface IPhotoFilter
     {
         #region Properties
-        CategoriesDto Categories { get; set; }
+        Categories Categories { get; set; }
         Feature Feature { get; set; }
         FilterMode FilterMode { get; set; }
         List<int> Sizes { get; set; }

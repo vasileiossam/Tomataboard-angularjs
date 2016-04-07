@@ -27,7 +27,7 @@ namespace Thalia.Services.Photos.Api500px.Intefaces
         double Rating { get; set; }
         string ShutterSpeed { get; set; }
         DateTime? Taken { get; set; }
-        int TimesViewed { get; set; }
+        int Views { get; set; }
         User User { get; set; }
     }
 }
