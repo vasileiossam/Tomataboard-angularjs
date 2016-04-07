@@ -36,9 +36,14 @@ namespace Thalia.Services.Locations
         {
             var ip = _httpContextAccessor.HttpContext.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress.MapToIPv4().ToString();
 #if DEBUG
-            if ((ip == "0.0.0.1") || (ip == "127.0.0.1"))
+            if ((ip == null) || (ip == "0.0.0.1") || (ip == "127.0.0.1"))
             {
                 ip = "175.34.25.23";
+            }
+#else
+            if (ip == null) 
+            {
+                _logger.LogError($"{GetType().Name}: Cannot get RemoteIpAddress");
             }
 #endif
             return await Execute(ip, true);
