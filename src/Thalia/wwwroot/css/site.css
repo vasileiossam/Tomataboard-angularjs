@@ -6,13 +6,21 @@
 body {
     height: 100%;
     font-family: 'Roboto', sans-serif;
-    background-color: #fff;
+    background-color: rgb(51, 51, 51);
     font-size: 16px;
     font-weight: 300;
     line-height: normal;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
-.main {
+#loader {
+    font-family: 'Roboto Condensed', sans-serif; 
+    font-size: 2.5em;       
+    font-weight: bold;
+}
+
+#dashboard {
     height: 100%;
 }
 
@@ -45,7 +53,6 @@ body {
 
 #footer {
     z-index: 100;
-    padding: 20px;
 }
 
 .photo-background {
@@ -244,5 +251,38 @@ body {
 }
 .popover > .arrow {
     display: none;
+}
+
+#top_menu_container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 0.5em 1.25em 1.25em 1.25em;
+}
+#top_menu {
+    /* Remove whitespace between the list items */
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+#top_menu > li {
+    display: inline-block;
+}
+/* Top menu button icons */
+#top_menu > li > a, #top_menu > li > div > a {
+    border-radius: 3px;
+    font-size: 1.125em;
+    font-weight: 300;
+    padding: 0.75em;
+    text-decoration: none;
+    transition: background .3s ease, text-shadow .3s ease;
+}
+#top_menu > li > a:hover, #top_menu > li > div > a:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.text-danger {
+    font-weight: bold;
 }
 

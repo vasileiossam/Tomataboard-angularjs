@@ -4,136 +4,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Thalia Dashboard</title>
 
     <environment names="Development">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet" type="text/css">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+        <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
+        <link href="~/css/site.css" rel="stylesheet"/>
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
     </environment>
 </head>
 
 <body ng-app="dashboard-app" ng-controller="dashboardController as vm">
 
-    <div ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}" class="photo-background"></div>
-    
-    <header id="header" class="container-fluid navbar-fixed-top ">
-        <div class="row">
-            <div id="top-left" class="col-sm-2">
-                <div>
-                    <a href="#"></a>
-                </div>
-            </div> 
-            <div id="top-center" class="col-sm-8 text-center">
-                <div>
-                    <a href="#"></a>
-                </div>
-            </div>
-            <div id="top-right" class="col-sm-2 text-right">
-                <div>
-                    <a href="#"></a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="loader" ng-show="vm.isBusy" class="vertical-center text-center"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
 
-    <div class="vertical-center">
-        <div class="container">
-            <div class="col-sm-12 text-center">
-                <div class="hover-container">
-                    <div id="time" class="hover-item">
-                        <a href="#">{{vm.time | date: 'HH:mm'}}</a>
-                    </div>
-                    <div id="greeting" class="hover-item">
-                        {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.settings.name" 
-                                                         defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></span>
-                    </div>
-                    <div id="focus" class="hover-item">
-                        <div>
-                           <span class="editable" contenteditable ng-model="vm.settings.question" defaultvalue="{{vm.settings.defaultQuestion}}" spellcheck="false"></span>
-                        </div>
-                        <div id="answer">
-                            <span class="editable" contenteditable ng-model="vm.settings.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
-                        </div>
+    <div id="dashboard" ng-show="!vm.isBusy">
+        <div ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}" class="photo-background"></div>
+        <header id="header" class="container-fluid navbar-fixed-top ">
+            <div class="row">
+                <div id="top-left" class="col-sm-2">
+                    <div>
+                        <a href="#"></a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                <div id="top-center" class="col-sm-8 text-center">
+                    <div class="text-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
+                    <div>
+                        <div id="top_menu_container" class="hover_container">
+                            <ul id="top_menu" class="hover_item">
+                                <!-- History -->
+                                <li>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle clickable white_text white_text_shadow glyphicon glyphicon-th" data-toggle="dropdown"></a>
+                                        <ul id="history_list" class="tt_dropdown_menu dropdown-menu dropdown-menu-right"></ul>
+                                    </div>
+                                </li>
+                                <!-- Next image -->
+                                <li>
+                                    <a id="next_image" class="clickable white_text white_text_shadow glyphicon glyphicon-repeat"></a>
+                                </li>
+                                <!-- Settings -->
+                                <li>
+                                    <a id="settings" class="clickable white_text white_text_shadow glyphicon glyphicon-cog"></a>
+                                </li>
+                                <!-- About -->
+                                <li>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle clickable white_text white_text_shadow glyphicon glyphicon-info-sign" data-toggle="dropdown"></a>
+                                        <div id="about_dropdown" class="tt_dropdown_menu dropdown-menu dropdown-menu-right">
+                                            <a href="http://tabtrekker.com"><img id="about_dropdown_icon" src="images/icon-512.png"></img></a>
+                                            <br>
+                                            <span id="about_dropdown_title" data-l10n-id="addon_title"></span>
+                                            <br>
+                                            <span id="about_dropdown_description" data-l10n-id="about_description_allcaps"></span>
+                                            <br><br>
+                                            <!-- donate link -->
+                                            <a id="about_donate_link" href="http://tabtrekker.com/donate" class="btn btn-success" data-l10n-id="donate"></a>
+                                            <!-- rate link -->
+                                            <a id="about_rate_link" href="http://tabtrekker.com/rate" class="btn btn-default" data-l10n-id="rate"></a>
+                                            <br><br>
+                                            <!-- translate link -->
+                                            <a href="http://tabtrekker.com/translate" data-l10n-id="about_translate"></a>
+                                            <br><br>
+                                            <!-- author link -->
+                                            <span data-l10n-id="about_author"></span>
+                                            <a href="http://gordonwong.com" data-l10n-id="about_author_name"></a>
+                                            <br>
+                                            <span data-l10n-id="about_weather"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
 
-    <footer id="footer" class="container-fluid navbar-fixed-bottom ">
-        <div class="row">
-
-            @*Photo*@
-            <div id="bottom-left" class="col-sm-2 ">
-                <div class="hover-container">
-                    <div id="photo" class="hover-item">
-                        <a href="{{vm.dashboard.photo.photoPage}}" target="_blank">
-                            <i class="fa fa-photo">&nbsp;</i>{{vm.dashboard.photo.shortName}}
-                        </a>
                     </div>
-                    <div id="photo-popover" style="display: none">
-                        <div>
-                            <strong>{{vm.dashboard.photo.name}}</strong> 
-                        </div>
-                        <div>
-                            &copy; {{vm.dashboard.photo.authorName}}
-                        </div>
-                        <div>
-                            Powered by {{vm.dashboard.photo.service}}
-                        </div>
+                </div>
+                <div id="top-right" class="col-sm-2 text-right">
+                    <div>
                     </div>
                 </div>
             </div>
+        </header>
 
-            @*Quote*@
-            <div id="bottom-center" class="col-sm-8 text-center">
-                <div class="hover-container">
-                    <div id="quote" class="hover-item">
-                        <a ng-href="https://en.wikipedia.org/wiki/{{vm.dashboard.quote.author}}" target="_blank">
-                            "{{vm.dashboard.quote.wording}}"
-                        </a>
-                    </div>
-                    <div id="quote-popover" style="display: none">
-                        {{vm.dashboard.quote.author}}
-                    </div>
-                </div>
-            </div>
-
-            @*Weather*@
-            <div id="bottom-right" class="col-sm-2 text-right">
-                <div class="hover-container">
-                    <div id="weather" class="hover-item">
-                        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
-                            <span id="weather-icon">
-                                <i class="wi {{vm.dashboard.weather.icon}}"></i>
-                            </span>
-                            <span id="weather-temperature">
-                                {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
-                            </span>
-                            <div id="weather-location">
-                                {{vm.settings.location}}
+        <div class="vertical-center">
+            <div class="container">
+                <div class="col-sm-12 text-center">
+                    <div class="hover-container">
+                        <div id="time" class="hover-item">
+                            <a href="#">{{vm.time | date: 'HH:mm'}}</a>
+                        </div>
+                        <div id="greeting" class="hover-item">
+                            {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.settings.name"
+                                                             defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></span>
+                        </div>
+                        <div id="focus" class="hover-item">
+                            <div>
+                                <span class="editable" contenteditable ng-model="vm.settings.question" defaultvalue="{{vm.settings.defaultQuestion}}" spellcheck="false"></span>
                             </div>
-                        </a>
-                    </div>
-                    <div id="weather-popover" style="display: none">
-                        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">Power by {{vm.dashboard.weather.service}}</a>
+                            <div id="answer">
+                                <span class="editable" contenteditable ng-model="vm.settings.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
+
+        <footer id="footer" class="container-fluid navbar-fixed-bottom ">
+            <div class="row">
+
+                @*Photo*@
+                <div id="bottom-left" class="col-sm-2 ">
+                    <div class="hover-container">
+                        <div id="photo" class="hover-item">
+                            <a href="{{vm.dashboard.photo.photoPage}}" target="_blank">
+                                <i class="fa fa-photo">&nbsp;</i>{{vm.dashboard.photo.shortName}}
+                            </a>
+                        </div>
+                        <div id="photo-popover" style="display: none">
+                            <div>
+                                <strong>{{vm.dashboard.photo.name}}</strong>
+                            </div>
+                            <div>
+                                &copy; {{vm.dashboard.photo.authorName}}
+                            </div>
+                            <div>
+                                Powered by {{vm.dashboard.photo.service}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Quote*@
+                <div id="bottom-center" class="col-sm-8 text-center">
+                    <div class="hover-container">
+                        <div id="quote" class="hover-item">
+                            <a ng-href="https://en.wikipedia.org/wiki/{{vm.dashboard.quote.author}}" target="_blank">
+                                "{{vm.dashboard.quote.wording}}"
+                            </a>
+                        </div>
+                        <div id="quote-popover" style="display: none">
+                            {{vm.dashboard.quote.author}}
+                        </div>
+                    </div>
+                </div>
+
+                @*Weather*@
+                <div id="bottom-right" class="col-sm-2 text-right">
+                    <div class="hover-container">
+                        <div id="weather" class="hover-item">
+                            <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
+                                <span id="weather-icon">
+                                    <i class="wi {{vm.dashboard.weather.icon}}"></i>
+                                </span>
+                                <span id="weather-temperature">
+                                    {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
+                                </span>
+                            </a>
+                            <div id="weather-location" class="hover-item">
+                                <div>
+                                    <span class="editable" contenteditable ng-model="vm.settings.location" spellcheck="false"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="weather-popover" style="display: none">
+                            <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">Power by {{vm.dashboard.weather.service}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -143,8 +194,8 @@
         <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
-
     </environment>
+
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
@@ -157,4 +208,5 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 </body>
+
 </html>

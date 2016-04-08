@@ -48,6 +48,8 @@ $(function () {
         // get any data saved in cookies
         vm.dashboard = $cookies.getObject("dashboard");
         vm.settings = $cookies.getObject("settings");
+        vm.isBusy = true;
+        vm.errorMessage = "";
 
         // initialize settings
         if (!vm.settings) {
@@ -80,6 +82,7 @@ $(function () {
 
         // gets a dashboard from server
         vm.getDashboard = function () {
+            vm.isBusy = true;
             var offsetMins = new Date().getTimezoneOffset();
             var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
 
@@ -103,12 +106,18 @@ $(function () {
                             }
                         }
 
-                        vm.settings.location = vm.dashboard.weather.location;
+                        if (!vm.settings.location) {
+                            vm.settings.location = vm.dashboard.weather.location;
+                        }
+
                         vm.saveDashboard();
                     },
                     function (error) {
                         // on failure
                         vm.errorMessage = "Failed to load data: " + error;
+                    })
+                    .finally(function () {
+                        vm.isBusy = false;
                     });
         }
 
@@ -130,6 +139,7 @@ $(function () {
         } else {
             vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
             vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
+            vm.isBusy = false;
         }
     }
 
