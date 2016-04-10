@@ -25,11 +25,9 @@
 </head>
 
 <body ng-app="dashboard-app" ng-controller="dashboardController as vm">
-
     <div id="loader" ng-show="vm.isBusy" class="vertical-center text-center"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
-
-    <div id="dashboard" ng-show="!vm.isBusy">
-        <div ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}" class="photo-background"></div>
+    <div id="dashboard" ng-show="!vm.isBusy" ng-class="{dashboardFade: vm.startFade}">
+        <div id="photo-background"  ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}"></div>
         <header id="header" class="container-fluid navbar-fixed-top ">
             <div class="row">
                 <div id="top-left" class="col-sm-2">
@@ -39,58 +37,85 @@
                 </div>
                 <div id="top-center" class="col-sm-8 text-center">
                     <div class="text-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
-                    <div>
-                        <div id="top_menu_container" class="hover_container">
-                            <ul id="top_menu" class="hover_item">
-                                <!-- History -->
-                                <li>
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle clickable white_text white_text_shadow glyphicon glyphicon-th" data-toggle="dropdown"></a>
-                                        <ul id="history_list" class="tt_dropdown_menu dropdown-menu dropdown-menu-right"></ul>
-                                    </div>
-                                </li>
-                                <!-- Next image -->
-                                <li>
-                                    <a id="next_image" class="clickable white_text white_text_shadow glyphicon glyphicon-repeat"></a>
-                                </li>
-                                <!-- Settings -->
-                                <li>
-                                    <a id="settings" class="clickable white_text white_text_shadow glyphicon glyphicon-cog"></a>
-                                </li>
-                                <!-- About -->
-                                <li>
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle clickable white_text white_text_shadow glyphicon glyphicon-info-sign" data-toggle="dropdown"></a>
-                                        <div id="about_dropdown" class="tt_dropdown_menu dropdown-menu dropdown-menu-right">
-                                            <a href="http://tabtrekker.com"><img id="about_dropdown_icon" src="images/icon-512.png"></img></a>
-                                            <br>
-                                            <span id="about_dropdown_title" data-l10n-id="addon_title"></span>
-                                            <br>
-                                            <span id="about_dropdown_description" data-l10n-id="about_description_allcaps"></span>
-                                            <br><br>
-                                            <!-- donate link -->
-                                            <a id="about_donate_link" href="http://tabtrekker.com/donate" class="btn btn-success" data-l10n-id="donate"></a>
-                                            <!-- rate link -->
-                                            <a id="about_rate_link" href="http://tabtrekker.com/rate" class="btn btn-default" data-l10n-id="rate"></a>
-                                            <br><br>
-                                            <!-- translate link -->
-                                            <a href="http://tabtrekker.com/translate" data-l10n-id="about_translate"></a>
-                                            <br><br>
-                                            <!-- author link -->
-                                            <span data-l10n-id="about_author"></span>
-                                            <a href="http://gordonwong.com" data-l10n-id="about_author_name"></a>
-                                            <br>
-                                            <span data-l10n-id="about_weather"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
                 </div>
                 <div id="top-right" class="col-sm-2 text-right">
-                    <div>
+                    <div class="hover-container">
+                        <ul id="top_menu" class="hover-item">
+                            <!-- History -->
+                            @*<li>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle glyphicon glyphicon-th" data-toggle="dropdown"></a>
+                                    <ul id="history_list" class="tt_dropdown_menu dropdown-menu dropdown-menu-right"></ul>
+                                </div>
+                            </li>*@
+                            <!-- Refresh -->
+                            <li>
+                                <a class="glyphicon glyphicon-repeat" ng-click="vm.fadeAndRefresh()"></a>
+                            </li>
+                            <!-- Settings -->
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
+                                    <div id="settings" class="dropdown-menu dropdown-menu-right">
+                                        <form role="form" name="settingsForm">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="vm.settings.showTime" />Show Time</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="vm.settings.showFocus">Show Focus</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="vm.settings.showWeather">Show Weather</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="vm.settings.showQuote">Show Quote</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
+                                            </div>
+
+                                            <h4>Time Format</h4>
+                                            <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.timeFormat">12 hour</label>
+                                            <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.timeFormat">24 hour</label>
+
+                                            <h4>Temperature</h4>
+                                            <span id="temperatureSettings">
+                                                <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
+                                                <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- About -->
+                            <li>
+                                @*<div class="dropdown">
+                                    <a class="dropdown-toggle glyphicon glyphicon-info-sign" data-toggle="dropdown"></a>
+                                    <div id="about_dropdown" class="tt_dropdown_menu dropdown-menu dropdown-menu-right">
+                                        sdgsdgsf
+                                        <a href="http://tabtrekker.com"><img id="about_dropdown_icon" src="images/icon-512.png"></img></a>
+                                        <br>
+                                        <span id="about_dropdown_title" data-l10n-id="addon_title"></span>
+                                        <br>
+                                        <span id="about_dropdown_description" data-l10n-id="about_description_allcaps"></span>
+                                        <br><br>
+                                        <!-- donate link -->
+                                        <a id="about_donate_link" href="http://tabtrekker.com/donate" class="btn btn-success" data-l10n-id="donate"></a>
+                                        <!-- rate link -->
+                                        <a id="about_rate_link" href="http://tabtrekker.com/rate" class="btn btn-default" data-l10n-id="rate"></a>
+                                        <br><br>
+                                        <!-- translate link -->
+                                        <a href="http://tabtrekker.com/translate" data-l10n-id="about_translate"></a>
+                                        <br><br>
+                                        <!-- author link -->
+                                        <span data-l10n-id="about_author"></span>
+                                        <a href="http://gordonwong.com" data-l10n-id="about_author_name"></a>
+                                        <br>
+                                        <span data-l10n-id="about_weather"></span>
+                                    </div>
+                                </div>*@
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -100,14 +125,17 @@
             <div class="container">
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
-                        <div id="time" class="hover-item">
-                            <a href="#">{{vm.time | date: 'HH:mm'}}</a>
+                        <div id="time" class="hover-item" ng-show="vm.settings.showTime">
+                            <a href="#" ng-show="vm.settings.timeFormat == '24-hour'">{{vm.time | date: 'HH:mm'}}</a>
+                            <span ng-show="vm.settings.timeFormat == '12-hour'">
+                                <a href="#">{{vm.time | date: 'h:mm'}}</a><a class="ampmMarker" href="#">{{vm.time | date: 'a'}}</a>
+                            </span>
                         </div>
-                        <div id="greeting" class="hover-item">
+                        <div id="greeting" class="hover-item" ng-show="vm.settings.showGreeting">
                             {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.settings.name"
                                                              defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></span>
                         </div>
-                        <div id="focus" class="hover-item">
+                        <div id="focus" class="hover-item" ng-show="vm.settings.showFocus">
                             <div>
                                 <span class="editable" contenteditable ng-model="vm.settings.question" defaultvalue="{{vm.settings.defaultQuestion}}" spellcheck="false"></span>
                             </div>
@@ -148,7 +176,7 @@
                 @*Quote*@
                 <div id="bottom-center" class="col-sm-8 text-center">
                     <div class="hover-container">
-                        <div id="quote" class="hover-item">
+                        <div id="quote" class="hover-item" ng-show="vm.settings.showQuote">
                             <a ng-href="https://en.wikipedia.org/wiki/{{vm.dashboard.quote.author}}" target="_blank">
                                 "{{vm.dashboard.quote.wording}}"
                             </a>
@@ -162,13 +190,14 @@
                 @*Weather*@
                 <div id="bottom-right" class="col-sm-2 text-right">
                     <div class="hover-container">
-                        <div id="weather" class="hover-item">
+                        <div id="weather" class="hover-item" ng-show="vm.settings.showWeather">
                             <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
                                 <span id="weather-icon">
                                     <i class="wi {{vm.dashboard.weather.icon}}"></i>
                                 </span>
                                 <span id="weather-temperature">
-                                    {{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i>
+                                    <span ng-show="vm.settings.temperatureUnits == 'celsius'">{{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i></span>
+                                    <span ng-show="vm.settings.temperatureUnits == 'fahrenheit'">{{vm.dashboard.weather.temperatureF}} <i class="wi wi-fahrenheit"></i></span>
                                 </span>
                             </a>
                             <div id="weather-location" class="hover-item">

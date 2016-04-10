@@ -42,7 +42,7 @@ $(function () {
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 
-    function dashboardController($scope, $cookies, $http, $interval) {
+    function dashboardController($scope, $cookies, $http, $interval, $timeout) {
         var vm = this;
 
         // get any data saved in cookies
@@ -59,10 +59,15 @@ $(function () {
             vm.settings.defaultQuestion = "What is your goal for today?";
             vm.settings.question = vm.settings.defaultQuestion;
             vm.settings.location = "";
+            vm.settings.showTime = true;
+            vm.settings.showFocus = true;
+            vm.settings.showWeather = true;
+            vm.settings.showQuote = true;
+            vm.settings.showGreeting = true;
         }
 
         // watch for changes
-        $scope.$watch("[vm.settings.name,vm.settings.question,vm.settings.answer,vm.settings.location]", function () {
+        $scope.$watch("[vm.settings]", function () {
             vm.saveSettings();
         }, true);
 
@@ -80,6 +85,12 @@ $(function () {
             $cookies.putObject("settings", vm.settings, { expires: expireDate });
         };
 
+        vm.getNextElementIndex = function (array, index) {
+            index = index + 1;
+            if (index >= array.length) index = 0;
+            return index;
+        };
+
         // gets a dashboard from server
         vm.getDashboard = function () {
             vm.isBusy = true;
@@ -91,8 +102,12 @@ $(function () {
                     function (response) {
                         // on sucess
                         vm.dashboard = response.data;
-                        vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
-                        vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
+
+                        vm.dashboard.quoteIndex = vm.getNextElementIndex(vm.dashboard.quotes, 0);
+                        vm.dashboard.quote = vm.dashboard.quotes[vm.dashboard.quoteIndex];
+
+                        vm.dashboard.photoIndex = vm.getNextElementIndex(vm.dashboard.photos, 0);
+                        vm.dashboard.photo = vm.dashboard.photos[vm.dashboard.photoIndex];
 
                         // truncate photo names                    
                         for (var i = 0; i < vm.dashboard.photos.length; i++) {
@@ -134,18 +149,36 @@ $(function () {
         // setup the interval to refresh the dashboard in 30 mins
         $interval(vm.getDashboard, 30 * 60 * 1000);
 
-        if (!vm.dashboard) {
-            vm.getDashboard();
-        } else {
-            vm.dashboard.quote = getRandomElement(vm.dashboard.quotes);
-            vm.dashboard.photo = getRandomElement(vm.dashboard.photos);
-            vm.isBusy = false;
+        vm.refresh = function () {
+            if (!vm.dashboard) {
+                vm.getDashboard();
+            } else {
+                vm.dashboard.quoteIndex = vm.getNextElementIndex(vm.dashboard.quotes, vm.dashboard.quoteIndex);
+                vm.dashboard.quote = vm.dashboard.quotes[vm.dashboard.quoteIndex];
+
+                vm.dashboard.photoIndex = vm.getNextElementIndex(vm.dashboard.photos, vm.dashboard.photoIndex);
+                vm.dashboard.photo = vm.dashboard.photos[vm.dashboard.photoIndex];
+
+                vm.saveDashboard();
+
+                vm.isBusy = false;
+            }
         }
+        vm.refresh();
+
+        vm.startFade = false;
+        vm.fadeAndRefresh = function () {
+            vm.startFade = true;
+            $timeout(function () {
+                vm.startFade = false;
+                vm.refresh();
+            }, 1000);
+        };
     }
 
-    function getRandomElement(arr) {
-        var index = Math.floor(Math.random() * ((arr.length - 1) - 0 + 1)) + 0;
-        return arr[index];
-    }
+    //function getRandomElement(arr) {
+    //    var index = Math.floor(Math.random() * ((arr.length - 1) - 0 + 1)) + 0;
+    //    return arr[index];
+    //}
    
 })();
