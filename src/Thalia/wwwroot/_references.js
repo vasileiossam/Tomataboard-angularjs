@@ -1,6 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
-/// <reference path="js/app.js" />
+/// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/angular/angular.js" />
