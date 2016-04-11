@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Tomataboard.Data;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.Locations.GeoLite;
+using System.Linq;
 
 namespace Tomataboard.Services.Locations.GeoLite
 {

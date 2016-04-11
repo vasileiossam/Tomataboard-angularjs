@@ -1,4 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Http.Features;
+using Microsoft.Extensions.Logging;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;

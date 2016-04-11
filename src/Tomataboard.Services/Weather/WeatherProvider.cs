@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;

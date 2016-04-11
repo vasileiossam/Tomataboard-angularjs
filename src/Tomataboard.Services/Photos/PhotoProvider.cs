@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using Tomataboard.Services.Photos;
 using Tomataboard.Services.Photos.Api500px;
 using Tomataboard.Services.Photos.Flickr;
