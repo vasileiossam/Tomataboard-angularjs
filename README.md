@@ -1,6 +1,6 @@
-Thalia was the muse of xxx in Ancient Greek Mythology.
+Tomataboard was the muse of xxx in Ancient Greek Mythology.
 
-Thalia board is a personal dashboard inspired by Momentum.
+Tomataboard board is a personal dashboard inspired by Momentum.
 It is about focused.
 
 It is mainly a playground to learn and expirement with the new ASP.NET Core.
