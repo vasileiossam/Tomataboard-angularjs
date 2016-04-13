@@ -1,0 +1,21 @@
+﻿<div class="hover-container">
+    <div id="weather" class="hover-item" ng-show="vm.settings.showWeather">
+        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">
+            <span id="weather-icon">
+                <i class="wi {{vm.dashboard.weather.icon}}"></i>
+            </span>
+            <span id="weather-temperature">
+                <span ng-show="vm.settings.temperatureUnits == 'celsius'">{{vm.dashboard.weather.temperatureC}} <i class="wi wi-celsius"></i></span>
+                <span ng-show="vm.settings.temperatureUnits == 'fahrenheit'">{{vm.dashboard.weather.temperatureF}} <i class="wi wi-fahrenheit"></i></span>
+            </span>
+        </a>
+        <div id="weather-location" class="hover-item">
+            <div>
+                <span class="editable" contenteditable ng-model="vm.settings.location" spellcheck="false"></span>
+            </div>
+        </div>
+    </div>
+    <div id="weather-popover" style="display: none">
+        <a ng-href="{{vm.dashboard.weather.serviceUrl}}" target="_blank">Power by {{vm.dashboard.weather.service}}</a>
+    </div>
+</div>

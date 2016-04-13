@@ -3,6 +3,7 @@
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/site.js" />
+/// <reference path="js/weather.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-cookies/angular-cookies.js" />
 /// <reference path="lib/angular-route/angular-route.js" />
