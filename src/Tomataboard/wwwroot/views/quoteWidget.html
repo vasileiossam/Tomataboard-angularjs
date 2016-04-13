@@ -1,0 +1,10 @@
+﻿<div class="hover-container">
+    <div id="quote" class="hover-item" ng-show="vm.settings.showQuote">
+        <a ng-href="https://en.wikipedia.org/wiki/{{vm.dashboard.quote.author}}" target="_blank">
+            "{{vm.dashboard.quote.wording}}"
+        </a>
+    </div>
+    <div id="quote-popover" style="display: none">
+        {{vm.dashboard.quote.author}}
+    </div>
+</div>

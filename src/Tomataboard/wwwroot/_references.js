@@ -2,6 +2,7 @@
 /// <reference path="../gulpfile.js" />
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
+/// <reference path="js/quotewidget.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/weather.js" />
 /// <reference path="lib/angular/angular.js" />

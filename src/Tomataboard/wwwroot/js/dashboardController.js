@@ -8,15 +8,6 @@ $(function () {
         });
     });
 
-    $("#quote a").popover({
-        html: "true",
-        placement: "top",
-        trigger: "hover",
-        content: function () {
-            return $("#quote-popover").html();
-        }
-    });
-
     $("#photo a").popover({
         html: "true",
         placement: "top",
