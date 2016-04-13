@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
+/// <reference path="js/contenteditable.js" />
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/quotewidget.js" />
