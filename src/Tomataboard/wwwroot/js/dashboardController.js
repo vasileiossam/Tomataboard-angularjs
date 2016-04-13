@@ -1,13 +1,4 @@
 $(function () {
-    $(function ($) {
-        $(".editable").focusout(function () {
-            var element = $(this);
-            if (!element.text().replace(" ", "").length) {
-                element.empty();
-            }
-        });
-    });
-
     $("#photo a").popover({
         html: "true",
         placement: "top",

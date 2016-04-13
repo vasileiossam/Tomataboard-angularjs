@@ -43,6 +43,13 @@
                         event.preventDefault();
                     }
                 });
+
+                $(element).focusout(function () {
+                    var element = $(this);
+                    if (!element.text().replace(" ", "").length) {
+                        element.empty();
+                    }
+                });
             }
         };
     });
