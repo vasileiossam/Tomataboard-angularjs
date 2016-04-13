@@ -1,14 +1,3 @@
-$(function () {
-    $("#photo a").popover({
-        html: "true",
-        placement: "top",
-        trigger: "hover",
-        content: function () {
-            return $("#photo-popover").html();
-        }
-    });
-});
-
 (function () {
     "use strict";
 

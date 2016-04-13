@@ -125,24 +125,9 @@
             <div class="container">
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
-                        <div id="time" class="hover-item" ng-show="vm.settings.showTime">
-                            <a href="#" ng-show="vm.settings.timeFormat == '24-hour'">{{vm.time | date: 'HH:mm'}}</a>
-                            <span ng-show="vm.settings.timeFormat == '12-hour'">
-                                <a href="#">{{vm.time | date: 'h:mm'}}</a><a class="ampmMarker" href="#">{{vm.time | date: 'a'}}</a>
-                            </span>
-                        </div>
-                        <div id="greeting" class="hover-item" ng-show="vm.settings.showGreeting">
-                            {{vm.dashboard.greeting}}, <span class="editable" contenteditable ng-model="vm.settings.name"
-                                                             defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></span>
-                        </div>
-                        <div id="focus" class="hover-item" ng-show="vm.settings.showFocus">
-                            <div>
-                                <span class="editable" contenteditable ng-model="vm.settings.question" defaultvalue="{{vm.settings.defaultQuestion}}" spellcheck="false"></span>
-                            </div>
-                            <div id="answer">
-                                <span class="editable" contenteditable ng-model="vm.settings.answer" defaultvalue="" placeholder="________________________" spellcheck="false"></span>
-                            </div>
-                        </div>
+                        <time-widget></time-widget>
+                        <greeting-widget></greeting-widget>
+                        <focus-widget></focus-widget>
                     </div>
                 </div>
             </div>
@@ -150,27 +135,8 @@
 
         <footer id="footer" class="container-fluid navbar-fixed-bottom ">
             <div class="row">
-
-                @*Photo*@
                 <div id="bottom-left" class="col-sm-2 ">
-                    <div class="hover-container">
-                        <div id="photo" class="hover-item">
-                            <a href="{{vm.dashboard.photo.photoPage}}" target="_blank">
-                                <i class="fa fa-photo">&nbsp;</i>{{vm.dashboard.photo.shortName}}
-                            </a>
-                        </div>
-                        <div id="photo-popover" style="display: none">
-                            <div>
-                                <strong>{{vm.dashboard.photo.name}}</strong>
-                            </div>
-                            <div>
-                                &copy; {{vm.dashboard.photo.authorName}}
-                            </div>
-                            <div>
-                                Powered by {{vm.dashboard.photo.service}}
-                            </div>
-                        </div>
-                    </div>
+                    <photo-widget></photo-widget>
                 </div>
 
                 <div id="bottom-center" class="col-sm-8 text-center">
@@ -196,6 +162,10 @@
         <script src="~/js/contenteditable.js"></script>
         <script src="~/js/weatherWidget.js"></script>
         <script src="~/js/quoteWidget.js"></script>
+        <script src="~/js/photoWidget.js"></script>
+        <script src="~/js/focusWidget.js"></script>
+        <script src="~/js/greetingWidget.js"></script>
+        <script src="~/js/timeWidget.js"></script>
     </environment>
 
     <environment names="Staging,Production">

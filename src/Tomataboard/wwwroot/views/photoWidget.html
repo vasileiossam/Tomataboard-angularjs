@@ -1,0 +1,18 @@
+﻿<div class="hover-container">
+    <div id="photo" class="hover-item">
+        <a href="{{vm.dashboard.photo.photoPage}}" target="_blank">
+            <i class="fa fa-photo">&nbsp;</i>{{vm.dashboard.photo.shortName}}
+        </a>
+    </div>
+    <div id="photo-popover" style="display: none">
+        <div>
+            <strong>{{vm.dashboard.photo.name}}</strong>
+        </div>
+        <div>
+            &copy; {{vm.dashboard.photo.authorName}}
+        </div>
+        <div>
+            Powered by {{vm.dashboard.photo.service}}
+        </div>
+    </div>
+</div>
