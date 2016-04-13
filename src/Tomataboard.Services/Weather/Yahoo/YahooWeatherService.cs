@@ -105,6 +105,12 @@ namespace Tomataboard.Services.Weather.Yahoo
             // Icon.Code = 3200: not available
             if (condition.code == "3200") return null;
 
+            var url = weatherDto.query.results.channel.item.link;
+            if (string.IsNullOrEmpty(url))
+            {
+                url = "https://www.yahoo.com/?ilc=401";
+            }
+
             double temperatureF;
             double.TryParse(condition.temp, out temperatureF);
 
@@ -113,11 +119,11 @@ namespace Tomataboard.Services.Weather.Yahoo
                 Title = condition.text,
                 Description = condition.text,
                 TemperatureC = (int)Math.Ceiling(TemperatureConverter.FahrenheitToCelsius(temperatureF)),
-                TemperatureF = (int) temperatureF,
+                TemperatureF = (int)temperatureF,
                 Icon = Icons.GetCssClass(condition.code),
                 Location = location.City,
                 Service = "Yahoo",
-                ServiceUrl = "https://weather.yahoo.com/"
+                ServiceUrl = url
             };
             
             return weatherConditions;
