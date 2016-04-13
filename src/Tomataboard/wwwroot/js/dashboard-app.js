@@ -1,6 +1,6 @@
 (function() {
 
-   var app = angular.module("dashboard-app", ['ngCookies']);
+   var app = angular.module("dashboard-app", ['ngCookies', 'ngStorage']);
 
    app.directive("contenteditable", function () {
        return {

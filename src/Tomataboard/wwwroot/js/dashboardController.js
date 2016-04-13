@@ -42,15 +42,17 @@ $(function () {
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 
-    function dashboardController($scope, $cookies, $http, $interval, $timeout) {
+    function dashboardController($scope, $cookies, $localStorage, $http, $interval, $timeout) {
         var vm = this;
 
-        // get any data saved in cookies
+        // get any persisted data 
         vm.dashboard = $cookies.getObject("dashboard");
-        vm.settings = $cookies.getObject("settings");
+        vm.settings = $localStorage.settings;
         vm.isBusy = true;
         vm.errorMessage = "";
 
+        $localStorage.settings = vm.settings;
+            
         // initialize settings
         if (!vm.settings) {
             vm.settings = {};
@@ -60,8 +62,10 @@ $(function () {
             vm.settings.question = vm.settings.defaultQuestion;
             vm.settings.location = "";
             vm.settings.showTime = true;
+            vm.settings.timeFormat = '12-hour';
             vm.settings.showFocus = true;
             vm.settings.showWeather = true;
+            vm.settings.temperatureUnits = 'fahrenheit';
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
         }
@@ -79,10 +83,7 @@ $(function () {
         };
 
         vm.saveSettings = function () {
-            // never expire (10 years)
-            var now = new Date();
-            var expireDate = new Date(now.getFullYear() + 10, now.getMonth(), now.getDate()); 
-            $cookies.putObject("settings", vm.settings, { expires: expireDate });
+            $localStorage.settings = vm.settings;
         };
 
         vm.getNextElementIndex = function (array, index) {
@@ -120,7 +121,7 @@ $(function () {
                                 }
                             }
                         }
-
+                        
                         if (!vm.settings.location) {
                             vm.settings.location = vm.dashboard.weather.location;
                         }
