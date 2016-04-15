@@ -14,6 +14,7 @@
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
         <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
+        <link href="~/lib/icomoon/style.css" rel="stylesheet" />
         <link href="~/css/site.css" rel="stylesheet"/>
     </environment>
     <environment names="Staging,Production">
@@ -27,7 +28,7 @@
 <body ng-app="dashboard-app" ng-controller="dashboardController as vm">
     <div id="loader" ng-show="vm.isBusy" class="vertical-center text-center"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
     <div id="dashboard" ng-show="!vm.isBusy" ng-class="{dashboardFade: vm.startFade}">
-        <div id="photo-background"  ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}"></div>
+        <div id="photo-background" ng-show="vm.settings.showBackgroundPhoto" ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}"></div>
         <header id="header" class="container-fluid navbar-fixed-top ">
             <div class="row">
                 <div id="top-left" class="col-sm-2">
@@ -48,72 +49,35 @@
                                     <ul id="history_list" class="tt_dropdown_menu dropdown-menu dropdown-menu-right"></ul>
                                 </div>
                             </li>*@
+                            <!-- Time functions -->
+                            <li>
+                                <a class="glyphicon glyphicon-time" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
+                            </li>
                             <!-- Refresh -->
                             <li>
-                                <a class="glyphicon glyphicon-repeat" ng-click="vm.fadeAndRefresh()"></a>
+                                <a class="glyphicon glyphicon-repeat" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
                             </li>
                             <!-- Settings -->
                             <li>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
-                                    <div id="settings" class="dropdown-menu dropdown-menu-right">
-                                        <form role="form" name="settingsForm">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" ng-model="vm.settings.showTime" />Show Time</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" ng-model="vm.settings.showFocus">Show Focus</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" ng-model="vm.settings.showWeather">Show Weather</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" ng-model="vm.settings.showQuote">Show Quote</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
-                                            </div>
-
-                                            <h4>Time Format</h4>
-                                            <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.timeFormat">12 hour</label>
-                                            <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.timeFormat">24 hour</label>
-
-                                            <h4>Temperature</h4>
-                                            <span id="temperatureSettings">
-                                                <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
-                                                <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
-                                            </span>
-                                        </form>
-                                    </div>
+                                    <pomodoro class="dropdown-menu dropdown-menu-right"></pomodoro>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
+                                    <settings class="dropdown-menu dropdown-menu-right"></settings>
                                 </div>
                             </li>
                             <!-- About -->
                             <li>
-                                @*<div class="dropdown">
+                                <div class="dropdown">
                                     <a class="dropdown-toggle glyphicon glyphicon-info-sign" data-toggle="dropdown"></a>
                                     <div id="about_dropdown" class="tt_dropdown_menu dropdown-menu dropdown-menu-right">
-                                        sdgsdgsf
-                                        <a href="http://tabtrekker.com"><img id="about_dropdown_icon" src="images/icon-512.png"></img></a>
-                                        <br>
-                                        <span id="about_dropdown_title" data-l10n-id="addon_title"></span>
-                                        <br>
-                                        <span id="about_dropdown_description" data-l10n-id="about_description_allcaps"></span>
-                                        <br><br>
-                                        <!-- donate link -->
-                                        <a id="about_donate_link" href="http://tabtrekker.com/donate" class="btn btn-success" data-l10n-id="donate"></a>
-                                        <!-- rate link -->
-                                        <a id="about_rate_link" href="http://tabtrekker.com/rate" class="btn btn-default" data-l10n-id="rate"></a>
-                                        <br><br>
-                                        <!-- translate link -->
-                                        <a href="http://tabtrekker.com/translate" data-l10n-id="about_translate"></a>
-                                        <br><br>
-                                        <!-- author link -->
-                                        <span data-l10n-id="about_author"></span>
-                                        <a href="http://gordonwong.com" data-l10n-id="about_author_name"></a>
-                                        <br>
-                                        <span data-l10n-id="about_weather"></span>
+                                        <a class="icon-time" ng-click="vm.showTimer('clock')">&nbsp;Clock</a>
                                     </div>
-                                </div>*@
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -125,9 +89,37 @@
             <div class="container">
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
-                        <time-widget></time-widget>
-                        <greeting-widget></greeting-widget>
-                        <focus-widget></focus-widget>
+
+                        <div id="timers" ng-mouseover="vm.settings.showTimersMenu = true" ng-click="nextTimeWidget()">
+                            
+                            <div ng-show="vm.settings.showTimersMenu" style="border: 2px solid red;">
+                                <ul id="top_menu" class="hover-item">
+                                    <li>
+                                        <a class="icon-time"  ng-click="vm.showTimer('clock')">Clock</a>
+                                    </li>
+                                    <li>
+                                        <a class="icon-hourglass" ng-click="vm.showTimer('timer')">Timer</a>
+                                    </li>
+                                    <li>
+                                        <a class="icon-chronometer" ng-click="vm.showTimer('countdown')">Stopwatch</a>
+                                    </li>
+                                    <li>
+                                        <a class="icon-tomato-icon" ng-click="vm.showTimer('countdown')">Pomodoro Timer</a>
+                                    </li>
+                                    <li>
+                                        <a class="icon-calendar" ng-click="vm.showTimer('countdown')">Countdown</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <clock></clock>
+                            <timer></timer>
+                            <pomodoro></pomodoro>
+                            <stopwatch></stopwatch>
+                            <countdown></countdown>
+                        </div>
+                        <greeting></greeting>
+                        <focus></focus>
                     </div>
                 </div>
             </div>
@@ -136,15 +128,15 @@
         <footer id="footer" class="container-fluid navbar-fixed-bottom ">
             <div class="row">
                 <div id="bottom-left" class="col-sm-2 ">
-                    <photo-widget></photo-widget>
+                    <photo ng-show="vm.settings.showBackgroundPhoto"></photo>
                 </div>
 
                 <div id="bottom-center" class="col-sm-8 text-center">
-                    <quote-widget></quote-widget>
+                    <quote></quote>
                 </div>
 
                 <div id="bottom-right" class="col-sm-2 text-right">
-                    <weather-widget></weather-widget>
+                    <weather></weather>
                 </div>
             </div>
         </footer>
@@ -159,13 +151,18 @@
         <script src="~/lib/ngstorage/ngStorage.min.js"></script>
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
+        <script src="~/js/settings.js"></script>
         <script src="~/js/contenteditable.js"></script>
-        <script src="~/js/weatherWidget.js"></script>
-        <script src="~/js/quoteWidget.js"></script>
-        <script src="~/js/photoWidget.js"></script>
-        <script src="~/js/focusWidget.js"></script>
-        <script src="~/js/greetingWidget.js"></script>
-        <script src="~/js/timeWidget.js"></script>
+        <script src="~/js/weather.js"></script>
+        <script src="~/js/quote.js"></script>
+        <script src="~/js/photo.js"></script>
+        <script src="~/js/focus.js"></script>
+        <script src="~/js/greeting.js"></script>
+        <script src="~/js/clock.js"></script>
+        <script src="~/js/pomodoro.js"></script>
+        <script src="~/js/timer.js"></script>
+        <script src="~/js/countdown.js"></script>
+        <script src="~/js/stopwatch.js"></script>
     </environment>
 
     <environment names="Staging,Production">

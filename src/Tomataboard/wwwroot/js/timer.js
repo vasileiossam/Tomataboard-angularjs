@@ -3,13 +3,13 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("greetingWidget", function () {
+    app.directive("timer", function () {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/greetingWidget.html',
+            templateUrl: '/views/timer.html',
 
             link: function(scope, element, attrs) {
 

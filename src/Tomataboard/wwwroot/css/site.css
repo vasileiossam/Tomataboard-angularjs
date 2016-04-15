@@ -180,7 +180,7 @@ body {
     font-size: 8em;      
 }
 
-a.ampmMarker {
+span.ampmMarker {
     font-size: 0.2em;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.4);
@@ -298,3 +298,21 @@ a.ampmMarker {
     margin-bottom: 5px;   
 }
 
+/*#pomodoro-widget {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 500px;
+    padding: 10px;
+}*/
+
+#timers{
+      font-size: 1.5em;
+}
+
+#about_dropdown{
+       font-size: 2em;
+        background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
+        width: 500px;
+    padding: 10px;
+}

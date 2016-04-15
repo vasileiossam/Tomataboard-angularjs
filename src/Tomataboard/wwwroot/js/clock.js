@@ -3,13 +3,13 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("focusWidget", function () {
+    app.directive("clock", function () {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/focusWidget.html',
+            templateUrl: '/views/clock.html',
 
             link: function(scope, element, attrs) {
 

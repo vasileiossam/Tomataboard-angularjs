@@ -57,8 +57,8 @@ namespace Tomataboard.Controllers
            
             var dashboardDto = new DashboardDto
             {
-                Photos = photos.Shuffle().Take(4).ToArray(),
-                Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(4).ToArray(),
+                Photos = photos.Shuffle().Take(20).ToArray(),
+                Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(20).ToArray(),
                 Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather,
             };

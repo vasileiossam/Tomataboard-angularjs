@@ -4,17 +4,18 @@
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 
-    function dashboardController($scope, $cookies, $localStorage, $http, $interval, $timeout) {
+    function dashboardController($scope, $localStorage, $http, $interval, $timeout) {
         var vm = this;
 
         // get any persisted data 
-        vm.dashboard = $cookies.getObject("dashboard");
+        vm.dashboard = $localStorage.dashboard;
         vm.settings = $localStorage.settings;
+
         vm.isBusy = true;
         vm.errorMessage = "";
+        // 30 minutes
+        vm.refreshTime = 30 * 60 * 1000;
 
-        $localStorage.settings = vm.settings;
-            
         // initialize settings
         if (!vm.settings) {
             vm.settings = {};
@@ -23,13 +24,23 @@
             vm.settings.defaultQuestion = "What is your goal for today?";
             vm.settings.question = vm.settings.defaultQuestion;
             vm.settings.location = "";
-            vm.settings.showTime = true;
-            vm.settings.timeFormat = '12-hour';
+            vm.settings.showBackgroundPhoto = true;
             vm.settings.showFocus = true;
             vm.settings.showWeather = true;
             vm.settings.temperatureUnits = 'fahrenheit';
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
+
+            vm.settings.timeWidgets = ['clock', 'pomodoro', 'timer', 'stopwatch', 'countdown'];
+
+            vm.settings.showTimers = true;
+            vm.settings.clockFormat = '12-hour';
+        }
+
+        vm.settings.showTimersMenu = false;
+
+        vm.nextTimeWidget = function () {
+
         }
 
         // watch for changes
@@ -38,10 +49,11 @@
         }, true);
 
         vm.saveDashboard = function () {
-            // expires in 30 mins
             var expireDate = new Date();
-            expireDate.setTime(expireDate.getTime() + (30 * 60 * 1000));
-            $cookies.putObject("dashboard", vm.dashboard, { expires: expireDate });
+            expireDate.setTime(expireDate.getTime() + vm.refreshTime);
+
+            $localStorage.expireDate = expireDate;
+            $localStorage.dashboard = vm.dashboard;
         };
 
         vm.saveSettings = function () {
@@ -110,10 +122,10 @@
         vm.updateTime();
 
         // setup the interval to refresh the dashboard in 30 mins
-        $interval(vm.getDashboard, 30 * 60 * 1000);
+        $interval(vm.getDashboard, vm.refreshTime);
 
         vm.refresh = function () {
-            if (!vm.dashboard) {
+            if (!vm.dashboard || (vm.expireDate < new Date())) {
                 vm.getDashboard();
             } else {
                 vm.dashboard.quoteIndex = vm.getNextElementIndex(vm.dashboard.quotes, vm.dashboard.quoteIndex);

@@ -1,0 +1,32 @@
+﻿<div id="settings">
+    <form role="form" name="settingsForm">
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showBackgroundPhoto" />Show Background Photo</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showTimers" />Show Timers</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showFocus">Show Focus</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showWeather">Show Weather</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showQuote">Show Quote</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
+        </div>
+
+        <h4>Clock Format</h4>
+        <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.clockFormat">12 hour</label>
+        <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.clockFormat">24 hour</label>
+
+        <h4>Temperature</h4>
+        <span id="temperatureSettings">
+            <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
+            <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
+        </span>
+    </form>
+</div>
