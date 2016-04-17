@@ -72,11 +72,11 @@
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
                         <div id="timers" ng-show="vm.settings.showTimers">
-                            <clock ng-show="vm.activeTimer=='clock'"></clock>
-                            <pomodoro ng-show="vm.activeTimer=='pomodoro'"></pomodoro>
-                            <timer ng-show="vm.activeTimer=='timer'"></timer>
-                            <stopwatch ng-show="vm.activeTimer=='stopwatch'"></stopwatch>
-                            <countdown ng-show="vm.activeTimer=='countdown'"></countdown>
+                            <clock ng-show="vm.settings.activeTimer=='clock'"></clock>
+                            <pomodoro ng-show="vm.settings.activeTimer=='pomodoro'"></pomodoro>
+                            <timer ng-show="vm.settings.activeTimer=='timer'"></timer>
+                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'"></stopwatch>
+                            <countdown ng-show="vm.settings.activeTimer=='countdown'"></countdown>
                         </div>
                         <greeting></greeting>
                         <focus></focus>

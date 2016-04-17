@@ -2,7 +2,7 @@
     <a href="#">
         <span ng-show="vm.settings.timeFormat == '24-hour'">{{vm.time | date: 'HH:mm'}}</span>
         <span ng-show="vm.settings.timeFormat == '12-hour'">
-            {{vm.time | date: 'h:mm'}}<span class="ampmMarker" href="#">{{vm.time | date: 'a'}}</span>
+            {{vm.time | date: 'h:mm'}}<span class="ampmMarker">{{vm.time | date: 'a'}}</span>
         </span>
     </a>
 </div>

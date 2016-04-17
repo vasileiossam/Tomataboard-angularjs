@@ -31,18 +31,14 @@
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
 
-            vm.settings.timeWidgets = ['clock', 'pomodoro', 'timer', 'stopwatch', 'countdown'];
-
             vm.settings.showTimers = true;
             vm.settings.clockFormat = '12-hour';
+            vm.settings.activeTimer = 'clock';
         }
 
-        vm.activeTimer = 'clock';
         vm.showTimer = function (selector) {
-            
-            vm.activeTimer = selector;
+            vm.settings.activeTimer = selector;
             $('.ssm-overlay').click();
-       
         };
 
         // watch for changes

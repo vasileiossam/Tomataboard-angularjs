@@ -197,6 +197,29 @@ span.ampmMarker {
     color: rgba(255, 255, 255, 0.4);
 }
 
+#timer
+{
+
+}
+
+#stopwatch
+{
+
+}
+
+span.time {
+    font-size: 8em;    
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+span.subscript {
+    font-size: 4em;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+
 #greeting {
     font-size: 3.5em;      
 }
@@ -235,7 +258,6 @@ span.ampmMarker {
 }
 
 .editable[placeholder]:empty:before {
-
     padding: 10px;
     content: attr(placeholder);
     margin: 0;
@@ -345,4 +367,12 @@ nav.nav {
 .nav-pills > li > a:hover {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 1);
+}
+
+.btn-warning {
+    background-color: #f0ad4e;
+    /*border-color: #eea236;*/
+       background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
 }
