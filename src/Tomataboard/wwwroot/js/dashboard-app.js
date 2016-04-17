@@ -1,5 +1,5 @@
 (function() {
 
-   angular.module("dashboard-app", ['ngCookies', 'ngStorage']);
+    angular.module("dashboard-app", ['ngCookies', 'ngStorage']);
 
 })();

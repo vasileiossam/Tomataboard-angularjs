@@ -11,6 +11,7 @@
 /// <reference path="js/pomodorowidget.js" />
 /// <reference path="js/quotewidget.js" />
 /// <reference path="js/settings.js" />
+/// <reference path="js/sidebar.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/timerwidget - copy.js" />
 /// <reference path="js/timewidget - copy - copy.js" />
@@ -20,6 +21,8 @@
 /// <reference path="lib/angular-route/angular-route.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
+/// <reference path="lib/jquery-touchswipe/jquery.touchSwipe.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
 /// <reference path="lib/ngstorage/ngStorage.js" />
+/// <reference path="lib/slide-and-swipe-menu/jquery.slideandswipe.js" />

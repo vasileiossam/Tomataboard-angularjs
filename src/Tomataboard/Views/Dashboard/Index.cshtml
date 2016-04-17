@@ -32,51 +32,43 @@
         <header id="header" class="container-fluid navbar-fixed-top ">
             <div class="row">
                 <div id="top-left" class="col-sm-2">
-                    <div>
-                        <a href="#"></a>
+                    
+                    <div class="hover-container">
+                        <ul id="top-menu" class="hover-item">
+                            <li>
+                                <a class="ssm-toggle-nav glyphicon glyphicon-menu-hamburger"></a>
+                            </li>
+                            @*Refresh*@
+                            <li>
+                                <a class="glyphicon glyphicon-repeat" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
+                            </li>
+                        </ul>
                     </div>
+
+                    @*Sidebar*@
+                    <nav class="nav semi-transparent">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#" ng-click="vm.showTimer('clock')"><span class="icon-time"></span>&nbsp;Clock</a></li>
+                            <li><a href="#" ng-click="vm.showTimer('timer')"><span class="icon-hourglass"></span>&nbsp;Timer</a></li>
+                            <li><a href="#" ng-click="vm.showTimer('stopwatch')"><span class="icon-chronometer"></span>&nbsp;Stopwatch Timer</a></li>
+                            <li><a href="#" ng-click="vm.showTimer('pomodoro')"><span class="icon-tomato-icon"></span>&nbsp;Pomodoro Timer</a></li>
+                            <li><a href="#" ng-click="vm.showTimer('countdown')"><span class="icon-calendar"></span>&nbsp;Countdown</a></li>
+                        </ul>
+                    </nav>
+                    @*Sidebar overlay*@
+                    <div class="ssm-overlay ssm-toggle-nav"></div>
                 </div>
                 <div id="top-center" class="col-sm-8 text-center">
                     <div class="text-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
                 </div>
                 <div id="top-right" class="col-sm-2 text-right">
                     <div class="hover-container">
-                        <ul id="top_menu" class="hover-item">
-                            <!-- History -->
-                            @*<li>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle glyphicon glyphicon-th" data-toggle="dropdown"></a>
-                                    <ul id="history_list" class="tt_dropdown_menu dropdown-menu dropdown-menu-right"></ul>
-                                </div>
-                            </li>*@
-                            <!-- Time functions -->
-                            <li>
-                                <a class="glyphicon glyphicon-time" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
-                            </li>
-                            <!-- Refresh -->
-                            <li>
-                                <a class="glyphicon glyphicon-repeat" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
-                            </li>
-                            <!-- Settings -->
+                        <ul id="top-menu" class="hover-item">
+                            @*Settings*@ 
                             <li>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
-                                    <pomodoro class="dropdown-menu dropdown-menu-right"></pomodoro>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
-                                    <settings class="dropdown-menu dropdown-menu-right"></settings>
-                                </div>
-                            </li>
-                            <!-- About -->
-                            <li>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle glyphicon glyphicon-info-sign" data-toggle="dropdown"></a>
-                                    <div id="about_dropdown" class="tt_dropdown_menu dropdown-menu dropdown-menu-right">
-                                        <a class="icon-time" ng-click="vm.showTimer('clock')">&nbsp;Clock</a>
-                                    </div>
+                                    <settings class="dropdown-menu dropdown-menu-right semi-transparent"></settings>
                                 </div>
                             </li>
                         </ul>
@@ -89,34 +81,12 @@
             <div class="container">
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
-
-                        <div id="timers" ng-mouseover="vm.settings.showTimersMenu = true" ng-click="nextTimeWidget()">
-                            
-                            <div ng-show="vm.settings.showTimersMenu" style="border: 2px solid red;">
-                                <ul id="top_menu" class="hover-item">
-                                    <li>
-                                        <a class="icon-time"  ng-click="vm.showTimer('clock')">Clock</a>
-                                    </li>
-                                    <li>
-                                        <a class="icon-hourglass" ng-click="vm.showTimer('timer')">Timer</a>
-                                    </li>
-                                    <li>
-                                        <a class="icon-chronometer" ng-click="vm.showTimer('countdown')">Stopwatch</a>
-                                    </li>
-                                    <li>
-                                        <a class="icon-tomato-icon" ng-click="vm.showTimer('countdown')">Pomodoro Timer</a>
-                                    </li>
-                                    <li>
-                                        <a class="icon-calendar" ng-click="vm.showTimer('countdown')">Countdown</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <clock></clock>
-                            <timer></timer>
-                            <pomodoro></pomodoro>
-                            <stopwatch></stopwatch>
-                            <countdown></countdown>
+                        <div id="timers" ng-show="vm.settings.showTimers">
+                            <clock ng-show="vm.activeTimer=='clock'"></clock>
+                            <pomodoro ng-show="vm.activeTimer=='pomodoro'"></pomodoro>
+                            <timer ng-show="vm.activeTimer=='timer'"></timer>
+                            <stopwatch ng-show="vm.activeTimer=='stopwatch'"></stopwatch>
+                            <countdown ng-show="vm.activeTimer=='countdown'"></countdown>
                         </div>
                         <greeting></greeting>
                         <focus></focus>
@@ -148,6 +118,8 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/angular/angular.min.js"></script>
         <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
+        <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
+        <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js"></script>
         <script src="~/lib/ngstorage/ngStorage.min.js"></script>
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>

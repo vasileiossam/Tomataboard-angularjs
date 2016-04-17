@@ -11,6 +11,7 @@
     "angular": "1.4.6",
     "angular-route": "1.4.6",
     "angular-cookies": "1.4.6",
-    "ngstorage": "0.3.9"
+    "ngstorage": "0.3.9",
+    "slide-and-swipe-menu": "*"
   }
 }

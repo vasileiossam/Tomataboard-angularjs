@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $('nav').slideAndSwipe();
+});
+
 (function () {
     "use strict";
 
@@ -37,11 +41,13 @@
             vm.settings.clockFormat = '12-hour';
         }
 
-        vm.settings.showTimersMenu = false;
-
-        vm.nextTimeWidget = function () {
-
-        }
+        vm.activeTimer = 'clock';
+        vm.showTimer = function (selector) {
+            
+            vm.activeTimer = selector;
+            $('.ssm-overlay').click();
+       
+        };
 
         // watch for changes
         $scope.$watch("[vm.settings]", function () {
@@ -149,6 +155,7 @@
                 vm.refresh();
             }, 1000);
         };
+
     }
 
     //function getRandomElement(arr) {

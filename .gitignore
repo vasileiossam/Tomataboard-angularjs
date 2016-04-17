@@ -213,3 +213,8 @@ ModelManifest.xml
 
 keys.json
 secrets.json
+
+jquery/src
+/src/Tomataboard/wwwroot/lib/jquery/src
+/src/Tomataboard/wwwroot/lib/jquery-touchswipe/demos
+/src/Tomataboard/wwwroot/lib/jquery-touchswipe/docs
