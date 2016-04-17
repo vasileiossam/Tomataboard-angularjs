@@ -1,10 +1,9 @@
-﻿<div class="modal-header">
-    <h3 class="modal-title">ngAside</h3>
-</div>
-<div class="modal-body">
-    Look i'm in aside.
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok($event)">OK</button>
-    <button class="btn btn-warning" ng-click="cancel($event)">Cancel</button>
-</div>
+﻿<nav class="nav">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="#" ng-click="vm.showTimer('clock')"><span class="icon-time"></span>&nbsp;Clock</a></li>
+        <li><a href="#" ng-click="vm.showTimer('timer')"><span class="icon-hourglass"></span>&nbsp;Timer</a></li>
+        <li><a href="#" ng-click="vm.showTimer('stopwatch')"><span class="icon-chronometer"></span>&nbsp;Stopwatch Timer</a></li>
+        <li><a href="#" ng-click="vm.showTimer('pomodoro')"><span class="icon-tomato-icon"></span>&nbsp;Pomodoro Timer</a></li>
+        <li><a href="#" ng-click="vm.showTimer('countdown')"><span class="icon-calendar"></span>&nbsp;Countdown</a></li>
+    </ul>
+</nav>

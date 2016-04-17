@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    $('nav').slideAndSwipe();
-});
-
 (function () {
     "use strict";
 

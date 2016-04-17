@@ -45,17 +45,7 @@
                         </ul>
                     </div>
 
-                    @*Sidebar*@
-                    <nav class="nav semi-transparent">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#" ng-click="vm.showTimer('clock')"><span class="icon-time"></span>&nbsp;Clock</a></li>
-                            <li><a href="#" ng-click="vm.showTimer('timer')"><span class="icon-hourglass"></span>&nbsp;Timer</a></li>
-                            <li><a href="#" ng-click="vm.showTimer('stopwatch')"><span class="icon-chronometer"></span>&nbsp;Stopwatch Timer</a></li>
-                            <li><a href="#" ng-click="vm.showTimer('pomodoro')"><span class="icon-tomato-icon"></span>&nbsp;Pomodoro Timer</a></li>
-                            <li><a href="#" ng-click="vm.showTimer('countdown')"><span class="icon-calendar"></span>&nbsp;Countdown</a></li>
-                        </ul>
-                    </nav>
-                    @*Sidebar overlay*@
+                    <sidebar class="semi-transparent"></sidebar>
                     <div class="ssm-overlay ssm-toggle-nav"></div>
                 </div>
                 <div id="top-center" class="col-sm-8 text-center">
@@ -124,6 +114,7 @@
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
         <script src="~/js/settings.js"></script>
+        <script src="~/js/sidebar.js"></script>
         <script src="~/js/contenteditable.js"></script>
         <script src="~/js/weather.js"></script>
         <script src="~/js/quote.js"></script>
