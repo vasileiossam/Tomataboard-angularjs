@@ -35,7 +35,7 @@
             vm.settings.clockFormat = '12-hour';
             vm.settings.activeTimer = 'clock';
         }
-
+        
         vm.showTimer = function (selector) {
             vm.settings.activeTimer = selector;
             $('.ssm-overlay').click();
@@ -108,16 +108,6 @@
                         vm.isBusy = false;
                     });
         }
-
-        vm.updateTime = function() {
-            var tick = function() {
-                vm.time = Date.now();
-            }
-
-            tick();
-            $interval(tick, 1 * 60 * 1000);
-        };
-        vm.updateTime();
 
         // setup the interval to refresh the dashboard in 30 mins
         $interval(vm.getDashboard, vm.refreshTime);

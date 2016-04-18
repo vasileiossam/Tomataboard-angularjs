@@ -1,8 +1,8 @@
 ﻿<div id="clock" class="hover-item">
     <a href="#">
-        <span ng-show="vm.settings.timeFormat == '24-hour'">{{vm.time | date: 'HH:mm'}}</span>
-        <span ng-show="vm.settings.timeFormat == '12-hour'">
-            {{vm.time | date: 'h:mm'}}<span class="ampmMarker">{{vm.time | date: 'a'}}</span>
+        <span ng-show="format == '24-hour'">{{time | date: 'HH:mm'}}</span>
+        <span ng-show="format == '12-hour'">
+            {{time | date: 'h:mm'}}<span class="ampmMarker">{{time | date: 'a'}}</span>
         </span>
     </a>
 </div>
