@@ -187,8 +187,9 @@ a:hover, a:focus {
     font-size: 1em;
 }
 
-#clock {
-    font-size: 8em;      
+.timer-container {
+    font-size: 8em;
+    cursor: pointer;          
 }
 
 span.ampmMarker {
