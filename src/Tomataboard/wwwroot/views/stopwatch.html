@@ -1,9 +1,14 @@
-﻿<div id="stopwatch" class="hover-item">
+﻿<div id="stopwatch" class="timer-container hover-item">
    
-        <span class="time">0</span><span class="subscript">s</span>&nbsp;&nbsp;&nbsp;<span class="time">00</span>
+    <span class="time">{{time}}</span>
     
-    <div>
-        <button type="button" class="btn btn-warning">START</button>&nbsp;
-        <button type="button" class="btn btn-warning">RESET</button>
+    <div class="buttons">
+        <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
+        <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
+        <i class="fa fa-arrows-alt"></i> icon-fullscreen
     </div>
 </div>
+
+
+
+ 

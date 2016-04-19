@@ -23,6 +23,7 @@ a:hover, a:focus {
     text-decoration: none;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.80);
+    outline: 0;
 }
 
 #loader {
@@ -127,44 +128,6 @@ a:hover, a:focus {
     align-items: center; /* align vertical */
 }
 
-.hover-container {
-    color: #ffffff;
-    color: rgba(255, 255, 255, 0.85);
-    -webkit-transition: opacity .3s ease;
-    -moz-transition: opacity .3s ease;
-    -ms-transition: opacity .3s ease;
-    -o-transition: opacity .3s ease;
-    transition: opacity .3s ease;
-}
-
-.hover-item  a {
-    color: #ffffff;
-    color: rgba(255, 255, 255, 0.80);
-    text-decoration: none;
-}
-
-.hover-container:hover .hover-item a {
-    color: #ffffff;
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -ms-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
-}
-
-.main-color, .main-color:hover, .main-color:focus {
-    color: #ffffff;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-}
-.main-color:hover, .main-color:focus {
-    color: #ffffff;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-}
-
 #photo  {
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 400; 
@@ -188,36 +151,36 @@ a:hover, a:focus {
 }
 
 .timer-container {
-    font-size: 8em;
-    cursor: pointer;          
+    cursor: pointer;  
+    margin-bottom: 20px;
 }
 
-span.ampmMarker {
+.timer-container span.time {
+    font-size: 8em;
+}
+
+.timer-container span.ampmMarker {
     font-size: 0.2em;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.4);
 }
 
-#timer
-{
-
-}
-
-#stopwatch
-{
-
-}
-
-span.time {
-    font-size: 8em;    
+.timer-container button {
+    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.2);
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
 }
 
-span.subscript {
-    font-size: 4em;
+.timer-container button:hover, .timer-container button:active:focus, .timer-container button:focus {
+    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.4);
     color: #ffffff;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+    outline: 0;
 }
 
 
@@ -370,10 +333,40 @@ nav.nav {
     background-color: rgba(0, 0, 0, 1);
 }
 
-.btn-warning {
-    background-color: #f0ad4e;
-    /*border-color: #eea236;*/
-       background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
+.hover-container {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    -webkit-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+}
+
+.hover-item  a, .timer-container span.time {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.80);
+    text-decoration: none;
+}
+
+.hover-container:hover .hover-item a, .timer-container:hover span.time   {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+
+.main-color, .main-color:hover, .main-color:focus {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+.main-color:hover, .main-color:focus {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
 }
