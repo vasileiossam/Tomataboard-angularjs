@@ -12,7 +12,7 @@
             templateUrl: '/views/stopwatch.html',
 
             link: function (scope, element, attrs) {
-                var timeoutId;
+                var promise;
                 var seconds = 0;
 
                 var tick = function () {
@@ -22,32 +22,39 @@
                     scope.time = date.toISOString().substr(11, 8);
                 }
 
+                // toggle start/stop
                 scope.start = function () {
-                    if (timeoutId) {
-                        scope.reset();
-                    } else {
+                    $interval.cancel(promise);
+                    promise = 0;
+
+                    if (scope.startText === "STOP") {
+                        scope.startText = "START";
+                    }
+                    else if (scope.startText === "START") {
                         scope.startText = "STOP";
-                        timeoutId = $interval(tick, 1 * 1000);
+                        promise = $interval(tick, 1 * 1000);
                     }
                 };
-
+                
                 scope.reset = function () {
                     scope.time = "00:00:00";
                     scope.startText = "START";
-                    if (timeoutId) {
-                        $interval.cancel(timeoutId);
-                        timeoutId = 0;
+                    if (promise) {
+                        $interval.cancel(promise);
+                        promise = 0;
                         seconds = 0;
                     }
                 };
 
                 scope.reset();
-                var state = 0;
-                
 
+                var timeElement = angular.element(element[0].querySelector('.time'));
+                timeElement.bind("click", function () {
+                    scope.start();
+                });
 
                 element.on("$destroy", function () {
-                    $interval.cancel(timeoutId);
+                    $interval.cancel(promise);
                 });
             }
         };
