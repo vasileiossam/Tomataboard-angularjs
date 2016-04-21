@@ -1,5 +1,11 @@
-﻿<div id="timer" class="hover-item">
-    <a href="#">
-        5<span class="subscript">m</span> 00<span class="subscript">s</span>
-    </a>
+﻿<div id="timer" class="timer-container hover-item">
+
+    <span class="time">{{time}}</span>
+
+    <div class="buttons">
+        <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
+        <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
+        <i class="fa fa-arrows-alt"></i> icon-fullscreen
+    </div>
 </div>
+
