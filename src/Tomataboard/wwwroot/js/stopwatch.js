@@ -12,7 +12,7 @@
             templateUrl: '/views/stopwatch.html',
 
             link: function (scope, element, attrs) {
-                var promise;
+                scope.promise = {};
                 var seconds = 0;
 
                 var tick = function () {
@@ -24,21 +24,21 @@
 
                 // toggle start/pause
                 scope.start = function () {
-                    $interval.cancel(promise);
-                    promise = 0;
+                    $interval.cancel(scope.promise);
+                    scope.promise = 0;
 
                     if (scope.startText === "PAUSE") {
                         scope.startText = "START";
                     }
                     else if (scope.startText === "START") {
                         scope.startText = "PAUSE";
-                        promise = $interval(tick, 1 * 1000);
+                        scope.promise = $interval(tick, 1 * 1000);
                     }
                 };
                 
                 scope.reset = function () {
-                    $interval.cancel(promise);
-                    promise = 0;
+                    $interval.cancel(scope.promise);
+                    scope.promise = 0;
                     seconds = 0;
                     scope.time = "00:00:00";
                     scope.startText = "START";
@@ -52,7 +52,7 @@
                 });
 
                 element.on("$destroy", function () {
-                    $interval.cancel(promise);
+                    $interval.cancel(scope.promise);
                 });
             }
         };

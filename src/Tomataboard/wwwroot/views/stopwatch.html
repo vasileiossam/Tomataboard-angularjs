@@ -2,10 +2,10 @@
 
     <span>
         <span class="time">{{time}}</span>&nbsp;
-        <span id="fullscreen" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
+        <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
     </span>
     
-    <div class="buttons">
+    <div class="buttons fade-out" ng-show="!promise">
         <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
         <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
     </div>
