@@ -151,8 +151,13 @@ a:hover, a:focus {
 }
 
 .timer-container {
-    cursor: pointer;  
     margin-bottom: 20px;
+    
+    /* to center vertical when in full screen */
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
 }
 
 .timer-container span.time {
@@ -165,12 +170,19 @@ a:hover, a:focus {
     color: rgba(255, 255, 255, 0.4);
 }
 
-.timer-container button {
+.timer-container button, .transparent-control {
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.8);
+    background-color: #000000;
     background-color: rgba(0, 0, 0, 0.2);
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
+}
+
+.hide-arrow {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
 }
 
 .timer-container button:hover, .timer-container button:active:focus, .timer-container button:focus {
@@ -183,6 +195,20 @@ a:hover, a:focus {
     outline: 0;
 }
 
+.time {
+    cursor: pointer;  
+}
+
+.buttons button {
+    width: 80px;
+}
+.minutes, .seconds {
+    width: 80px;
+}
+
+#fullscreen {
+    cursor: pointer;
+}
 
 #greeting {
     font-size: 3.5em;      
@@ -369,4 +395,40 @@ nav.nav {
     color: #ffffff;
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
+}
+ 
+.fade-out.ng-hide {
+    -ms-opacity: 0;
+    opacity: 0;
+}
+
+.fade-out.ng-hide-remove,
+.fade-out.ng-hide-add {
+  display: block !important;
+            
+
+}
+.fade-out.ng-hide-remove {
+    -webkit-transition: all linear 1000ms;
+    -moz-transition: all linear 1000ms;
+    -ms-transition: all linear 1000ms;
+    -o-transition: all linear 1000ms;
+    transition: all linear 1000ms;
+}
+
+.fade-out.ng-hide-add {
+    -webkit-transition: all linear 500ms;
+    -moz-transition: all linear 500ms;
+    -ms-transition: all linear 500ms;
+    -o-transition: all linear 500ms;
+    transition: all linear 500ms;
+}
+
+.fade-out.ng-hide  {
+      visibility: hidden;
+}
+
+#volume {
+    cursor: pointer;  
+    margin-left: 10px;
 }

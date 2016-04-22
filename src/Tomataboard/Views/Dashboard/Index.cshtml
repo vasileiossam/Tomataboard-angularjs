@@ -74,7 +74,10 @@
                         <div id="timers" ng-show="vm.settings.showTimers">
                             <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'"></clock>
                             <pomodoro ng-show="vm.settings.activeTimer=='pomodoro'"></pomodoro>
-                            <timer ng-show="vm.settings.activeTimer=='timer'"></timer>
+                            <timer x-minutes-selection="vm.settings.timerMinutesSelection"
+                                   x-seconds-selection="vm.settings.timerSecondsSelection"
+                                   x-volume-on ="vm.settings.volumeOn"
+                                   ng-show="vm.settings.activeTimer=='timer'"></timer>
                             <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'"></stopwatch>
                             <countdown ng-show="vm.settings.activeTimer=='countdown'"></countdown>
                         </div>
@@ -108,6 +111,11 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/angular/angular.min.js"></script>
         <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
+        <script src="~/lib/angular-animate/angular-animate.min.js"></script>
+        <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
+        <script src="~/lib/screenfull/dist/screenfull.js"></script>
+        <script src="~/lib/angular-screenfull/dist/angular-screenfull.min.js"></script>
+        <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
         <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
         <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js"></script>
         <script src="~/lib/ngstorage/ngStorage.min.js"></script>

@@ -34,6 +34,9 @@
             vm.settings.showTimers = true;
             vm.settings.clockFormat = '12-hour';
             vm.settings.activeTimer = 'clock';
+            vm.settings.timerMinutesSelection = 5;
+            vm.settings.timerSecondsSelection = 0;
+            vm.settings.volumeOn = true;
         }
         
         vm.showTimer = function (selector) {

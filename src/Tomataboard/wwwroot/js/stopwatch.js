@@ -22,28 +22,26 @@
                     scope.time = date.toISOString().substr(11, 8);
                 }
 
-                // toggle start/stop
+                // toggle start/pause
                 scope.start = function () {
                     $interval.cancel(promise);
                     promise = 0;
 
-                    if (scope.startText === "STOP") {
+                    if (scope.startText === "PAUSE") {
                         scope.startText = "START";
                     }
                     else if (scope.startText === "START") {
-                        scope.startText = "STOP";
+                        scope.startText = "PAUSE";
                         promise = $interval(tick, 1 * 1000);
                     }
                 };
                 
                 scope.reset = function () {
+                    $interval.cancel(promise);
+                    promise = 0;
+                    seconds = 0;
                     scope.time = "00:00:00";
                     scope.startText = "START";
-                    if (promise) {
-                        $interval.cancel(promise);
-                        promise = 0;
-                        seconds = 0;
-                    }
                 };
 
                 scope.reset();

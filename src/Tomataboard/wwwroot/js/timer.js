@@ -3,7 +3,7 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("timer", function ($interval) {
+    app.directive("timer", function ($interval, ngAudio) {
 
         return {
             restrict: "E",
@@ -11,41 +11,85 @@
 
             templateUrl: '/views/timer.html',
 
-            link: function (scope, element, attrs) {
-                var promise;
-                var seconds = 0;
+            scope: {
+                minutesSelection: "=minutesSelection",
+                secondsSelection: "=secondsSelection",
+                volumenOn: "=volumenOn"
+            },
 
-                var tick = function () {
-                    seconds = seconds + 1;
+            link: function (scope, element, attrs) {
+                scope.minutesCollection = ["mins"];
+                for (var i = 0; i <= 90; i++) {
+                    scope.minutesCollection.push(i);
+                }
+                scope.secondsCollection = ["secs", 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+
+                scope.promise = {};
+                var seconds;
+                var audio = ngAudio.load("/sounds/alarm_beep.wav");
+                
+                var calcSeconds = function () {
+                    seconds = 0;
+                    if (angular.isNumber(scope.minutesSelection)) {
+                        seconds = seconds + scope.minutesSelection * 60;
+                    }
+                    if (angular.isNumber(scope.secondsSelection)) {
+                        seconds = seconds + scope.secondsSelection;
+                    }
+                };
+
+                var updateTime = function () {
                     var date = new Date(null);
                     date.setSeconds(seconds);
-                    scope.time = date.toISOString().substr(11, 8);
+                    if (seconds >= 3600) {
+                        scope.time = date.toISOString().substr(11, 8);
+                    }
+                    else
+                    if (seconds >= 60) {
+                        scope.time = date.toISOString().substr(14, 5);
+                    }
+                    else
+                        if (seconds < 60) {
+                            scope.time = date.toISOString().substr(17, 2);
+                        }
+                };
+
+                var tick = function () {
+                    seconds = seconds - 1;
+                    if (seconds <= 0) {
+                        if (scope.volumeOn) {
+                            audio.play();
+                        }
+                        scope.reset();
+                    } else {
+                        updateTime();
+                    }
+                  
                 }
 
-                // toggle start/stop
+                // toggle start/pause
                 scope.start = function () {
-                    $interval.cancel(promise);
-                    promise = 0;
+                    $interval.cancel(scope.promise);
+                    scope.promise = 0;
 
-                    if (scope.startText === "STOP") {
+                    if (scope.startText === "PAUSE") {
                         scope.startText = "START";
                     }
                     else if (scope.startText === "START") {
-                        scope.startText = "STOP";
-                        promise = $interval(tick, 1 * 1000);
+                        if (seconds > 0) {
+                            scope.startText = "PAUSE";
+                            scope.promise = $interval(tick, 1 * 1000);
+                        }
                     }
                 };
 
                 scope.reset = function () {
-                    scope.time = "00:00:00";
+                    $interval.cancel(scope.promise);
+                    scope.promise = 0;
+                    calcSeconds();
+                    updateTime();
                     scope.startText = "START";
-                    if (promise) {
-                        $interval.cancel(promise);
-                        promise = 0;
-                        seconds = 0;
-                    }
                 };
-
                 scope.reset();
 
                 var timeElement = angular.element(element[0].querySelector('.time'));
@@ -54,7 +98,7 @@
                 });
 
                 element.on("$destroy", function () {
-                    $interval.cancel(promise);
+                    $interval.cancel(scope.promise);
                 });
             }
         };
