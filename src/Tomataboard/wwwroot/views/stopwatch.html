@@ -1,11 +1,13 @@
-﻿<div id="stopwatch" class="timer-container hover-item">
-   
-    <span class="time">{{time}}</span>
+﻿<div id="stopwatch" class="timer-container hover-item" ngsf-fullscreen>
+
+    <span>
+        <span class="time">{{time}}</span>&nbsp;
+        <span id="fullscreen" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
+    </span>
     
     <div class="buttons">
         <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
         <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
-        <i class="fa fa-arrows-alt"></i> icon-fullscreen
     </div>
 </div>
 
