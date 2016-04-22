@@ -34,12 +34,19 @@
             vm.settings.showTimers = true;
             vm.settings.clockFormat = '12-hour';
             vm.settings.activeTimer = 'clock';
+            vm.settings.volumeOn = true;
+
             vm.settings.timerMinutesSelection = 5;
             vm.settings.timerSecondsSelection = 0;
-            vm.settings.volumeOn = true;
         }
-        
+
+        vm.stopwatchReset = {};
+
         vm.showTimer = function (selector) {
+            // reset stopwatch if its working
+            if (selector !== "stopwatch") {
+                vm.stopwatchReset();
+            }
             vm.settings.activeTimer = selector;
             $('.ssm-overlay').click();
         };

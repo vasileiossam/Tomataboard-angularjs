@@ -78,7 +78,7 @@
                                    x-seconds-selection="vm.settings.timerSecondsSelection"
                                    x-volume-on ="vm.settings.volumeOn"
                                    ng-show="vm.settings.activeTimer=='timer'"></timer>
-                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'"></stopwatch>
+                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset"></stopwatch>
                             <countdown ng-show="vm.settings.activeTimer=='countdown'"></countdown>
                         </div>
                         <greeting></greeting>

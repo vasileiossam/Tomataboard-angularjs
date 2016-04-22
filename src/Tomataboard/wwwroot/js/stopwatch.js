@@ -11,6 +11,10 @@
 
             templateUrl: '/views/stopwatch.html',
 
+            scope: {
+                reset: "="
+            },
+
             link: function (scope, element, attrs) {
                 scope.promise = {};
                 var seconds = 0;
