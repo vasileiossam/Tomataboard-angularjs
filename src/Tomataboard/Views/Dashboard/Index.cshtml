@@ -66,15 +66,17 @@
                 </div>
             </div>
         </header>
-        @*x-short-break="vm.settings.pomodoroShortBreak"
-        x-long-break="vm.settings.pomodoroLongBreak"*@
+
         <div class="vertical-center">
             <div class="container">
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
                         <div id="timers" ng-show="vm.settings.showTimers">
                             <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'"></clock>
-                            <pomodoro x-work="vm.settings.pomodoroTime" ng-show="vm.settings.activeTimer=='pomodoro'"></pomodoro>
+                            <pomodoro x-pomodoro-time="vm.settings.pomodoroTime"
+                                      x-short-break="vm.settings.pomodoroShortBreak"
+                                      x-long-break="vm.settings.pomodoroLongBreak"
+                                      ng-show="vm.settings.activeTimer=='pomodoro'"></pomodoro>
                              <timer x-minutes-selection="vm.settings.timerMinutesSelection"
                                    x-seconds-selection="vm.settings.timerSecondsSelection"
                                    x-volume-on ="vm.settings.volumeOn"
