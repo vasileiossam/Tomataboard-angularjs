@@ -1,3 +1,30 @@
-﻿<div>
-    COUNTDOWN
+﻿<div id="countdown" class="timer-container hover-item" ngsf-fullscreen>
+
+    <span>
+        <span class="time">{{time}}</span>&nbsp;
+        <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
+    </span>
+
+    <div class="buttons row form-group fade-out" ng-show="!promise">
+        <form class="form-inline" role="form">
+            <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
+            <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
+            &nbsp;&nbsp;
+            <select class="form-control transparent-control hide-arrow minutes"
+                    ng-options="option for option in minutesCollection track by option"
+                    ng-model="minutesSelection"
+                    ng-change="reset()"></select>
+            &nbsp;:&nbsp;
+            <select class="form-control transparent-control hide-arrow seconds"
+                    ng-options="option for option in secondsCollection track by option"
+                    ng-model="secondsSelection"
+                    ng-change="reset()"></select>
+
+            <span id="volume">
+                <span ng-show="volumeOn" ng-click="volumeOn = false" class="glyphicon glyphicon glyphicon-volume-up"></span>
+                <span ng-show="!volumeOn" ng-click="volumeOn = true" class="glyphicon glyphicon glyphicon-volume-off"></span>
+            </span>
+        </form>
+    </div>
 </div>
+
