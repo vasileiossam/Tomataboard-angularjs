@@ -316,6 +316,15 @@ a:hover, a:focus {
     padding: 10px;
 }
 
+#pomodoro-settings .header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#pomodoro-settings select {
+    width: 80px;
+}
+
 .semi-transparent {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.7);
@@ -437,3 +446,4 @@ nav.nav {
     cursor: pointer;  
     margin-left: 10px;
 }
+

@@ -38,10 +38,14 @@
 
             vm.settings.timerMinutesSelection = 5;
             vm.settings.timerSecondsSelection = 0;
+
+            vm.settings.pomodoroTime = 25;
+            vm.settings.pomodoroShortBreak = 5;
+            vm.settings.pomodoroLongBreak = 15;
         }
-
+        
         vm.stopwatchReset = {};
-
+ 
         vm.showTimer = function (selector) {
             // reset stopwatch if its working
             if (selector !== "stopwatch") {
@@ -147,7 +151,6 @@
                 vm.refresh();
             }, 1000);
         };
-
     }
 
     //function getRandomElement(arr) {

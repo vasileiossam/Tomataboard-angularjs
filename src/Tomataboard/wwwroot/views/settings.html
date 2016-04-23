@@ -28,5 +28,27 @@
             <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
             <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
         </span>
+
+        <div id="pomodoro-settings">
+            <h4 class="header">Pomodoro Timer</h4>
+            <div class="form-group">
+                <label for="pomodoroTime">Pomodoro Time</label>
+                <select class="form-control transparent-control" id="pomodoroTime"
+                        ng-options="option for option in workCollection track by option"
+                        ng-model="vm.settings.pomodoroTime"></select>
+            </div>
+            <div class="form-group">
+                <label for="pomodoroShortBreak">Short Break</label>
+                <select class="form-control transparent-control" id="pomodoroShortBreak"
+                        ng-options="option for option in shortBreakCollection track by option"
+                        ng-model="vm.settings.pomodoroShortBreak"></select>
+            </div>
+            <div class="form-group">
+                <label for="pomodoroLongBreak">Long Break</label>
+                <select class="form-control transparent-control" id="pomodoroLongBreak"
+                        ng-options="option for option in longBreakCollection track by option"
+                        ng-model="vm.settings.pomodoroLongBreak"></select>
+            </div>
+        </div>
     </form>
 </div>
