@@ -9,16 +9,17 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/pomodoro.html',
+            templateUrl: "/views/pomodoro.html",
 
             scope: {
                 pomodoroTime: "=",
                 shortBreak: "=",
-                longBreak: "="
+                longBreak: "=",
+                taskDescription: "=",
+                defaultTaskDescription: "="
             },
             
             link: function (scope, element, attrs) {
-                scope.taskDescription = "todo";
                 // states: 1 pomodoro, 2 short break, 3 long break
                 var state = 1;
 

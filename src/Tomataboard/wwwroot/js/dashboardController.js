@@ -42,8 +42,10 @@
             vm.settings.pomodoroTime = 25;
             vm.settings.pomodoroShortBreak = 5;
             vm.settings.pomodoroLongBreak = 15;
+            vm.settings.pomodoroDefaultTaskDescription = "What task are you working?";
+            vm.settings.pomodoroTaskDescription = vm.settings.pomodoroDefaultTaskDescription;
         }
-        
+
         vm.stopwatchReset = {};
  
         vm.showTimer = function (selector) {
