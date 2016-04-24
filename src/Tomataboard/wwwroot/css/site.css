@@ -199,28 +199,46 @@ a:hover, a:focus {
     cursor: pointer;  
 }
 
-.buttons button {
-    width: 80px;
+#pomodoro .task {
+    margin-bottom: 20px;
+    font-size: 2.5em;         
 }
+
+.buttons .pomodoro-button {
+    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 0, 0, 0.8);
+    background-color: #000000;
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
+.buttons .pomodoro-button:hover {
+    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 0, 0, 0.8);
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
 .minutes, .seconds {
     width: 80px;
 }
 
 #fullscreen-button {
     cursor: pointer;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
 }
 
-/* added by ngsf-fullscreen */
+/* this class is added by ngsf-fullscreen */
 .fullscreen {
     background: black;    
 }
 
 #greeting {
-    font-size: 3.5em;      
+    font-size: 3.5em;
 }
 
 #focus {
-    margin-top: 80px;
+    margin-top: 40px;
     font-size: 2.5em;      
 }
 
@@ -228,6 +246,7 @@ a:hover, a:focus {
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0);
     padding: 10px;
+    display: inline-block;
 }
 
 .editable:hover {
@@ -256,10 +275,6 @@ a:hover, a:focus {
     padding: 10px;
     content: attr(placeholder);
     margin: 0;
-}
-
-#answer {
-    margin-top: 25px;
 }
 
 #quote {
@@ -445,5 +460,21 @@ nav.nav {
 #volume {
     cursor: pointer;  
     margin-left: 10px;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
 }
 
+#searchinput {
+    width: 200px;
+}
+#searchclear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ccc;
+}

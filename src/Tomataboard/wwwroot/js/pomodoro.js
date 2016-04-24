@@ -12,59 +12,77 @@
             templateUrl: '/views/pomodoro.html',
 
             scope: {
-                minutesSelection: "=minutesSelection",
-                secondsSelection: "=secondsSelection",
-                volumenOn: "=volumenOn"
+                pomodoroTime: "=",
+                shortBreak: "=",
+                longBreak: "="
             },
-
+            
             link: function (scope, element, attrs) {
-                scope.minutesCollection = ["mins"];
-                for (var i = 0; i <= 90; i++) {
-                    scope.minutesCollection.push(i);
-                }
-                scope.secondsCollection = ["secs", 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+                scope.taskDescription = "todo";
+                // states: 1 pomodoro, 2 short break, 3 long break
+                var state = 1;
 
                 scope.promise = {};
                 var seconds;
-                var audio = ngAudio.load("/sounds/alarm_beep.wav");
+                var audioStartPomodoro = ngAudio.load("/sounds/start.wav");
+                //var audioStartBreak = ngAudio.load("/sounds/finish1.wav");
+                
+                scope.startPomodoro = function () {
+                    state = 1;
+                    scope.reset();
+                    scope.start();
+                };
+
+                scope.startShortBreak = function () {
+                    state = 2;
+                    scope.reset();
+                    scope.start();
+                };
+
+                scope.startLongBreak = function () {
+                    state = 3;
+                    scope.reset();
+                    scope.start();
+                };
 
                 var calcSeconds = function () {
-                    seconds = 0;
-                    if (angular.isNumber(scope.minutesSelection)) {
-                        seconds = seconds + scope.minutesSelection * 60;
+                    if (state === 1) {
+                        seconds = scope.pomodoroTime * 60;
                     }
-                    if (angular.isNumber(scope.secondsSelection)) {
-                        seconds = seconds + scope.secondsSelection;
-                    }
+                    else
+                        if (state === 2) {
+                            seconds = scope.shortBreak * 60;
+                        }
+                        else
+                            if (state === 3) {
+                                seconds = scope.longBreak * 60;
+                            }
                 };
 
                 var updateTime = function () {
                     var date = new Date(null);
                     date.setSeconds(seconds);
-                    if (seconds >= 3600) {
-                        scope.time = date.toISOString().substr(11, 8);
+                    if (seconds >= 60) {
+                        scope.time = date.toISOString().substr(14, 5);
                     }
-                    else
-                        if (seconds >= 60) {
-                            scope.time = date.toISOString().substr(14, 5);
-                        }
-                        else
-                            if (seconds < 60) {
-                                scope.time = date.toISOString().substr(17, 2);
-                            }
                 };
+
+                var finished = function () {
+                    if (scope === 1) {
+                        if (scope.volumeOn) {
+                            audioStartPomodoro.play();
+                        }
+                    }                     
+                }
 
                 var tick = function () {
                     seconds = seconds - 1;
                     if (seconds <= 0) {
-                        if (scope.volumeOn) {
-                            audio.play();
-                        }
+                        finished();
                         scope.reset();
                     } else {
                         updateTime();
                     }
-
                 }
 
                 // toggle start/pause

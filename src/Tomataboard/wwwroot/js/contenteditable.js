@@ -26,7 +26,9 @@
                 // make sure that empty string will set the default name
                 element.bind("blur", function () {
                     var value = ngModel.$viewValue.trim();
-                    if (!value) {
+
+                    // <BR> is added automaticall by Firefox
+                    if ((!value) || (value === "<br>") || (value === "<BR>")) {
                         value = attrs.defaultvalue;
                         ngModel.$setViewValue(value);
                         ngModel.$render();
@@ -36,6 +38,14 @@
 
                 // prevent Enter key
                 element.bind("keydown keypress", function (event) {
+
+                    // erase the default value when start typing
+                    var value = ngModel.$viewValue.trim();
+                    if (value === attrs.defaultvalue) {
+                        ngModel.$setViewValue("");
+                        ngModel.$render();
+                    };
+
                     // http://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
                     var key = typeof event.which === "undefined" ? event.keyCode : event.which;
                     if (key === 13) {

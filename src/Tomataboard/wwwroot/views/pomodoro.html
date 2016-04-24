@@ -1,24 +1,23 @@
-﻿<div id="timer" class="timer-container hover-item" ngsf-fullscreen>
-
+﻿<div id="pomodoro" class="timer-container hover-item" ngsf-fullscreen>
     <span>
         <span class="time">{{time}}</span>&nbsp;
         <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
     </span>
 
+    <div class="form-group task">
+        <div class="editable" contenteditable ng-model="taskDescription" spellcheck="false" 
+             defaultvalue="What task are you working?"></div>
+    </div>
+
     <div class="buttons row form-group fade-out" ng-show="!promise">
-        <form class="form-inline" role="form">
+        <form role="form">
             <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
             <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
             &nbsp;&nbsp;
-            <select class="form-control transparent-control hide-arrow minutes"
-                    ng-options="option for option in minutesCollection track by option"
-                    ng-model="minutesSelection"
-                    ng-change="reset()"></select>
-            &nbsp;:&nbsp;
-            <select class="form-control transparent-control hide-arrow seconds"
-                    ng-options="option for option in secondsCollection track by option"
-                    ng-model="secondsSelection"
-                    ng-change="reset()"></select>
+
+            <button type="button" ng-click="startPomodoro()" class="btn btn-warning pomodoro-button">POMODORO</button>
+            <button type="button" ng-click="startShortBreak()" class="btn btn-warning">SHORT BREAK</button>
+            <button type="button" ng-click="startLongBreak()" class="btn btn-warning">LONG BREAK</button>
 
             <span id="volume">
                 <span ng-show="volumeOn" ng-click="volumeOn = false" class="glyphicon glyphicon glyphicon-volume-up"></span>

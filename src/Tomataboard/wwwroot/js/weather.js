@@ -12,7 +12,7 @@
             templateUrl: '/views/weather.html',
 
             link: function(scope, element, attrs) {
-
+                
                 $(element).popover({
                     html: "true",
                     placement: "top",
