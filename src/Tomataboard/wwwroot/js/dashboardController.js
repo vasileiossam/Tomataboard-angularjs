@@ -27,13 +27,13 @@
             vm.settings.showBackgroundPhoto = true;
             vm.settings.showFocus = true;
             vm.settings.showWeather = true;
-            vm.settings.temperatureUnits = 'fahrenheit';
+            vm.settings.temperatureUnits = "fahrenheit";
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
 
             vm.settings.showTimers = true;
-            vm.settings.clockFormat = '12-hour';
-            vm.settings.activeTimer = 'clock';
+            vm.settings.clockFormat = "12-hour";
+            vm.settings.activeTimer = "clock";
             vm.settings.volumeOn = true;
 
             vm.settings.timerMinutesSelection = 5;
@@ -42,8 +42,11 @@
             vm.settings.pomodoroTime = 25;
             vm.settings.pomodoroShortBreak = 5;
             vm.settings.pomodoroLongBreak = 15;
-            vm.settings.pomodoroDefaultTaskDescription = "What task are you working?";
-            vm.settings.pomodoroTaskDescription = vm.settings.pomodoroDefaultTaskDescription;
+            vm.settings.pomodoroTaskPlaceholder = "What task are you working?";
+            vm.settings.pomodoroTaskDescription = vm.settings.pomodoroTaskPlaceholder;
+            vm.settings.countdownEventPlaceholder = "Event Name...";
+            vm.settings.countdownEventDescription = vm.settings.countdownEventPlaceholder;
+            vm.settings.countdownEndDate = {};
         }
 
         vm.stopwatchReset = {};

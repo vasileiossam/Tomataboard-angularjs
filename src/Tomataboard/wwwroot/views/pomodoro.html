@@ -4,9 +4,9 @@
         <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
     </span>
 
-    <div class="form-group task">
+    <div class="form-group description">
         <div class="editable" contenteditable ng-model="taskDescription" spellcheck="false" 
-             defaultvalue="{{defaultTaskDescription}}"></div>
+             defaultvalue="{{taskPlaceholder}}"></div>
     </div>
 
     <div class="buttons row form-group fade-out" ng-show="!promise">

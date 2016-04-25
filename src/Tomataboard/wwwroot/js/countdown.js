@@ -9,62 +9,74 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/countdown.html',
+            templateUrl: "/views/countdown.html",
 
             scope: {
-                minutesSelection: "=minutesSelection",
-                secondsSelection: "=secondsSelection",
-                volumenOn: "=volumenOn"
+                eventDescription: "=",
+                eventPlaceholder: "=",
+                endDate: "="
             },
 
             link: function (scope, element, attrs) {
-                scope.minutesCollection = ["mins"];
-                for (var i = 0; i <= 90; i++) {
-                    scope.minutesCollection.push(i);
-                }
-                scope.secondsCollection = ["secs", 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
-
                 scope.promise = {};
+                scope.time = {};
                 var seconds;
-                var audio = ngAudio.load("/sounds/alarm_beep.wav");
 
                 var calcSeconds = function () {
                     seconds = 0;
-                    if (angular.isNumber(scope.minutesSelection)) {
-                        seconds = seconds + scope.minutesSelection * 60;
-                    }
-                    if (angular.isNumber(scope.secondsSelection)) {
-                        seconds = seconds + scope.secondsSelection;
+
+                    var now = new Date();
+                    var date = moment(scope.endDate);
+                    if (date > now) {
+                        seconds = (date - now) / 1000;
                     }
                 };
 
                 var updateTime = function () {
-                    var date = new Date(null);
-                    date.setSeconds(seconds);
-                    if (seconds >= 3600) {
-                        scope.time = date.toISOString().substr(11, 8);
+                 
+                    var zeroTime = {
+                        'days': 0,
+                        'hours': 0,
+                        'minutes': 0,
+                        'seconds': 0
                     }
-                    else
-                        if (seconds >= 60) {
-                            scope.time = date.toISOString().substr(14, 5);
-                        }
-                        else
-                            if (seconds < 60) {
-                                scope.time = date.toISOString().substr(17, 2);
-                            }
+                    if (!scope.endDate) {
+                        scope.time = zeroTime;
+                        return;
+                    }
+
+                    var distance = moment(scope.endDate) - new Date();
+                    if (distance < 0) {
+                        scope.time = zeroTime;
+                        return;
+                    }
+
+                    var _second = 1000;
+                    var _minute = _second * 60;
+                    var _hour = _minute * 60;
+                    var _day = _hour * 24;
+
+                    // http://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+                    var days = Math.floor(distance / _day);
+                    var hours = Math.floor((distance % _day) / _hour);
+                    var minutes = Math.floor((distance % _hour) / _minute);
+                    var secs = Math.floor((distance % _minute) / _second);
+
+                    scope.time = {
+                        "days": days,
+                        "hours": hours,
+                        "minutes": minutes,
+                        "seconds": secs
+                    };
                 };
 
                 var tick = function () {
                     seconds = seconds - 1;
                     if (seconds <= 0) {
-                        if (scope.volumeOn) {
-                            audio.play();
-                        }
                         scope.reset();
                     } else {
                         updateTime();
                     }
-
                 }
 
                 // toggle start/pause
@@ -76,6 +88,7 @@
                         scope.startText = "START";
                     }
                     else if (scope.startText === "START") {
+                        calcSeconds();
                         if (seconds > 0) {
                             scope.startText = "PAUSE";
                             scope.promise = $interval(tick, 1 * 1000);
@@ -86,16 +99,20 @@
                 scope.reset = function () {
                     $interval.cancel(scope.promise);
                     scope.promise = 0;
-                    calcSeconds();
+                    seconds = 0;
                     updateTime();
                     scope.startText = "START";
                 };
                 scope.reset();
 
-                var timeElement = angular.element(element[0].querySelector('.time'));
-                timeElement.bind("click", function () {
-                    scope.start();
-                });
+                var timeElements = element[0].querySelectorAll('.times');
+                for (var index = 0; index < timeElements.length; ++index) {
+                    var ele = angular.element(timeElements[index]);
+                    ele.bind("click",
+                        function () {
+                            scope.start();
+                        });
+                }
 
                 element.on("$destroy", function () {
                     $interval.cancel(scope.promise);

@@ -164,6 +164,25 @@ a:hover, a:focus {
     font-size: 8em;
 }
 
+/* countdown */
+ .timer-container table.time {
+    width: 50%;
+    
+    /* horizontal center table inside the div */
+    margin: 0 auto !important;
+    float: none !important;
+}
+.timer-container table .times {
+    font-size: 6em;
+}
+.timer-container table .legends {
+    cursor: default;
+    font-weight: bold;
+    font-size: 1em;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
+}
+
 .timer-container span.ampmMarker {
     font-size: 0.2em;
     color: #ffffff;
@@ -199,7 +218,8 @@ a:hover, a:focus {
     cursor: pointer;  
 }
 
-#pomodoro .task {
+/* pomodoro task and event name */
+.form-group.description {
     margin-bottom: 20px;
     font-size: 2.5em;         
 }
@@ -477,4 +497,19 @@ nav.nav {
     font-size: 14px;
     cursor: pointer;
     color: #ccc;
+}
+
+/* datetimepicker */
+#endDate {
+    width: 280px;
+}
+.datetimepicker .minute:hover,
+.datetimepicker .hour:hover,
+.datetimepicker .day:hover,
+.datetimepicker .switch:hover,
+.datetimepicker .left:hover,
+.datetimepicker .right:hover,
+.datetimepicker span:hover {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
 }

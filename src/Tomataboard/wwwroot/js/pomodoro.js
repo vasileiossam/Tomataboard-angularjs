@@ -16,7 +16,7 @@
                 shortBreak: "=",
                 longBreak: "=",
                 taskDescription: "=",
-                defaultTaskDescription: "="
+                taskPlaceholder: "="
             },
             
             link: function (scope, element, attrs) {

@@ -1,29 +1,47 @@
 ﻿<div id="countdown" class="timer-container hover-item" ngsf-fullscreen>
+    <div>
+        <table class="table time">
+            <tr>
+                <td class="times">{{time.days}}</td>
+                <td class="times">{{time.hours}}</td>
+                <td class="times">{{time.minutes}}</td>
+                <td class="times">{{time.seconds}}</td>
+                <td style="vertical-align: middle;"><span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span></td>
+            </tr>
+            <tr class="legends">
+                <td>DAYS</td>
+                <td>HOURS</td>
+                <td>MINUTES</td>
+                <td>SECONDS</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
 
-    <span>
-        <span class="time">{{time}}</span>&nbsp;
-        <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
-    </span>
-
+    <div class="form-group description">
+        <div class="editable" contenteditable ng-model="eventDescription" spellcheck="false"
+             defaultvalue="{{eventPlaceholder}}"></div>
+    </div>
+    
     <div class="buttons row form-group fade-out" ng-show="!promise">
         <form class="form-inline" role="form">
             <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
-            <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
             &nbsp;&nbsp;
-            <select class="form-control transparent-control hide-arrow minutes"
-                    ng-options="option for option in minutesCollection track by option"
-                    ng-model="minutesSelection"
-                    ng-change="reset()"></select>
-            &nbsp;:&nbsp;
-            <select class="form-control transparent-control hide-arrow seconds"
-                    ng-options="option for option in secondsCollection track by option"
-                    ng-model="secondsSelection"
-                    ng-change="reset()"></select>
+    
+            <div class="form-group">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                            <input type="text" class="form-control transparent-control" data-ng-model="endDate" id="endDate">
+                            <span class="input-group-addon transparent-control"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu transparent-control" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="endDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                    </ul>
+                </div>
 
-            <span id="volume">
-                <span ng-show="volumeOn" ng-click="volumeOn = false" class="glyphicon glyphicon glyphicon-volume-up"></span>
-                <span ng-show="!volumeOn" ng-click="volumeOn = true" class="glyphicon glyphicon glyphicon-volume-off"></span>
-            </span>
+            </div>
         </form>
     </div>
 </div>
