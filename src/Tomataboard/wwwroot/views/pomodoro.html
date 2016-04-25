@@ -5,7 +5,7 @@
     </span>
 
     <div class="form-group description">
-        <div class="editable" contenteditable ng-model="taskDescription" spellcheck="false" 
+        <div class="editable" contenteditable ng-model="taskDescription" spellcheck="false"
              defaultvalue="{{taskPlaceholder}}"></div>
     </div>
 
@@ -24,6 +24,9 @@
                 <span ng-show="!volumeOn" ng-click="volumeOn = true" class="glyphicon glyphicon glyphicon-volume-off"></span>
             </span>
         </form>
+        <div ng-show="total > 0" id="pomodoros-total">
+            <span ng-bind="total"></span> pomodoro<span ng-show="total > 1">s</span> completed
+        </div>
     </div>
 </div>
 

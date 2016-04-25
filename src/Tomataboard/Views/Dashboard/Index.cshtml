@@ -74,7 +74,8 @@
                     <div class="hover-container">
                         <div id="timers" ng-show="vm.settings.showTimers">
                             <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'"></clock>
-                            <pomodoro x-pomodoro-time="vm.settings.pomodoroTime"
+                            <pomodoro x-total="vm.settings.pomodoroTotal"
+                                      x-pomodoro-time="vm.settings.pomodoroTime"
                                       x-short-break="vm.settings.pomodoroShortBreak"
                                       x-long-break="vm.settings.pomodoroLongBreak"
                                       x-task-description="vm.settings.pomodoroTaskDescription"

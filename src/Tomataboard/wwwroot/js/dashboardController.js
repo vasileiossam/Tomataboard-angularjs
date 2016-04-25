@@ -42,13 +42,14 @@
             vm.settings.pomodoroTime = 25;
             vm.settings.pomodoroShortBreak = 5;
             vm.settings.pomodoroLongBreak = 15;
-            vm.settings.pomodoroTaskPlaceholder = "What task are you working?";
+            vm.settings.pomodoroTaskPlaceholder = "What task are you working on?";
             vm.settings.pomodoroTaskDescription = vm.settings.pomodoroTaskPlaceholder;
+            vm.settings.pomodoroTotal = 0;
             vm.settings.countdownEventPlaceholder = "Event Name...";
             vm.settings.countdownEventDescription = vm.settings.countdownEventPlaceholder;
             vm.settings.countdownEndDate = {};
         }
-
+     
         vm.stopwatchReset = {};
  
         vm.showTimer = function (selector) {

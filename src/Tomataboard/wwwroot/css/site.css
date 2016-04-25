@@ -503,6 +503,14 @@ nav.nav {
     color: #ccc;
 }
 
+.secondary-color {
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#pomodoros-total {
+    margin-top: 20px;    
+}
 /* datetimepicker */
 #endDate {
     width: 280px;

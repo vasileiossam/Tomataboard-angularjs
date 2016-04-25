@@ -16,7 +16,8 @@
                 shortBreak: "=",
                 longBreak: "=",
                 taskDescription: "=",
-                taskPlaceholder: "="
+                taskPlaceholder: "=",
+                total: "="
             },
             
             link: function (scope, element, attrs) {
@@ -63,13 +64,24 @@
                 var updateTime = function () {
                     var date = new Date(null);
                     date.setSeconds(seconds);
-                    if (seconds >= 60) {
-                        scope.time = date.toISOString().substr(14, 5);
+
+                    if (seconds >= 3600) {
+                        scope.time = date.toISOString().substr(11, 8);
                     }
+                    else
+                        if (seconds >= 60) {
+                            scope.time = date.toISOString().substr(14, 5);
+                        }
+                        else
+                            if (seconds < 60) {
+                                scope.time = date.toISOString().substr(17, 2);
+                            }
                 };
 
                 var finished = function () {
-                    if (scope === 1) {
+
+                    if (state === 1) {
+                        scope.total = scope.total + 1;
                         if (scope.volumeOn) {
                             audioStartPomodoro.play();
                         }
