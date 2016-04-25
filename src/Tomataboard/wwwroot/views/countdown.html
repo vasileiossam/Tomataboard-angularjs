@@ -2,10 +2,10 @@
     <div>
         <table class="table time">
             <tr>
-                <td class="times">{{time.days}}</td>
-                <td class="times">{{time.hours}}</td>
-                <td class="times">{{time.minutes}}</td>
-                <td class="times">{{time.seconds}}</td>
+                <td class="times"><span ng-bind="time.days"></span></td>
+                <td class="times"><span ng-bind="time.hours"></span></td>
+                <td class="times"><span ng-bind="time.minutes"></span></td>
+                <td class="times"><span ng-bind="time.seconds"></span></td>
                 <td style="vertical-align: middle;"><span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span></td>
             </tr>
             <tr class="legends">
@@ -25,7 +25,7 @@
     
     <div class="buttons row form-group fade-out" ng-show="!promise">
         <form class="form-inline" role="form">
-            <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
+            <button type="button" ng-click="start()" class="btn btn-warning"><span ng-bind="startText"></span></button>&nbsp;
             &nbsp;&nbsp;
     
             <div class="form-group">

@@ -1,6 +1,6 @@
 ﻿<div id="pomodoro" class="timer-container hover-item" ngsf-fullscreen>
     <span>
-        <span class="time">{{time}}</span>&nbsp;
+        <span class="time" ng-bind="time"></span>&nbsp;
         <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt"></span>
     </span>
 
@@ -11,7 +11,7 @@
 
     <div class="buttons row form-group fade-out" ng-show="!promise">
         <form role="form">
-            <button type="button" ng-click="start()" class="btn btn-warning">{{startText}}</button>&nbsp;
+            <button type="button" ng-click="start()" class="btn btn-warning" ng-bind="startText"></button>&nbsp;
             <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
             &nbsp;&nbsp;
 

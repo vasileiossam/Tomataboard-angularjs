@@ -1,4 +1,4 @@
 ﻿<div id="greeting" class="hover-item" ng-show="vm.settings.showGreeting">
-    {{vm.dashboard.greeting}}, <div class="editable" contenteditable ng-model="vm.settings.name"
+    <span ng-bind="vm.dashboard.greeting"></span>, <div class="editable" contenteditable ng-model="vm.settings.name"
                                      defaultvalue="{{vm.settings.defaultName}}" spellcheck="false"></div>
 </div>

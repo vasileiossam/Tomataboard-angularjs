@@ -1,6 +1,6 @@
 ﻿<div id="clock" class="timer-container hover-item">
-    <span class="time" ng-show="format == '24-hour'">{{time | date: 'HH:mm'}}</span>
-    <span class="time" ng-show="format == '12-hour'">
-        {{time | date: 'h:mm'}}<span class="ampmMarker">{{time | date: 'a'}}</span>
+    <span>
+        <span class="time" ng-bind="time | date: timeFormat"></span>
+        <span class="ampmMarker" ng-show="format=='12-hour'" ng-bind="time | date: 'a'"></span>
     </span>
 </div>

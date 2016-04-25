@@ -21,14 +21,14 @@
                 scope.promise = {};
                 scope.time = {};
                 var seconds;
-
+                scope.endDate = moment(scope.endDate);
+                
                 var calcSeconds = function () {
                     seconds = 0;
 
                     var now = new Date();
-                    var date = moment(scope.endDate);
-                    if (date > now) {
-                        seconds = (date - now) / 1000;
+                    if (scope.endDate > now) {
+                        seconds = (scope.endDate - now) / 1000;
                     }
                 };
 
@@ -104,6 +104,12 @@
                     scope.startText = "START";
                 };
                 scope.reset();
+
+                // autostart if not reached endDate yet
+                calcSeconds();
+                if (seconds > 0) {
+                    scope.start();
+                }
 
                 var timeElements = element[0].querySelectorAll('.times');
                 for (var index = 0; index < timeElements.length; ++index) {

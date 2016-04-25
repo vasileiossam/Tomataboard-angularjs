@@ -18,6 +18,17 @@
 
             link: function (scope, element, attrs) {
 
+                var setTimeFormat = function () {
+                    if (scope.format === "12-hour") {
+                        scope.timeFormat = "h:mm";
+                    }
+                    else
+                        if (scope.format === "24-hour") {
+                            scope.timeFormat = "HH:mm";
+                        }
+                }
+                setTimeFormat();
+
                 // toggle time format
                 element.bind("click", function () {
                     if (scope.format === "12-hour") {
@@ -27,6 +38,7 @@
                         if (scope.format === "24-hour") {
                             scope.format = "12-hour";
                         }
+                    setTimeFormat();
                     scope.$apply();
                 });
 
