@@ -14,7 +14,7 @@
             scope: {
                 minutesSelection: "=minutesSelection",
                 secondsSelection: "=secondsSelection",
-                volumenOn: "=volumenOn"
+                volumeOn: "=volumeOn"
             },
 
             link: function (scope, element, attrs) {

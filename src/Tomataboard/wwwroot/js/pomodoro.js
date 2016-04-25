@@ -17,7 +17,8 @@
                 longBreak: "=",
                 taskDescription: "=",
                 taskPlaceholder: "=",
-                total: "="
+                total: "=",
+                volumeOn: "=volumeOn"
             },
             
             link: function (scope, element, attrs) {
