@@ -329,9 +329,10 @@ a:hover, a:focus {
 }
 #top-menu > li {
     display: inline-block;
-    cursor: pointer;
 }
+
 #top-menu > li > a, #top-menu > li > div > a {
+     cursor: pointer;
     -ms-border-radius: 3px;
     border-radius: 3px;
     font-size: 1.5em;

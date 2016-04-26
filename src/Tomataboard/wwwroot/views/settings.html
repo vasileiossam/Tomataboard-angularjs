@@ -1,54 +1,74 @@
 ﻿<div id="settings">
-    <form role="form" name="settingsForm">
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showBackgroundPhoto" />Show Background Photo</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showTimers" />Show Timers</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showFocus">Show Focus</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showWeather">Show Weather</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showQuote">Show Quote</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
+    
+    <ul class="nav nav-pills nav-justified">
+        <li class="active"><a data-toggle="pill" href="#settings-tab">Settings</a></li>
+        <li><a data-toggle="pill" href="#about-tab">About</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="settings-tab" class="tab-pane fade in active">
+            <form role="form" name="settingsForm">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showBackgroundPhoto"/>Show Background Photo</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showTimers"/>Show Timers</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showFocus">Show Focus</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showQuote">Show Quote</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="vm.settings.showWeather">Show Weather</label>
+                </div>
+
+                <h4>Clock Format</h4>
+                <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.clockFormat">12 hour</label>
+                <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.clockFormat">24 hour</label>
+
+                <h4>Temperature</h4>
+                <span id="temperatureSettings">
+                    <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
+                    <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
+                </span>
+
+                <div id="pomodoro-settings">
+                    <h4 class="header">Pomodoro Timer</h4>
+                    <div class="form-group">
+                        <label for="pomodoroTime">Pomodoro Time</label>
+                        <select class="form-control transparent-control" id="pomodoroTime"
+                                ng-options="option for option in workCollection track by option"
+                                ng-model="vm.settings.pomodoroTime"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pomodoroShortBreak">Short Break</label>
+                        <select class="form-control transparent-control" id="pomodoroShortBreak"
+                                ng-options="option for option in shortBreakCollection track by option"
+                                ng-model="vm.settings.pomodoroShortBreak"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pomodoroLongBreak">Long Break</label>
+                        <select class="form-control transparent-control" id="pomodoroLongBreak"
+                                ng-options="option for option in longBreakCollection track by option"
+                                ng-model="vm.settings.pomodoroLongBreak"></select>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <h4>Clock Format</h4>
-        <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.clockFormat">12 hour</label>
-        <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.clockFormat">24 hour</label>
-
-        <h4>Temperature</h4>
-        <span id="temperatureSettings">
-            <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
-            <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
-        </span>
-
-        <div id="pomodoro-settings">
-            <h4 class="header">Pomodoro Timer</h4>
-            <div class="form-group">
-                <label for="pomodoroTime">Pomodoro Time</label>
-                <select class="form-control transparent-control" id="pomodoroTime"
-                        ng-options="option for option in workCollection track by option"
-                        ng-model="vm.settings.pomodoroTime"></select>
-            </div>
-            <div class="form-group">
-                <label for="pomodoroShortBreak">Short Break</label>
-                <select class="form-control transparent-control" id="pomodoroShortBreak"
-                        ng-options="option for option in shortBreakCollection track by option"
-                        ng-model="vm.settings.pomodoroShortBreak"></select>
-            </div>
-            <div class="form-group">
-                <label for="pomodoroLongBreak">Long Break</label>
-                <select class="form-control transparent-control" id="pomodoroLongBreak"
-                        ng-options="option for option in longBreakCollection track by option"
-                        ng-model="vm.settings.pomodoroLongBreak"></select>
-            </div>
+        <div id="about-tab" class="tab-pane fade" style="text-align: center;">
+            <h1><strong><a href="http://www.tomataboard.com">Tomataboard</a></strong></h1>
+            <h4>Personal Dashboard <small>v0.1</small></h4>
+            <h4>Your secret weapon to beat procrastination, <br/>stay focused and find inspiration.</h4>
+            <h5 class="secondary-color">Created by <a href="https://github.com/vasileiossam">VS</a></h5>
+            <br/>
         </div>
-    </form>
+    </div>
+        
+   
 </div>

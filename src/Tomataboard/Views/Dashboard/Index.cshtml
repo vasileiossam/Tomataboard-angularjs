@@ -73,20 +73,24 @@
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
                         <div id="timers" ng-show="vm.settings.showTimers">
-                            <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'"></clock>
+                            <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'">
+                            </clock>
                             <pomodoro x-total="vm.settings.pomodoroTotal"
                                       x-pomodoro-time="vm.settings.pomodoroTime"
                                       x-short-break="vm.settings.pomodoroShortBreak"
                                       x-long-break="vm.settings.pomodoroLongBreak"
                                       x-task-description="vm.settings.pomodoroTaskDescription"
                                       x-task-placeholder="vm.settings.pomodoroTaskPlaceholder"
-                                      x-volume-on ="vm.settings.volumeOn"
-                                      ng-show="vm.settings.activeTimer=='pomodoro'"></pomodoro>
-                             <timer x-minutes-selection="vm.settings.timerMinutesSelection"
+                                      x-volume-on="vm.settings.volumeOn"
+                                      ng-show="vm.settings.activeTimer=='pomodoro'">
+                            </pomodoro>
+                            <timer x-minutes-selection="vm.settings.timerMinutesSelection"
                                    x-seconds-selection="vm.settings.timerSecondsSelection"
-                                   x-volume-on ="vm.settings.volumeOn"
-                                   ng-show="vm.settings.activeTimer=='timer'"></timer>
-                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset"></stopwatch>
+                                   x-volume-on="vm.settings.volumeOn"
+                                   ng-show="vm.settings.activeTimer=='timer'">
+                            </timer>
+                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset">
+                            </stopwatch>
                             <countdown
                                 x-end-date="vm.settings.countdownEndDate"
                                 x-event-description="vm.settings.countdownEventDescription"

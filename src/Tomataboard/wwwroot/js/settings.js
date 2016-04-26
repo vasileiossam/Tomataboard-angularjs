@@ -27,6 +27,14 @@
                 for (i = 1; i <= 30; i++) {
                     scope.longBreakCollection.push(i);
                 }
+
+                // to stop the dropdown closing when clicking on a pill
+                // http://stackoverflow.com/questions/21525440/twitter-bootstrap-dropdown-with-tabs-inside
+                $('.dropdown-menu a[data-toggle="pill"]')
+                    .click(function (e) {
+                        e.stopPropagation();
+                        $(this).tab("show");
+                    });
             }
         };
     });

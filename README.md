@@ -1,4 +1,3 @@
-Tomataboard was the muse of xxx in Ancient Greek Mythology.
 
 Tomataboard board is a personal dashboard inspired by Momentum.
 It is about focused.
