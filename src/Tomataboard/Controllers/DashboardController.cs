@@ -39,6 +39,12 @@ namespace Tomataboard.Controllers
             return View();
         }
 
+        [HttpGet("api/ping")]
+        public JsonResult Ping()
+        {
+            return Json(true);
+        }
+
         /// <summary>
         /// http://damienbod.com/2014/08/22/web-api-2-exploring-parameter-binding/
         /// </summary>

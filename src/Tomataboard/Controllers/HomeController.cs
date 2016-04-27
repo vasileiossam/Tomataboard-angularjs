@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Http.Features;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 using Tomataboard.Data;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
-using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.Photos;
 using Tomataboard.Services.Weather;
@@ -40,30 +36,8 @@ namespace Tomataboard.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Error()
         {
-            return View();
-        }
-
-        public async Task<IActionResult> Test()
-        {
-            var repo = new QuoteRepository(_context);
-            var quote = repo.GetQuoteOfTheDay();
-
             return View();
         }
     }
