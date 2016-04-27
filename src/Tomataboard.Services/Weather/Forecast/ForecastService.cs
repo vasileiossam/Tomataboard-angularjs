@@ -6,8 +6,6 @@ using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Tomataboard.Services.Weather;
-using Tomataboard.Services.Weather.Forecast;
 
 namespace Tomataboard.Services.Weather.Forecast
 {
@@ -101,6 +99,8 @@ namespace Tomataboard.Services.Weather.Forecast
                 TemperatureF = (int)Math.Ceiling(weatherDto.currently.temperature),
                 Icon = Icons.GetCssClass(weatherDto.currently.icon),
                 Location = location.City,
+                CountryCode = location.CountryCode,
+                UsesFahrenheit = location.UsesFahrenheit,
                 Service = "Forecast.io",
                 ServiceUrl = "http://forecast.io/"
             };

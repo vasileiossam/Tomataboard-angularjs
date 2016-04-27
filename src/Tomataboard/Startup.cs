@@ -46,8 +46,10 @@ namespace Tomataboard
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
             }
-
+            
+            // will cascade over appsettings.json
             builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -59,8 +61,11 @@ namespace Tomataboard
             // Add framework services.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-                .AddDbContext<TomataboardContext>();
+                //.AddDbContext<ApplicationDbContext>(
+                //    options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
+                .AddDbContext<TomataboardContext>(
+                    options => options.UseSqlServer(Configuration["Data:TomataboardConnection:ConnectionString"])
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

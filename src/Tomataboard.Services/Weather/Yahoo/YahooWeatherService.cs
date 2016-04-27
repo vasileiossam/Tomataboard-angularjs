@@ -4,11 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
-using Tomataboard.Services;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Tomataboard.Services.Weather;
-using Tomataboard.Services.Weather.Yahoo;
 using Tomataboard.Services.AccessTokens;
 
 namespace Tomataboard.Services.Weather.Yahoo
@@ -122,6 +119,8 @@ namespace Tomataboard.Services.Weather.Yahoo
                 TemperatureF = (int)temperatureF,
                 Icon = Icons.GetCssClass(condition.code),
                 Location = location.City,
+                CountryCode = location.CountryCode,
+                UsesFahrenheit = location.UsesFahrenheit,
                 Service = "Yahoo",
                 ServiceUrl = url
             };

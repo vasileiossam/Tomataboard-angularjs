@@ -27,7 +27,7 @@
             vm.settings.showBackgroundPhoto = true;
             vm.settings.showFocus = true;
             vm.settings.showWeather = true;
-            vm.settings.temperatureUnits = "fahrenheit";
+            vm.settings.temperatureUnits = "";
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
 
@@ -117,7 +117,13 @@
                         if (!vm.settings.location) {
                             vm.settings.location = vm.dashboard.weather.location;
                         }
-
+                        if (!vm.settings.temperatureUnits) {
+                            vm.settings.temperatureUnits = "celsius";
+                            if (vm.dashboard.weather.usesFahrenheit) {
+                                vm.settings.temperatureUnits = "fahrenheit";
+                            }
+                        }
+                        
                         vm.saveDashboard();
                     },
                     function (error) {

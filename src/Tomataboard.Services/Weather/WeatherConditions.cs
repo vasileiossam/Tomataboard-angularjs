@@ -8,6 +8,8 @@
         public int TemperatureF { get; set; }
         public string Icon { get; set; }
         public string Location { get; set; }
+        public string CountryCode { get; set; }
+        public bool UsesFahrenheit { get; set; }
         public string Service { get; set; }
         public string ServiceUrl { get; set; }
     }

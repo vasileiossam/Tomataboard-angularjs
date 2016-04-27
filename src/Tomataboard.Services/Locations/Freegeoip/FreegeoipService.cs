@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
-using Tomataboard.Services.Locations;
-using Tomataboard.Services.Locations.Freegeoip;
 
 namespace Tomataboard.Services.Locations.Freegeoip
 {

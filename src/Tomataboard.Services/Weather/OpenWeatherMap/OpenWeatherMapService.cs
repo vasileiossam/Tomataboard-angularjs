@@ -6,8 +6,6 @@ using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Tomataboard.Services.Weather;
-using Tomataboard.Services.Weather.OpenWeatherMap;
 
 namespace Tomataboard.Services.Weather.OpenWeatherMap
 {
@@ -106,6 +104,8 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
                 TemperatureF = (int)Math.Ceiling(TemperatureConverter.KelvinToFahrenheit(weatherDto.Main.Temperature)),
                 Icon = Icons.GetCssClass(weatherDto.IconCode),
                 Location = location.City,
+                CountryCode = location.CountryCode,
+                UsesFahrenheit = location.UsesFahrenheit,
                 Service = "OpenWeatherMap",
                 ServiceUrl = "http://openweathermap.org/"
             };

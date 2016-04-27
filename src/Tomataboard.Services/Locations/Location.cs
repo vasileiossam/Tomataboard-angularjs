@@ -1,4 +1,6 @@
-﻿namespace Tomataboard.Services.Locations
+﻿using System;
+
+namespace Tomataboard.Services.Locations
 {
     public class Location
     {
@@ -9,5 +11,18 @@
         public string StateCode { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+
+        public bool UsesFahrenheit
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(CountryCode))
+                {
+                    return false;
+                }
+                var code = CountryCode.Trim();
+                return (code.IndexOf("US", StringComparison.OrdinalIgnoreCase) == 0);
+            }
+        }
     }
 }

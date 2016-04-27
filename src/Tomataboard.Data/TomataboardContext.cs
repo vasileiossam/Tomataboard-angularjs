@@ -22,7 +22,7 @@ namespace Tomataboard.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_settings.Value.TomataboardContextConnection);
+            //optionsBuilder.UseSqlServer(_settings.Value.TomataboardContextConnection);
             base.OnConfiguring(optionsBuilder);
         }
     }

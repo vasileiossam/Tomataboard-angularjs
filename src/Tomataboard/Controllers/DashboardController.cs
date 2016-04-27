@@ -60,7 +60,7 @@ namespace Tomataboard.Controllers
                 Photos = photos.Shuffle().Take(20).ToArray(),
                 Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(20).ToArray(),
                 Greeting = _greetingsService.GetGreeting(milliseconds),
-                Weather = weather,
+                Weather = weather
             };
 
             return Json(dashboardDto);
