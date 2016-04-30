@@ -9,10 +9,10 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/weather.html',
+            templateUrl: "/views/weather.html",
 
             link: function(scope, element, attrs) {
-                
+
                 $(element).popover({
                     html: "true",
                     placement: "top",

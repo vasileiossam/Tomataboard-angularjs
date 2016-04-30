@@ -113,17 +113,19 @@
                                 }
                             }
                         }
-                        
-                        if (!vm.settings.location) {
-                            vm.settings.location = vm.dashboard.weather.location;
-                        }
-                        if (!vm.settings.temperatureUnits) {
-                            vm.settings.temperatureUnits = "celsius";
-                            if (vm.dashboard.weather.usesFahrenheit) {
-                                vm.settings.temperatureUnits = "fahrenheit";
+
+                        if (vm.dashboard.weather) {
+                            if (!vm.settings.location) {
+                                vm.settings.location = vm.dashboard.weather.location;
+                            }
+                            if (!vm.settings.temperatureUnits) {
+                                vm.settings.temperatureUnits = "celsius";
+                                if (vm.dashboard.weather.usesFahrenheit) {
+                                    vm.settings.temperatureUnits = "fahrenheit";
+                                }
                             }
                         }
-                        
+
                         vm.saveDashboard();
                     },
                     function (error) {

@@ -25,13 +25,18 @@ namespace Tomataboard.Services.Weather
             : base(logger, cacheRepository)
         {
             var location = locationProvider.Execute().Result;
-            if (location == null) throw new Exception("Cannot determine location");
+            if (location == null)
+            {
+                _logger.LogError($"{GetType().Name}: Cannot get Location. Weather will disabled.");
+            }
+            else
+            {
+                _serializedLocation = JsonConvert.SerializeObject(location);
 
-            _serializedLocation = JsonConvert.SerializeObject(location);
-
-            _operations.Add(yahooWeatherService);
-            _operations.Add(openWeatherMapService);
-            _operations.Add(forecastService);
+                _operations.Add(yahooWeatherService);
+                _operations.Add(openWeatherMapService);
+                _operations.Add(forecastService);
+            }
         }
 
         /// <summary>

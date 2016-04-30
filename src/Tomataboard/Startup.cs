@@ -120,7 +120,9 @@ namespace Tomataboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.MinimumLevel = LogLevel.Debug;
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(LogLevel.Debug);
             loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
@@ -151,6 +153,15 @@ namespace Tomataboard
             app.UseStaticFiles();
 
             app.UseIdentity();
+
+            //app.Use(next =>
+            //{
+            //    return ctx =>
+            //    {
+            //        ctx.Response.Headers.Remove("Server");
+            //        return next(ctx);
+            //    };
+            //});
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 

@@ -116,7 +116,7 @@
                 </div>
 
                 <div id="bottom-right" class="col-sm-2 text-right">
-                    <weather ng-show="vm.settings.showWeather"></weather>
+                    <weather ng-show="(vm.dashboard.weather != null) && vm.settings.showWeather"></weather>
                 </div>
             </div>
         </footer>
