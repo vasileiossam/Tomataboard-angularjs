@@ -6,6 +6,7 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify");
+var del = require("del");
 
 var paths = {
     webroot: "./wwwroot/"
@@ -43,3 +44,10 @@ gulp.task("min:css", function () {
 });
 
 gulp.task("min", ["min:js", "min:css"]);
+
+// https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
+gulp.task("clean:logfiles", function() {
+     return del([
+        paths.webroot  + "*.log"
+    ]); 
+});
