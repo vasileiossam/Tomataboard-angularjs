@@ -203,9 +203,18 @@ a:hover, a:focus {
 }
 
 .hide-arrow {
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -o-appearance:none;
+    appearance:none; 
+}
+/* hides the SELECT arrow from IE10 */
+select.hide-arrow::-ms-expand{
+  display:none;
+}
+.transparent-control option { 
+    background-color: rgb(0, 0, 0);
+    color: #fbfbfb;
 }
 
 .timer-container button:hover, .timer-container button:active:focus, .timer-container button:focus {

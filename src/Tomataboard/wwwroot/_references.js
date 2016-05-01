@@ -6,6 +6,7 @@
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/focus.js" />
+/// <reference path="js/google-analytics.js" />
 /// <reference path="js/greeting.js" />
 /// <reference path="js/photo.js" />
 /// <reference path="js/pomodoro.js" />
