@@ -3,13 +3,13 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("settings", function () {
+    app.directive("todo", function () {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/settings.html',
+            templateUrl: '/app/todo/todo.html',
 
             link: function(scope, element, attrs) {
                 var i;

@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/stopwatch.html',
+            templateUrl: '/app/stopwatch/stopwatch.html',
 
             scope: {
                 reset: "="

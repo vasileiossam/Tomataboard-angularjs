@@ -1,0 +1,27 @@
+﻿#todo {
+    width: 500px;
+    padding: 10px;
+    z-index: 1;
+    position: absolute;
+    left:20px;
+    top: 60px;
+    right:0;
+    max-height: 540px;
+    overflow-y: auto;
+}
+
+#todo input {
+    font-family: 'Roboto Condensed', sans-serif; 
+    font-size: 1.5em;       
+    font-weight: bold;
+    border:none;
+}
+#todo input:hover {
+    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    -webkit-transition: border 5s;
+    -moz-transition: border 5s;
+    -ms-transition: border 5s;
+    -o-transition: border 5s;
+    transition: border 5s;
+}

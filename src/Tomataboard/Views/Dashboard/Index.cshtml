@@ -16,6 +16,8 @@
         <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
         <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
         <link href="~/lib/icomoon/style.css" rel="stylesheet" />
+        <link href="~/app/settings/settings.css" rel="stylesheet"/>
+        <link href="~/app/todo/todo.css" rel="stylesheet" />
         <link href="~/css/site.css" rel="stylesheet"/>
     </environment>
     @*<environment names="Staging,Production">
@@ -43,6 +45,13 @@
                             <li>
                                 <a class="glyphicon glyphicon-repeat" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
                             </li>
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle fa fa-tasks" data-toggle="dropdown" aria-hidden="true"></a>
+                                    <todo class="dropdown-menu   semi-transparent"></todo>
+                                </div>
+
+                            </li>
                         </ul>
                     </div>
 
@@ -67,7 +76,7 @@
                 </div>
             </div>
         </header>
-
+        <todo class="semi-transparent"></todo>
         <div class="vertical-center">
             <div class="container">
                 <div class="col-sm-12 text-center">
@@ -126,7 +135,6 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/moment/min/moment.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/angular/angular.min.js"></script>
         <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
         <script src="~/lib/angular-animate/angular-animate.min.js"></script>
@@ -141,19 +149,20 @@
         <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
-        <script src="~/js/settings.js"></script>
-        <script src="~/js/sidebar.js"></script>
+        <script src="~/app/settings/settings.js"></script>
+        <script src="~/app/sidebar/sidebar.js"></script>
         <script src="~/js/contenteditable.js"></script>
-        <script src="~/js/weather.js"></script>
-        <script src="~/js/quote.js"></script>
-        <script src="~/js/photo.js"></script>
-        <script src="~/js/focus.js"></script>
-        <script src="~/js/greeting.js"></script>
-        <script src="~/js/clock.js"></script>
-        <script src="~/js/pomodoro.js"></script>
-        <script src="~/js/timer.js"></script>
-        <script src="~/js/countdown.js"></script>
-        <script src="~/js/stopwatch.js"></script>
+        <script src="~/app/weather/weather.js"></script>
+        <script src="~/app/quote/quote.js"></script>
+        <script src="~/app/photo/photo.js"></script>
+        <script src="~/app/focus/focus.js"></script>
+        <script src="~/app/greeting/greeting.js"></script>
+        <script src="~/app/clock/clock.js"></script>
+        <script src="~/app/pomodoro/pomodoro.js"></script>
+        <script src="~/app/timer/timer.js"></script>
+        <script src="~/app/countdown/countdown.js"></script>
+        <script src="~/app/stopwatch/stopwatch.js"></script>
+        <script src="~/app/todo/todo.js"></script>
         <script src="~/js/google-analytics.js"></script>
     </environment>
 

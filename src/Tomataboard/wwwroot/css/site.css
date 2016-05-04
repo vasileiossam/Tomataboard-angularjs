@@ -276,6 +276,8 @@ select.hide-arrow::-ms-expand{
 }
 
 .editable {
+    -ms-border-radius: 3px;
+    border-radius: 3px;  
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0);
     padding: 10px;
@@ -284,6 +286,8 @@ select.hide-arrow::-ms-expand{
 
 .editable:hover {
     padding: 10px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;  
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0.85);
     -webkit-transition: all 1s;

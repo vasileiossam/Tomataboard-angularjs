@@ -3,13 +3,13 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("photo", function () {
+    app.directive("weather", function () {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/photo.html',
+            templateUrl: "/app/weather/weather.html",
 
             link: function(scope, element, attrs) {
 
@@ -18,7 +18,7 @@
                     placement: "top",
                     trigger: "hover",
                     content: function () {
-                        return $("#photo-popover").html();
+                        return $("#weather-popover").html();
                     }
                 });
             }

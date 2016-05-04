@@ -3,100 +3,68 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("pomodoro", function ($interval, ngAudio) {
+    app.directive("timer", function ($interval, ngAudio) {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: "/views/pomodoro.html",
+            templateUrl: '/app/timer/timer.html',
 
             scope: {
-                pomodoroTime: "=",
-                shortBreak: "=",
-                longBreak: "=",
-                taskDescription: "=",
-                taskPlaceholder: "=",
-                total: "=",
+                minutesSelection: "=minutesSelection",
+                secondsSelection: "=secondsSelection",
                 volumeOn: "=volumeOn"
             },
-            
+
             link: function (scope, element, attrs) {
-                // states: 1 pomodoro, 2 short break, 3 long break
-                var state = 1;
+                scope.minutesCollection = ["mins"];
+                for (var i = 0; i <= 90; i++) {
+                    scope.minutesCollection.push(i);
+                }
+                scope.secondsCollection = ["secs", 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
                 scope.promise = {};
                 var seconds;
-                var audioStartPomodoro = ngAudio.load("/sounds/start.wav");
-                //var audioStartBreak = ngAudio.load("/sounds/finish1.wav");
+                var audio = ngAudio.load("/sounds/alarm_beep.wav");
                 
-                scope.startPomodoro = function () {
-                    state = 1;
-                    scope.reset();
-                    scope.start();
-                };
-
-                scope.startShortBreak = function () {
-                    state = 2;
-                    scope.reset();
-                    scope.start();
-                };
-
-                scope.startLongBreak = function () {
-                    state = 3;
-                    scope.reset();
-                    scope.start();
-                };
-
                 var calcSeconds = function () {
-                    if (state === 1) {
-                        seconds = scope.pomodoroTime * 60;
+                    seconds = 0;
+                    if (angular.isNumber(scope.minutesSelection)) {
+                        seconds = seconds + scope.minutesSelection * 60;
                     }
-                    else
-                        if (state === 2) {
-                            seconds = scope.shortBreak * 60;
-                        }
-                        else
-                            if (state === 3) {
-                                seconds = scope.longBreak * 60;
-                            }
+                    if (angular.isNumber(scope.secondsSelection)) {
+                        seconds = seconds + scope.secondsSelection;
+                    }
                 };
 
                 var updateTime = function () {
                     var date = new Date(null);
                     date.setSeconds(seconds);
-
                     if (seconds >= 3600) {
                         scope.time = date.toISOString().substr(11, 8);
                     }
                     else
-                        if (seconds >= 60) {
-                            scope.time = date.toISOString().substr(14, 5);
+                    if (seconds >= 60) {
+                        scope.time = date.toISOString().substr(14, 5);
+                    }
+                    else
+                        if (seconds < 60) {
+                            scope.time = date.toISOString().substr(17, 2);
                         }
-                        else
-                            if (seconds < 60) {
-                                scope.time = date.toISOString().substr(17, 2);
-                            }
                 };
-
-                var finished = function () {
-
-                    if (state === 1) {
-                        scope.total = scope.total + 1;
-                        if (scope.volumeOn) {
-                            audioStartPomodoro.play();
-                        }
-                    }                     
-                }
 
                 var tick = function () {
                     seconds = seconds - 1;
                     if (seconds <= 0) {
-                        finished();
+                        if (scope.volumeOn) {
+                            audio.play();
+                        }
                         scope.reset();
                     } else {
                         updateTime();
                     }
+                  
                 }
 
                 // toggle start/pause

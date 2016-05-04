@@ -3,13 +3,13 @@
 
     var app = angular.module("dashboard-app");
 
-    app.directive("greeting", function () {
+    app.directive("focus", function () {
 
         return {
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/views/greeting.html',
+            templateUrl: '/app/focus/focus.html',
 
             link: function(scope, element, attrs) {
 
