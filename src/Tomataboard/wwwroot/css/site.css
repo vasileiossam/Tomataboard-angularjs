@@ -364,31 +364,10 @@ select.hide-arrow::-ms-expand{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#settings {
-    width: 500px;
-    padding: 10px;
-}
-
-#pomodoro-settings .header {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#pomodoro-settings select {
-    width: 80px;
-}
 
 .semi-transparent {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.7);
-}
-
-#temperatureSettings {
-    font-size: 1.5em;
-}
-
-#settings h4 {
-    margin-bottom: 5px;   
 }
 
  /**

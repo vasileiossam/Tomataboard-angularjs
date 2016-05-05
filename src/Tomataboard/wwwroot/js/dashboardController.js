@@ -48,6 +48,7 @@
             vm.settings.countdownEventPlaceholder = "Event Name...";
             vm.settings.countdownEventDescription = vm.settings.countdownEventPlaceholder;
             vm.settings.countdownEndDate = {};
+            vm.settings.todo = { categories: ["Work", "Personal", "Make a difference"] };
         }
      
         vm.stopwatchReset = {};

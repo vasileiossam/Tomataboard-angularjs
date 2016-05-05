@@ -10,18 +10,51 @@
     overflow-y: auto;
 }
 
-#todo input {
-    font-family: 'Roboto Condensed', sans-serif; 
-    font-size: 1.5em;       
-    font-weight: bold;
-    border:none;
+#todo-text {
+ 
 }
+
+#todo-text input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;       
+    font-weight: 300;
+    border: none;
+}
+
 #todo input:hover {
-    border: 1px solid #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    -webkit-transition: border 5s;
-    -moz-transition: border 5s;
-    -ms-transition: border 5s;
-    -o-transition: border 5s;
-    transition: border 5s;
+    border: none;
+}
+ 
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+
+#todo #todo-empty {
+    margin-top: 20px;  
+    text-align: center;
+} 
+
+#todo #todo-empty span {
+    text-align: center;
+    font-size: 5em;   
+} 
+
+#todo #todo-empty div {
+    text-align: center;
+    font-size: 1.5em;   
+} 
+
+#todo #todo-empty div.line2 {
+    padding-bottom: 20px;  
+} 
+
+#todo-remainding {
+    margin-top: 15px;  
+}
+
+#todo-pills .active a {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
 }

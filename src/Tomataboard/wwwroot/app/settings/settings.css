@@ -1,1 +1,25 @@
-﻿
+﻿#settings {
+    width: 500px;
+    padding: 10px;
+}
+
+#pomodoro-settings .header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#pomodoro-settings select {
+    width: 80px;
+}
+
+#temperatureSettings {
+    font-size: 1.5em;
+}
+
+#settings h4 {
+    margin-bottom: 5px;   
+}
+
+#todo-tab h4 {
+    margin-bottom: 15px;   
+}

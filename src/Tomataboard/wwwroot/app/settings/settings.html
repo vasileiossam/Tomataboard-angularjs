@@ -1,18 +1,19 @@
 ﻿<div id="settings">
     
     <ul class="nav nav-pills nav-justified">
-        <li class="active"><a data-toggle="pill" href="#settings-tab">Settings</a></li>
+        <li class="active"><a data-toggle="pill" href="#settings-tab">General</a></li>
+        <li><a data-toggle="pill" href="#todo-tab">Todo</a></li>
         <li><a data-toggle="pill" href="#about-tab">About</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="settings-tab" class="tab-pane fade in active">
-            <form role="form" name="settingsForm">
+            <form role="form">
                 <div class="checkbox">
-                    <label><input type="checkbox" ng-model="vm.settings.showBackgroundPhoto"/>Show Background Photo</label>
+                    <label><input type="checkbox" ng-model="vm.settings.showBackgroundPhoto" />Show Background Photo</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" ng-model="vm.settings.showTimers"/>Show Timers</label>
+                    <label><input type="checkbox" ng-model="vm.settings.showTimers" />Show Timers</label>
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" ng-model="vm.settings.showGreeting">Show Greeting</label>
@@ -63,13 +64,33 @@
             </form>
         </div>
 
+        <div id="todo-tab" class="tab-pane fade">
+            <h4 class="header">Categories</h4>
+            <form role="form">
+               <div class="form-group">
+                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                           ng-model="vm.settings.todo.categories[0]" id="todoCategory0"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                           ng-model="vm.settings.todo.categories[1]" id="todoCategory1"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                           ng-model="vm.settings.todo.categories[2]" id="todoCategory2"/>
+                </div>
+            </form>
+        </div>
+
         <div id="about-tab" class="tab-pane fade" style="text-align: center;">
-            <h1><strong><a href="http://www.tomataboard.com">Tomataboard</a></strong></h1>
+            <h1>
+                <strong><a href="http://www.tomataboard.com">Tomataboard</a></strong>
+            </h1>
             <h4>Personal Dashboard <small>v0.2</small></h4>
-            <h4>Your secret weapon to beat procrastination, <br/>stay focused and find inspiration.</h4>
+            <h4>Your secret weapon to beat procrastination, <br />stay focused and find inspiration.</h4>
             <h5 class="secondary-color">Created by <a href="https://github.com/vasileiossam">VS</a></h5>
-            <br/>
-            <br/>
+            <br />
+            <br />
 
             <h4 class="secondary-color">Power by</h4>
             <h5>

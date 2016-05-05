@@ -1,25 +1,38 @@
 ﻿<div id="todo">
-    <form role="form" name="settingsForm">
-        <div class="form-group">
-            <input type="text" placeholder="Add New Todo" class="form-control transparent-control"/>
+    <form role="form" ng-submit="todoList.addTodo()">
+        <div id="todo-text" class="form-group semi-transparent">
+            <input type="text" ng-model="todoList.todoText" placeholder="Add new todo here"
+                   class="form-control semi-transparent main-color"/>
         </div>
+        <ul id="todo-pills" class="nav nav-pills nav-justified">
+            <li class="active"><a data-toggle="pill" href="#tab0" class="secondary-color" ng-click="category = 0">All</a></li>
+            <li ng-show="settings.categories[0]"><a data-toggle="pill" href="#tab1" class="secondary-color" ng-click="category = 1"><span ng-bind="settings.categories[0]"></span></a></li>
+            <li ng-show="settings.categories[1]"><a data-toggle="pill" href="#tab2" class="secondary-color" ng-click="category = 2"><span ng-bind="settings.categories[1]"></span></a></li>
+            <li ng-show="settings.categories[2]"><a data-toggle="pill" href="#tab3" class="secondary-color" ng-click="category = 3"><span ng-bind="settings.categories[2]"></span></a></li>
+        </ul>
+    </form>
+    <div id="todo-empty" ng-show="todoList.remaining() == 0">
+        <span class="fa fa-smile-o secondary-color"></span>
+        <div class="secondary-color">You have no tasks.</div>
+        <div class="line2">Please enjoy your day!</div>
+    </div>
 
-            x
-            afasdf
-            as
-            df
-            as
-            df
-            as
-            df
-            asd
-
-            asd
-            f
-            asd
-            fa
-            sd
-            <br />
-            <br />sd
-</form>
+    <div id="todo-list" ng-show="todoList.remaining() > 0">
+        <div id="todo-remainding">
+            <span ng-bind="todoList.remaining()"></span> of <span ng-bind="todoList.total()"></span> remaining 
+        </div>
+        <ul class="unstyled">
+            <li ng-repeat="todo in todoList.todos | filter: filter">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="todo.done">
+                    <span class="done-{{todo.done}}">{{todo.text}}</span>
+                </label>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="tab0"></div>
+    <div id="tab1"></div>
+    <div id="tab2"></div>
+    <div id="tab3"></div>
 </div>
