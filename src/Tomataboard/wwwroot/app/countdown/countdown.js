@@ -12,40 +12,38 @@
             templateUrl: "/app/countdown/countdown.html",
 
             scope: {
-                eventDescription: "=",
-                eventPlaceholder: "=",
-                endDate: "="
+                settings: "="
             },
 
-            link: function (scope, element, attrs) {
+            link: function(scope, element, attrs) {
                 scope.promise = {};
                 scope.time = {};
                 var seconds;
-                scope.endDate = moment(scope.endDate);
-                
-                var calcSeconds = function () {
+                scope.settings.endDate = moment(scope.settings.endDate);
+      
+                var calcSeconds = function() {
                     seconds = 0;
 
                     var now = new Date();
-                    if (scope.endDate > now) {
-                        seconds = (scope.endDate - now) / 1000;
+                    if (scope.settings.endDate > now) {
+                        seconds = (scope.settings.endDate - now) / 1000;
                     }
                 };
 
-                var updateTime = function () {
-                 
+                var updateTime = function() {
+
                     var zeroTime = {
                         'days': 0,
                         'hours': 0,
                         'minutes': 0,
                         'seconds': 0
                     }
-                    if (!scope.endDate) {
+                    if (!scope.settings.endDate) {
                         scope.time = zeroTime;
                         return;
                     }
 
-                    var distance = moment(scope.endDate) - new Date();
+                    var distance = moment(scope.settings.endDate) - new Date();
                     if (distance < 0) {
                         scope.time = zeroTime;
                         return;
@@ -70,9 +68,10 @@
                     };
                 };
 
-                var tick = function () {
+                var tick = function() {
                     seconds = seconds - 1;
                     if (seconds <= 0) {
+                        scope.settings.started = false;
                         scope.reset();
                     } else {
                         updateTime();
@@ -85,11 +84,12 @@
                     scope.promise = 0;
 
                     if (scope.startText === "PAUSE") {
+                        scope.settings.started = false;
                         scope.startText = "START";
-                    }
-                    else if (scope.startText === "START") {
+                    } else if (scope.startText === "START") {
                         calcSeconds();
                         if (seconds > 0) {
+                            scope.settings.started = true;
                             scope.startText = "PAUSE";
                             scope.promise = $interval(tick, 1 * 1000);
                         }
@@ -107,8 +107,10 @@
 
                 // autostart if not reached endDate yet
                 calcSeconds();
-                if (seconds > 0) {
-                    scope.start();
+                if (scope.settings.started) {
+                    if (seconds > 0) {
+                        scope.start();
+                    }
                 }
 
                 var timeElements = element[0].querySelectorAll('.times');

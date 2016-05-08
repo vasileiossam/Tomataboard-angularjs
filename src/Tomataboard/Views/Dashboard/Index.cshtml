@@ -101,9 +101,7 @@
                             <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset">
                             </stopwatch>
                             <countdown
-                                x-end-date="vm.settings.countdownEndDate"
-                                x-event-description="vm.settings.countdownEventDescription"
-                                x-event-placeholder= "vm.settings.countdownEventPlaceholder"
+                                x-settings="vm.settings.countdown"
                                 ng-show="vm.settings.activeTimer=='countdown'">
                             </countdown>
                         </div>

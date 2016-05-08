@@ -47,9 +47,12 @@
             vm.settings.pomodoroTaskDescription = vm.settings.pomodoroTaskPlaceholder;
             vm.settings.pomodoroTotal = 0;
 
-            vm.settings.countdownEventPlaceholder = "Event Name...";
-            vm.settings.countdownEventDescription = vm.settings.countdownEventPlaceholder;
-            vm.settings.countdownEndDate = {};
+            vm.settings.countdown = {
+                eventPlaceholder: "Event Name...",
+                eventDescription: "Event Name...",
+                endDate: {},
+                started: false
+            };
 
             vm.settings.todo = {
                 category: 0,
