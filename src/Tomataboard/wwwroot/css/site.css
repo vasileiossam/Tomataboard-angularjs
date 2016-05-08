@@ -497,3 +497,7 @@ nav.nav {
     opacity: 0;
 }
 
+/* angular-bootstrap-checkbox */
+button.checked {
+    outline: none;
+}

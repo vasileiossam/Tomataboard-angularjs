@@ -31,7 +31,7 @@
             <li class="todoItem" ng-repeat="todo in todos | filter: filter" data-as-sortable-item>
                 <div class="todoItem-container">
                     <span class="glyphicon glyphicon-move secondary-color move show-on-hover" ng-show="settings.category == 0" data-as-sortable-item-handle></span>
-                    <input type="checkbox" ng-model="todo.done">
+                    <checkbox ng-model="todo.done"/> 
                     <div class="editable done-{{todo.done}}" contenteditable ng-model="todo.text" defaultvalue="" spellcheck="false"></div>
                     <div class="remove"><a ng-click="remove(todo)" class="fa fa-remove secondary-color show-on-hover"></a></div>
                 </div>
