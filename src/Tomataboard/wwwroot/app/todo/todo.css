@@ -4,7 +4,7 @@
     z-index: 1;
     position: absolute;
     left:20px;
-    top: 60px;
+    top: 70px;
     right:0;
     max-height: 540px;
     overflow-y: auto;
@@ -57,4 +57,44 @@
 #todo-pills .active a {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+#todos {
+    width: 100%;
+}
+
+.todoItem .remove {
+    cursor: pointer;
+    margin-left: 10px;
+    /* align icon right */
+    display: block;
+    margin-left:auto; 
+    margin-right:0;
+}
+
+.todoItem .move {
+    margin-right: 10px;
+}
+
+.todoItem:hover .show-on-hover {
+    -ms-opacity: 1;
+    opacity: 1;
+    -webkit-transition:all .3s ease-in;
+    -moz-transition:all .3s ease-in;
+    -ms-transition:all .3s ease-in;
+    -o-transition:all .3s ease-in;
+    transition:all .3s ease-in;
+}
+
+.todoItem .editable {
+    padding: 4px;
+}
+ 
+.todoItem .editable:hover {
+    padding: 4px;
+}
+
+.todoItem-container {
+    display: flex;
+    align-items: center;
 }

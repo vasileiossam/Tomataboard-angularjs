@@ -30,6 +30,7 @@
             vm.settings.temperatureUnits = "";
             vm.settings.showQuote = true;
             vm.settings.showGreeting = true;
+            vm.settings.showTodo = false;
 
             vm.settings.showTimers = true;
             vm.settings.clockFormat = "12-hour";
@@ -45,10 +46,16 @@
             vm.settings.pomodoroTaskPlaceholder = "What task are you working on?";
             vm.settings.pomodoroTaskDescription = vm.settings.pomodoroTaskPlaceholder;
             vm.settings.pomodoroTotal = 0;
+
             vm.settings.countdownEventPlaceholder = "Event Name...";
             vm.settings.countdownEventDescription = vm.settings.countdownEventPlaceholder;
             vm.settings.countdownEndDate = {};
-            vm.settings.todo = { categories: ["Work", "Personal", "Make a difference"] };
+
+            vm.settings.todo = {
+                category: 0,
+                categories: ["Work", "Personal", "Make a difference"],
+                todos: []
+            };
         }
      
         vm.stopwatchReset = {};

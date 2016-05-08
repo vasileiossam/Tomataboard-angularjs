@@ -15,10 +15,12 @@
         <link href="~/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet" />
         <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
         <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
-        <link href="~/lib/icomoon/style.css" rel="stylesheet" />
+        <link href="~/lib/icomoon/style.css" rel="stylesheet"/>
+        <link href="~/lib/ng-sortable/dist/ng-sortable.min.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
         <link href="~/app/settings/settings.css" rel="stylesheet"/>
-        <link href="~/app/todo/todo.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet"/>
+        <link href="~/app/todo/todo.css" rel="stylesheet"/>
+        <link href="~/app/countdown/countdown.css" rel="stylesheet" />
     </environment>
     @*<environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -46,10 +48,7 @@
                                 <a class="glyphicon glyphicon-repeat" ng-show="vm.settings.showBackgroundPhoto" ng-click="vm.fadeAndRefresh()"></a>
                             </li>
                             <li>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle fa fa-tasks" data-toggle="dropdown" aria-hidden="true"></a>
-                                
-                                </div>
+                                <a ng-click="vm.settings.showTodo = !vm.settings.showTodo" class="fa fa-tasks"></a>
                             </li>
                         </ul>
                     </div>
@@ -76,7 +75,7 @@
             </div>
         </header>
         
-        <todo x-settings="vm.settings.todo" class="semi-transparent"></todo>
+        <todo ng-show="vm.settings.showTodo" x-settings="vm.settings.todo" class="semi-transparent"></todo>
 
         <div class="vertical-center">
             <div class="container">
@@ -148,6 +147,8 @@
         <script src="~/lib/ngstorage/ngStorage.min.js"></script>
         <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
         <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+        <script src="~/lib/ng-sortable/dist/ng-sortable.min.js"></script>
+        
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
         <script src="~/app/settings/settings.js"></script>

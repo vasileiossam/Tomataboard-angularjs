@@ -1,0 +1,41 @@
+﻿#countdown table.time {
+    width: 50%;
+    
+    /* horizontal center table inside the div */
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+#countdown table .times {
+    font-size: 6em;
+}
+
+#countdown table .legends {
+    cursor: default;
+    font-weight: bold;
+    font-size: 1em;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* datetimepicker */
+#endDate {
+    width: 280px;
+}
+
+.datetimepicker .minute:hover,
+.datetimepicker .hour:hover,
+.datetimepicker .day:hover,
+.datetimepicker .switch:hover,
+.datetimepicker .left:hover,
+.datetimepicker .right:hover,
+.datetimepicker span:hover {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.datetimepicker .day.active
+{
+   background-image: none;
+   opacity: 0.7;
+}

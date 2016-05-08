@@ -44,19 +44,19 @@
                     <h4 class="header">Pomodoro Timer</h4>
                     <div class="form-group">
                         <label for="pomodoroTime">Pomodoro Time</label>
-                        <select class="form-control transparent-control" id="pomodoroTime"
+                        <select class="form-control transparent" id="pomodoroTime"
                                 ng-options="option for option in workCollection track by option"
                                 ng-model="vm.settings.pomodoroTime"></select>
                     </div>
                     <div class="form-group">
                         <label for="pomodoroShortBreak">Short Break</label>
-                        <select class="form-control transparent-control" id="pomodoroShortBreak"
+                        <select class="form-control transparent" id="pomodoroShortBreak"
                                 ng-options="option for option in shortBreakCollection track by option"
                                 ng-model="vm.settings.pomodoroShortBreak"></select>
                     </div>
                     <div class="form-group">
                         <label for="pomodoroLongBreak">Long Break</label>
-                        <select class="form-control transparent-control" id="pomodoroLongBreak"
+                        <select class="form-control transparent" id="pomodoroLongBreak"
                                 ng-options="option for option in longBreakCollection track by option"
                                 ng-model="vm.settings.pomodoroLongBreak"></select>
                     </div>
@@ -68,15 +68,15 @@
             <h4 class="header">Categories</h4>
             <form role="form">
                <div class="form-group">
-                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                    <input type="text" class="form-control transparent" placeholder="type a todo category"
                            ng-model="vm.settings.todo.categories[0]" id="todoCategory0"/>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                    <input type="text" class="form-control transparent" placeholder="type a todo category"
                            ng-model="vm.settings.todo.categories[1]" id="todoCategory1"/>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control transparent-control" placeholder="type a todo category"
+                    <input type="text" class="form-control transparent" placeholder="type a todo category"
                            ng-model="vm.settings.todo.categories[2]" id="todoCategory2"/>
                 </div>
             </form>

@@ -168,38 +168,19 @@ a:hover, a:focus {
     font-size: 8em;
 }
 
-/* countdown */
- .timer-container table.time {
-    width: 50%;
-    
-    /* horizontal center table inside the div */
-    margin: 0 auto !important;
-    float: none !important;
-}
-.timer-container table .times {
-    font-size: 6em;
-}
-.timer-container table .legends {
-    cursor: default;
-    font-weight: bold;
-    font-size: 1em;
-    color: #ffffff;
-    color: rgba(255, 255, 255, 0.4);
-}
-
 .timer-container span.ampmMarker {
     font-size: 2.5em;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.4);
 }
 
-.timer-container button, .transparent-control {
+.timer-container button, .transparent {
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.8);
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.2);
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .hide-arrow {
@@ -212,7 +193,7 @@ a:hover, a:focus {
 select.hide-arrow::-ms-expand{
   display:none;
 }
-.transparent-control option { 
+.transparent option { 
     background-color: rgb(0, 0, 0);
     color: #fbfbfb;
 }
@@ -364,10 +345,16 @@ select.hide-arrow::-ms-expand{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-
 .semi-transparent {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.transparent {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
  /**
@@ -504,19 +491,9 @@ nav.nav {
 #pomodoros-total {
     margin-top: 20px;    
 }
-/* datetimepicker */
-#endDate {
-    width: 280px;
-}
-.datetimepicker .minute:hover,
-.datetimepicker .hour:hover,
-.datetimepicker .day:hover,
-.datetimepicker .switch:hover,
-.datetimepicker .left:hover,
-.datetimepicker .right:hover,
-.datetimepicker span:hover {
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.7);
-}
 
+.show-on-hover {
+    -ms-opacity: 0;
+    opacity: 0;
+}
 
