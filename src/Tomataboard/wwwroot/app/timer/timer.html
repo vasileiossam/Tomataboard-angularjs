@@ -10,13 +10,13 @@
             <button type="button" ng-click="start()" class="btn btn-warning" ng-bind="startText"></button>&nbsp;
             <button type="button" ng-click="reset()" class="btn btn-warning">RESET</button>
             &nbsp;&nbsp;
-            <select class="form-control transparent hide-arrow minutes"
+            <select class="form-control semi-transparent hide-arrow minutes"
                     ng-options="option for option in minutesCollection track by option"
                     ng-model="minutesSelection"
                     ng-change="reset()">
             </select>
             &nbsp;:&nbsp;
-            <select class="form-control transparent hide-arrow seconds"
+            <select class="form-control semi-transparent hide-arrow seconds"
                     ng-options="option for option in secondsCollection track by option"
                     ng-model="secondsSelection"
                     ng-change="reset()">

@@ -12,7 +12,7 @@ body {
     height: 100%;
     font-family: 'Roboto', sans-serif;
     background-color: rgb(51, 51, 51);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 300;
     line-height: normal;
     color: #ffffff;
@@ -174,13 +174,13 @@ a:hover, a:focus {
     color: rgba(255, 255, 255, 0.4);
 }
 
-.timer-container button, .transparent {
+.timer-container button {
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.8);
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .hide-arrow {
@@ -202,7 +202,7 @@ select.hide-arrow::-ms-expand{
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.8);
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 1);
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
     outline: 0;
@@ -222,14 +222,14 @@ select.hide-arrow::-ms-expand{
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 0, 0, 0.8);
     background-color: #000000;
-    background-color: rgba(255, 0, 0, 0.4);
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 .buttons .pomodoro-button:hover {
     border: 1px solid #ffffff;
     border: 1px solid rgba(255, 0, 0, 0.8);
     background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .minutes, .seconds {
@@ -355,6 +355,8 @@ select.hide-arrow::-ms-expand{
 .transparent {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8);
 }
 
  /**

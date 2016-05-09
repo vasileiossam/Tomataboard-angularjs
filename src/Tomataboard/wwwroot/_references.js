@@ -30,6 +30,7 @@
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
 /// <reference path="lib/moment/moment.js" />
+/// <reference path="lib/ng-sortable/dist/ng-sortable.js" />
 /// <reference path="lib/ngstorage/ngStorage.js" />
 /// <reference path="lib/screenfull/dist/screenfull.js" />
 /// <reference path="lib/slide-and-swipe-menu/jquery.slideandswipe.js" />

@@ -50,7 +50,7 @@
             vm.settings.countdown = {
                 eventPlaceholder: "Event Name...",
                 eventDescription: "Event Name...",
-                endDate: {},
+                endDate: new Date(),
                 started: false
             };
 
@@ -69,6 +69,7 @@
                 vm.stopwatchReset();
             }
             vm.settings.activeTimer = selector;
+            vm.settings.showTimers = true;
             $('.ssm-overlay').click();
         };
 

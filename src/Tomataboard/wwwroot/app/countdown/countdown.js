@@ -20,7 +20,7 @@
                 scope.time = {};
                 var seconds;
                 scope.settings.endDate = moment(scope.settings.endDate);
-      
+
                 var calcSeconds = function() {
                     seconds = 0;
 
