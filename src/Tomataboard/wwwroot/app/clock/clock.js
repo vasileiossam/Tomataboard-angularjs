@@ -1,10 +1,10 @@
-﻿(function () {
+(function () {
     "use strict";
 
     var app = angular.module("dashboard-app");
 
     app.directive("clock",
-        function ($interval, dateFilter) {
+        ["$interval", "dateFilter", function ($interval, dateFilter) {
 
         return {
             restrict: "E",
@@ -54,6 +54,6 @@
                 });
             }
         };
-    });
+    }]);
 
 })();

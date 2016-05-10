@@ -1,9 +1,9 @@
-﻿(function () {
+(function () {
     "use strict";
 
     var app = angular.module("dashboard-app");
 
-    app.directive("countdown", function ($interval, ngAudio) {
+    app.directive("countdown", ["$interval", "ngAudio", function ($interval, ngAudio) {
 
         return {
             restrict: "E",
@@ -127,6 +127,6 @@
                 });
             }
         };
-    });
+    }]);
 
 })();

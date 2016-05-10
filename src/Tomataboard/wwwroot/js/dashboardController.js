@@ -1,6 +1,7 @@
 (function () {
     "use strict";
 
+    dashboardController.$inject = ["$scope", "$localStorage", "$http", "$interval", "$timeout"];
     angular.module("dashboard-app")
         .controller("dashboardController", dashboardController);
 

@@ -8,26 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Tomataboard</title>
 
-    <environment names="Development,Staging,Production">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet" type="text/css">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
-        <link href="~/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet" />
-        <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
-        <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet"/>
-        <link href="~/lib/icomoon/style.css" rel="stylesheet"/>
-        <link href="~/lib/ng-sortable/dist/ng-sortable.min.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet" type="text/css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet" />
+    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" />
+    <link href="~/lib/icomoon/style.css" rel="stylesheet" />
+    <link href="~/lib/ng-sortable/dist/ng-sortable.min.css" rel="stylesheet" />
+
+    <environment names="Development">
+        <link href="~/css/site.css" rel="stylesheet"/>
         <link href="~/app/settings/settings.css" rel="stylesheet"/>
         <link href="~/app/todo/todo.css" rel="stylesheet"/>
-        <link href="~/app/countdown/countdown.css" rel="stylesheet" />
+        <link href="~/app/countdown/countdown.css" rel="stylesheet"/>
     </environment>
-    @*<environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
-    </environment>*@
+
+    <environment names="Staging,Production">
+        <link href="~/css/site.min.css" rel="stylesheet" />
+    </environment>
+
 </head>
 
 <body ng-app="dashboard-app" ng-controller="dashboardController as vm">
@@ -129,25 +129,26 @@
         </footer>
     </div>
 
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/moment/min/moment.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/angular/angular.min.js"></script>
-        <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
-        <script src="~/lib/angular-animate/angular-animate.min.js"></script>
-        <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
-        <script src="~/lib/screenfull/dist/screenfull.js"></script>
-        <script src="~/lib/angular-screenfull/dist/angular-screenfull.min.js"></script>
-        <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
-        <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
-        <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js"></script>
-        <script src="~/lib/ngstorage/ngStorage.min.js"></script>
-        <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
-        <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
-        <script src="~/lib/ng-sortable/dist/ng-sortable.min.js"></script>
-        <script src="~/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/moment/min/moment.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.min.js"></script>
+    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
+    <script src="~/lib/screenfull/dist/screenfull.js"></script>
+    <script src="~/lib/angular-screenfull/dist/angular-screenfull.min.js"></script>
+    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
+    <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
+    <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js"></script>
+    <script src="~/lib/ngstorage/ngStorage.min.js"></script>
+    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+    <script src="~/lib/ng-sortable/dist/ng-sortable.min.js"></script>
+    <script src="~/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+    <script src="~/js/google-analytics.js"></script>
 
+    <environment names="Development">
         <script src="~/js/dashboard-app.js"></script>
         <script src="~/js/dashboardcontroller.js"></script>
         <script src="~/app/settings/settings.js"></script>
@@ -164,20 +165,10 @@
         <script src="~/app/countdown/countdown.js"></script>
         <script src="~/app/stopwatch/stopwatch.js"></script>
         <script src="~/app/todo/todo.js"></script>
-        <script src="~/js/google-analytics.js"></script>
     </environment>
 
-    @*<environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>*@
+    <environment names="Staging,Production">
+        <script src="~/js/site.min.js"></script>
+    </environment>
 </body>
-
 </html>

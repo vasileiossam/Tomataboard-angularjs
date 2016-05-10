@@ -17,7 +17,6 @@
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/google-analytics.js" />
-/// <reference path="js/site.min.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-animate/angular-animate.js" />
 /// <reference path="lib/angular-audio/app/angular.audio.js" />

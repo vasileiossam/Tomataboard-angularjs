@@ -1,9 +1,9 @@
-﻿(function () {
+(function () {
     "use strict";
 
     var app = angular.module("dashboard-app");
 
-    app.directive("stopwatch", function ($interval) {
+    app.directive("stopwatch", ["$interval", function ($interval) {
 
         return {
             restrict: "E",
@@ -60,6 +60,6 @@
                 });
             }
         };
-    });
+    }]);
 
 })();
