@@ -21,6 +21,7 @@
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-animate/angular-animate.js" />
 /// <reference path="lib/angular-audio/app/angular.audio.js" />
+/// <reference path="lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js" />
 /// <reference path="lib/angular-cookies/angular-cookies.js" />
 /// <reference path="lib/angular-route/angular-route.js" />
 /// <reference path="lib/angular-screenfull/dist/angular-screenfull.js" />

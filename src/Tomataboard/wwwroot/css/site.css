@@ -183,6 +183,16 @@ a:hover, a:focus {
     color: rgba(255, 255, 255, 0.8);
 }
 
+.timer-container:hover .show-on-hover {
+    -ms-opacity: 1;
+    opacity: 1;
+    -webkit-transition:all .3s ease-in;
+    -moz-transition:all .3s ease-in;
+    -ms-transition:all .3s ease-in;
+    -o-transition:all .3s ease-in;
+    transition:all .3s ease-in;
+}
+
 .hide-arrow {
     -webkit-appearance:none;
     -moz-appearance:none;
@@ -240,6 +250,12 @@ select.hide-arrow::-ms-expand{
     cursor: pointer;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.4);
+}
+#fullscreen-button:hover, #fullscreen-button:focus {
+    text-decoration: none;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.80);
+    outline: 0;
 }
 
 /* this class is added by ngsf-fullscreen */

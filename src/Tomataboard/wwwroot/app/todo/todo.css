@@ -76,6 +76,13 @@
     margin-right: 10px;
 }
 
+.todoItem .move:hover, .todoItem .move:focus {
+    text-decoration: none;
+    color: #ffffff;
+    color: rgba(255, 255, 255, 0.80);
+    outline: 0;
+}
+
 .todoItem:hover .show-on-hover {
     -ms-opacity: 1;
     opacity: 1;
