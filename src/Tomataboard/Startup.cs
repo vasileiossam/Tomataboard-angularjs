@@ -26,6 +26,8 @@ using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
+using Microsoft.AspNet.Routing;
+using Microsoft.AspNet.Routing.Template;
 
 namespace Tomataboard
 {
@@ -169,7 +171,11 @@ namespace Tomataboard
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Dashboard}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                       name: "dashboard",
+                       template: "focus/{controller=Dashboard}/{action=Index}");
             });
         }
 

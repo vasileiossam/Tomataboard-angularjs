@@ -1,1 +1,134 @@
-﻿
+﻿@{
+    Layout = "";
+    var dashboardRoute = "/focus";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tomataboard</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    @*grayscale*@
+    <link href="~/lib/startbootstrap-grayscale/css/grayscale.css" rel="stylesheet" />
+    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <environment names="Development">
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link href="~/css/site.min.css" rel="stylesheet" />
+    </environment>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="@dashboardRoute"><i class="fa fa-play-circle animated"></i> <span class="light">START</span> TOMATABOARD</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about">About</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@*Intro Header*@
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading">Welcome to your favorite personal dashboard!</h1>
+                    <p class="intro-text">Tomataboard can help you be more productive and stay focused on the task at hand.</p>
+                    <a class="btn btn-circle page-scroll hide-circle" href="@dashboardRoute">
+                        @*<i class="fa fa-angle-double-down animated"></i>*@
+                        <i class="fa fa-play-circle animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    
+<section id="about" class="content-section text-center">
+    <div class="about-section">
+        <div class="container">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Tomataboard</h2>
+                <p>Tomataboard is a personal dashboard. It can help you be more productive and stay focused on the task at hand.</p>
+                <p>It provides todos and timers. It can help you beat procrastination with its anti-procrastination (pomodoro) timer. It provides inspiration with daily quotes and gorgeous photos.</p>
+                <p>Best way to use it is to set it as your home page or your new tab page in your favorite browser.</p>
+                <br />
+                <p>Made with <i class="fa fa-heart"></i> in Melbourne, Australia.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="contact" class="content-section text-center">
+        <div class="contact-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Contact Tomataboard</h2>
+                    <p>Feel free to email some feedback, give suggestions or to just say hello!</p>
+                    <p>
+                        <a href="mailto:tomataboard@gmail.com">tomataboard@gmail.com</a>
+                    </p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://github.com/vasileiossam" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer>
+    <div class="container text-center">
+        <p>Copyright &copy; Tomataboard.com</p>
+    </div>
+</footer>
+    
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/startbootstrap-grayscale/js/grayscale.js"></script>
+    @*used by grayscale*@
+    <script src="~/lib/startbootstrap-grayscale/js/jquery.easing.min.js"></script>
+
+    <script src="~/js/google-analytics.js"></script>
+
+    <environment names="Development">
+    </environment>
+
+    <environment names="Staging,Production">
+    </environment>
+</body>
+</html>
