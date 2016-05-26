@@ -28,6 +28,7 @@ using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
 using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Routing.Template;
+using Tomataboard.Services.Photos.Tirolography;
 
 namespace Tomataboard
 {
@@ -93,6 +94,7 @@ namespace Tomataboard
             services.AddTransient<IPhotoProvider, PhotoProvider>();
             services.AddTransient<IApi500px, Api500px>();
             services.AddTransient<IFlickrService, FlickrService>();
+            services.AddTransient<ITirolographyService, TirolographyService>();
             services.AddTransient<ICacheRepository<List<Photo>>, CacheRepository<List<Photo>>>();
 
             // weather services
