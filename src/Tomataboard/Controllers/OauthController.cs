@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
-using Tomataboard.Services.Weather.Yahoo;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tomataboard.Controllers
 {

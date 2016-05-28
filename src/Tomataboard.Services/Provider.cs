@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Tomataboard.Services;
 using Tomataboard.Services.Cache;
 
 namespace Tomataboard.Services

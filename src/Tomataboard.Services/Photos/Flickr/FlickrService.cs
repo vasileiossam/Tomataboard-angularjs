@@ -4,12 +4,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Tomataboard.Services;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Photos;
 using Tomataboard.Services.Photos.Flickr;
+using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Photos.Flickr
 {

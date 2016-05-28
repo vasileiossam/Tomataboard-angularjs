@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.Entity.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tomataboard.Data.Entities

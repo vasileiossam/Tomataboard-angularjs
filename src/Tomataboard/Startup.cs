@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,9 +29,8 @@ using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Routing.Template;
 using Tomataboard.Services.Photos.Tirolography;
+using System.IO;
 
 namespace Tomataboard
 {
@@ -40,6 +42,7 @@ namespace Tomataboard
         {
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("keys.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
@@ -56,22 +59,18 @@ namespace Tomataboard
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public IConfigurationRoot Configuration { get;  }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddEntityFramework()
-                .AddSqlServer()
-                //.AddDbContext<ApplicationDbContext>(
-                //    options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-                .AddDbContext<TomataboardContext>(
-                    options => options.UseSqlServer(Configuration["Data:TomataboardConnection:ConnectionString"])
+            // Add framework services
+            services.AddDbContext<TomataboardContext>(
+                options => options.UseSqlServer(Configuration["Data:TomataboardConnection:ConnectionString"])
                 );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<TomataboardContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc()
@@ -124,36 +123,33 @@ namespace Tomataboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.MinimumLevel = LogLevel.Debug;
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddConsole(LogLevel.Debug);
             loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
 
                 // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
-                {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                        .CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
-                    }
-                }
-                catch { }
+                //try
+                //{
+                //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                //        .CreateScope())
+                //    {
+                //        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                //             .Database.Migrate();
+                //    }
+                //}
+                //catch { }
             }
             
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
-
             app.UseStaticFiles();
 
             app.UseIdentity();
@@ -182,6 +178,16 @@ namespace Tomataboard
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+              .UseKestrel()
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration()
+              .UseStartup<Startup>()
+              .Build();
+
+            host.Run();
+        }
     }
 }

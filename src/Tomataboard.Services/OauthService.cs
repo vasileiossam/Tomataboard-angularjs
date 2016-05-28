@@ -7,10 +7,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
 using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
 using System.Linq;
+using Microsoft.Extensions.Options;
 
 // ReSharper disable InconsistentNaming
 

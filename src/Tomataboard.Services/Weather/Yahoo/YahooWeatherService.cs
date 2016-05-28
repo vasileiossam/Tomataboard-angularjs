@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
 using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.AccessTokens;
+using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Weather.Yahoo
 {

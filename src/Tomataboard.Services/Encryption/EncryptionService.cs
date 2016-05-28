@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Extensions.OptionsModel;
 
 namespace Tomataboard.Services.Encryption
 {

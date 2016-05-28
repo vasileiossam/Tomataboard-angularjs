@@ -39,8 +39,8 @@ namespace Tomataboard.xUnitTests
                 TomataboardContextConnection =
                     @"Server=.;Database=Tomataboard;Trusted_Connection=True;MultipleActiveResultSets=true"
             };
-            var settings = new StubOptions<DataSettings>(dataSettings);
-            _TomataboardContext = new TomataboardContext(settings);
+           // var settings = new StubOptions<DataSettings>(dataSettings);
+           // _TomataboardContext = new TomataboardContext(settings);
 
             //_api500pxKeys = new StubOptions<Api500pxKeys>(new Api500pxKeys()
             //{

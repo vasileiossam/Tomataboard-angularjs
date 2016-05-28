@@ -1,5 +1,5 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Extensions.OptionsModel;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Tomataboard.Data.Entities;
 
 namespace Tomataboard.Data
@@ -13,11 +13,12 @@ namespace Tomataboard.Data
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<AccessToken> AccessTokens { get; set; }
 
-        private readonly IOptions<DataSettings> _settings;
+        //private readonly IOptions<DataSettings> _settings;
 
-        public TomataboardContext(IOptions<DataSettings> settings)
+        public TomataboardContext(DbContextOptions<TomataboardContext> options)
+            : base(options)
         {
-            _settings = settings;
+           
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

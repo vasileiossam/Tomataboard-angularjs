@@ -1,15 +1,11 @@
-﻿using System.Diagnostics;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Features;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
-using Tomataboard.Services.Locations;
 using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;
 using Tomataboard.Services.Locations.IpGeolocation;
 using Tomataboard.Services.Cache;
+using Microsoft.AspNetCore.Http;
 
 namespace Tomataboard.Services.Locations
 {

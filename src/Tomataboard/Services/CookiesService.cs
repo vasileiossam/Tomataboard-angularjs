@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.AspNet.Http;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Tomataboard.Services.Encryption;
+using Microsoft.AspNetCore.Http;
 
 namespace Tomataboard.Services
 {

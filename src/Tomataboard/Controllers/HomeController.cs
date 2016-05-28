@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Mvc;
-using Tomataboard.Data;
+﻿using Tomataboard.Data;
 using Microsoft.Extensions.Logging;
 using Tomataboard.Services.Locations;
 using Tomataboard.Services.Photos;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Yahoo;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tomataboard.Controllers
 {

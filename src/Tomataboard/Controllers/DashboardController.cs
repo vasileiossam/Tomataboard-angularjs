@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Tomataboard.Models;
 using Tomataboard.Services.Greetings;
@@ -9,6 +8,7 @@ using Tomataboard.Services.Photos;
 using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tomataboard.Controllers
 {
