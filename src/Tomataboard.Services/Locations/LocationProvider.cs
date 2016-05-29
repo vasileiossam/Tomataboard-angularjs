@@ -23,7 +23,9 @@ namespace Tomataboard.Services.Locations
         {
             _httpContextAccessor = httpContextAccessor;
 
-            _operations.Add(geoLiteService);
+            // commented out because it is too slow in Azure
+            //_operations.Add(geoLiteService);
+
             _operations.Add(ipGeolocationService);
             _operations.Add(freegeoipService);
         }
@@ -103,7 +105,7 @@ namespace Tomataboard.Services.Locations
         {
             // TODO investigate: do I need to cater for Ipv6?
             var ip = _httpContextAccessor.HttpContext.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
-            if (string.IsNullOrEmpty(ip))
+            if (string.IsNullOrEmpty(ip) || (ip == "127.0.0.1"))
             {
                 // TODO remove this in RC2 where the RemoteIpAddress bug is fixed
                 // https://github.com/aspnet/IISIntegration/issues/17

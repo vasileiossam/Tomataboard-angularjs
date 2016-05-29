@@ -100,6 +100,7 @@
       "wwwroot",
       "Views",
       "appsettings.json",
+      "keys.json",
       "web.config"
     ]
   }
