@@ -45,7 +45,9 @@ namespace Tomataboard
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("keys.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                // will cascade over appsettings.json  
+                .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
@@ -53,9 +55,6 @@ namespace Tomataboard
                 builder.AddUserSecrets();
             }
             
-            // will cascade over appsettings.json
-            builder.AddEnvironmentVariables();
-
             Configuration = builder.Build();
         }
 
@@ -64,10 +63,9 @@ namespace Tomataboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services
-            services.AddDbContext<TomataboardContext>(
-                options => options.UseSqlServer(Configuration["Data:TomataboardConnection:ConnectionString"])
-                );
+            // Add framework services.
+            services.AddDbContext<TomataboardContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TomataboardConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<TomataboardContext>()
