@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -77,8 +74,7 @@ namespace Tomataboard
                     opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
             // location services
             services.AddTransient<ILocationProvider, LocationProvider>();
@@ -116,6 +112,8 @@ namespace Tomataboard
             services.Configure<OpenWeatherMapKeys>(Configuration.GetSection("ApiSettings:OpenWeatherMapKeys"));
             services.Configure<ForecastKeys>(Configuration.GetSection("ApiSettings:ForecastKeys"));
             services.Configure<EncryptionServiceKeys>(Configuration.GetSection("ApiSettings:EncryptionServiceKeys"));
+            services.Configure<SendGridOptions>(Configuration.GetSection("ApiSettings:SendGridOptions"));
+            services.Configure<GmailOptions>(Configuration.GetSection("ApiSettings:GmailOptions"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
