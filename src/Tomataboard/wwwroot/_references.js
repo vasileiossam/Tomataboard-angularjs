@@ -14,6 +14,7 @@
 /// <reference path="app/todo/todo.js" />
 /// <reference path="app/weather/weather.js" />
 /// <reference path="js/contenteditable.js" />
+/// <reference path="js/dashboard.min.js" />
 /// <reference path="js/dashboard-app.js" />
 /// <reference path="js/dashboardcontroller.js" />
 /// <reference path="js/google-analytics.js" />
