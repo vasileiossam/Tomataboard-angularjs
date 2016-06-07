@@ -61,13 +61,16 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="@dashboardRoute"><i class="fa fa-play-circle animated"></i> <span class="light">START</span> TOMATABOARD</a>
+            @*<a class="navbar-brand page-scroll" href="@dashboardRoute"><i class="fa fa-play-circle animated"></i> <span class="light">START</span> TOMATABOARD</a>*@
         </div>
 
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="hidden">
                     <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a href="@dashboardRoute">TOMATABOARD</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#about">About</a>
@@ -88,10 +91,13 @@
                 <div class="col-md-8 col-md-offset-2">
                     <h1 class="brand-heading">Welcome to your favorite personal dashboard!</h1>
                     <p class="intro-text">Tomataboard can help you be more productive and stay focused on the task at hand.</p>
-                    <a class="btn btn-circle hide-circle" href="@dashboardRoute">
-                        @*<i class="fa fa-angle-double-down animated"></i>*@
-                        <i class="fa fa-play-circle animated"></i>
-                    </a>
+                    @*<i class="fa fa-angle-double-down animated"></i>*@
+                    <p>
+                        @*<a class="btn btn-circle hide-circle" href="@dashboardRoute">
+                            <i class="fa fa-play-circle animated"></i>
+                        </a>*@
+                        <a href="@dashboardRoute" class="btn btn-default btn-lg">HELP ME FOCUS</strong></a>   
+                    </p>
                 </div>
             </div>
         </div>
