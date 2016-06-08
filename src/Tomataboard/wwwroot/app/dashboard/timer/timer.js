@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/timer/timer.html',
+            templateUrl: '/app/dashboard/timer/timer.html',
 
             scope: {
                 minutesSelection: "=minutesSelection",

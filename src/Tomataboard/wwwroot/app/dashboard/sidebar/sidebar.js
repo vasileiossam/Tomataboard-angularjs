@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/sidebar/sidebar.html',
+            templateUrl: '/app/dashboard/sidebar/sidebar.html',
 
             link: function (scope, element, attrs) {
                 $(document).ready(function () {

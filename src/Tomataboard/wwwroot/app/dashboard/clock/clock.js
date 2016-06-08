@@ -10,7 +10,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/clock/clock.html',
+            templateUrl: '/app/dashboard/clock/clock.html',
 
             scope: {
                 format: "=format"

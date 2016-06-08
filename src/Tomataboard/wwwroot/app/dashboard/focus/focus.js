@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/focus/focus.html',
+            templateUrl: '/app/dashboard/focus/focus.html',
 
             link: function(scope, element, attrs) {
 

@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: "/app/pomodoro/pomodoro.html",
+            templateUrl: "/app/dashboard/pomodoro/pomodoro.html",
 
             scope: {
                 pomodoroTime: "=",

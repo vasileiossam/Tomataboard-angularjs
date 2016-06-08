@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/photo/photo.html',
+            templateUrl: '/app/dashboard/photo/photo.html',
 
             link: function(scope, element, attrs) {
 

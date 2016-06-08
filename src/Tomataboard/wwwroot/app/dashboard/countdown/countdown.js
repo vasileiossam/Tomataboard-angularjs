@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: "/app/countdown/countdown.html",
+            templateUrl: "/app/dashboard/countdown/countdown.html",
 
             scope: {
                 settings: "="

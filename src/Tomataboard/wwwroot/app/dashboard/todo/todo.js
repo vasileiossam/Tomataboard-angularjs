@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: "/app/todo/todo.html",
+            templateUrl: "/app/dashboard/todo/todo.html",
 
             scope: {
                 settings: "="

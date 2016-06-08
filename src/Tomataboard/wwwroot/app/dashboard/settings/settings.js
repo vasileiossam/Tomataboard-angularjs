@@ -9,7 +9,7 @@
             restrict: "E",
             replace: "true",
 
-            templateUrl: '/app/settings/settings.html',
+            templateUrl: '/app/dashboard/settings/settings.html',
 
             link: function(scope, element, attrs) {
                 var i;
