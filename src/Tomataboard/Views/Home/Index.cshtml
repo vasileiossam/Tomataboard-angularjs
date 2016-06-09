@@ -30,11 +30,11 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true"/>
 
     @*grayscale*@
-    <link href="~/lib/startbootstrap-grayscale/css/grayscale.css" rel="stylesheet" />
-    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/lib/startbootstrap-grayscale/css/grayscale.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true"/>
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
@@ -50,7 +50,7 @@
     </environment>
 
     <environment names="Staging,Production">
-        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" asp-append-version="true"/>
     </environment>
 </head>
 
@@ -144,13 +144,13 @@
     </div>
 </footer>
     
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/startbootstrap-grayscale/js/grayscale.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/lib/startbootstrap-grayscale/js/grayscale.js" asp-append-version="true"></script>
     @*used by grayscale*@
-    <script src="~/lib/startbootstrap-grayscale/js/jquery.easing.min.js"></script>
+    <script src="~/lib/startbootstrap-grayscale/js/jquery.easing.min.js" asp-append-version="true"></script>
 
-    <script src="~/js/google-analytics.js"></script>
+    <script src="~/js/google-analytics.js" asp-append-version="true"></script>
 
     <environment names="Development">
     </environment>

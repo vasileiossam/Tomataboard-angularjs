@@ -22,13 +22,13 @@ var htmlreplace = require("gulp-html-replace");
 var runSequence = require('run-sequence');
 
 var del = require("del");
+var debug = require('gulp-debug');
 
 var paths = {
     webroot: "./wwwroot/"
 };
 paths.dashboardJsDest = paths.webroot + "js/dashboard.min.js";
 paths.dashboardCssDest = paths.webroot + "css/dashboard.min.css";
-
 
 // ------ clean -------
 

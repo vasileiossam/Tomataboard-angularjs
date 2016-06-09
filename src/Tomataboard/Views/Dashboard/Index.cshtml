@@ -22,12 +22,13 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet" type="text/css">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet" />
-    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" />
-    <link href="~/lib/icomoon/style.css" rel="stylesheet" />
-    <link href="~/lib/ng-sortable/dist/ng-sortable.min.css" rel="stylesheet" />
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"  asp-append-version="true"/>
+    <link href="~/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/weather-icons/css/weather-icons.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/icomoon/style.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/ng-sortable/dist/ng-sortable.min.css" rel="stylesheet" asp-append-version="true"/>
 
     <environment names="Development">
         <link href="~/css/dashboard.css" rel="stylesheet"/>
@@ -37,7 +38,7 @@
     </environment>
 
     <environment names="Staging,Production">
-        <link href="~/css/dashboard.min.css" rel="stylesheet" />
+        <link href="~/css/dashboard.min.css" rel="stylesheet" asp-append-version="true"/>
     </environment>
 
 </head>
@@ -144,24 +145,24 @@
         </footer>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/moment/min/moment.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
-    <script src="~/lib/angular-animate/angular-animate.min.js"></script>
-    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
-    <script src="~/lib/screenfull/dist/screenfull.js"></script>
-    <script src="~/lib/angular-screenfull/dist/angular-screenfull.min.js"></script>
-    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js"></script>
-    <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
-    <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js"></script>
-    <script src="~/lib/ngstorage/ngStorage.min.js"></script>
-    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
-    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
-    <script src="~/lib/ng-sortable/dist/ng-sortable.min.js"></script>
-    <script src="~/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
-    <script src="~/js/google-analytics.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+    <script src="~/lib/moment/min/moment.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/lib/angular/angular.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-cookies/angular-cookies.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-animate/angular-animate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js" asp-append-version="true"></script>
+    <script src="~/lib/screenfull/dist/screenfull.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-screenfull/dist/angular-screenfull.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-audio/app/scripts/../../app/angular.audio.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-touchswipe/jquery.touchSwipe.min.js" asp-append-version="true"></script>
+    <script src="~/lib/slide-and-swipe-menu/jquery.slideandswipe.min.js" asp-append-version="true"></script>
+    <script src="~/lib/ngstorage/ngStorage.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js" asp-append-version="true"></script>
+    <script src="~/lib/ng-sortable/dist/ng-sortable.min.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js" asp-append-version="true"></script>
+    <script src="~/js/google-analytics.js" asp-append-version="true"></script>
 
     <environment names="Development">
         <script src="~/app/dashboard/dashboard-app.js"></script>
@@ -183,7 +184,7 @@
     </environment>
 
     <environment names="Staging,Production">
-        <script src="~/js/dashboard.min.js"></script>
+        <script src="~/js/dashboard.min.js" asp-append-version="true"></script>
     </environment>
 </body>
 </html>

@@ -11,6 +11,7 @@
     "del": "2.2.0",
     "gulp-bump": "2.1.0",
     "gulp-html-replace": "1.6.0",
-    "run-sequence": "1.2.1"
+    "run-sequence": "1.2.1",
+    "gulp-debug": "2.1.2"
   }
 }
