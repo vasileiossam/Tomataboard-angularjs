@@ -3,13 +3,12 @@
     padding: 10px;
 }
 
-#pomodoro-settings .header {
+#pomodoro-settings {
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 #pomodoro-settings select {
-    width: 80px;
+    width: 120px;
 }
 
 #temperatureSettings {
@@ -22,4 +21,8 @@
 
 #todo-tab h4 {
     margin-bottom: 15px;   
+}
+
+.pomodoro-table > thead > tr > th, .pomodoro-table > tbody > tr > th, .pomodoro-table > tfoot > tr > th, .pomodoro-table > thead > tr > td, .pomodoro-table > tbody > tr > td, .pomodoro-table > tfoot > tr > td {
+    padding: 0px;
 }

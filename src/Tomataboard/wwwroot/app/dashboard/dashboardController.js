@@ -11,7 +11,7 @@
         // get any persisted data 
         vm.dashboard = $localStorage.dashboard;
         vm.settings = $localStorage.settings;
-
+       
         vm.isBusy = true;
         vm.errorMessage = "";
         // 30 minutes
@@ -20,8 +20,6 @@
         // initialize settings
         if (!vm.settings) {
             vm.settings = {};
-            vm.settings.defaultName = "Young Grasshopper";
-            vm.settings.name = vm.settings.defaultName;
             vm.settings.defaultQuestion = "What is your goal for today?";
             vm.settings.question = vm.settings.defaultQuestion;
             vm.settings.location = "";
@@ -30,7 +28,6 @@
             vm.settings.showWeather = true;
             vm.settings.temperatureUnits = "";
             vm.settings.showQuote = true;
-            vm.settings.showGreeting = true;
             vm.settings.showTodo = false;
 
             vm.settings.showTimers = true;
@@ -61,7 +58,19 @@
                 todos: []
             };
         }
-     
+
+        if (!vm.settings.greeting)
+        {
+            vm.settings.greeting = {
+                show: true,
+                defaultName: "Young Grasshopper",
+                name: "Young Grasshopper",
+                randomName: false,
+                names: "Champion, Winner, Lucky, Fighter, Rock Star",
+                namesPlaceholder: "Comma separated names e.g Champion, Winner, Lucky",
+            }
+        }
+
         vm.stopwatchReset = {};
  
         vm.showTimer = function (selector) {

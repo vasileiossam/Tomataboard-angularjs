@@ -16,7 +16,7 @@
                     <checkbox ng-model="vm.settings.showTimers" />&nbsp;Show Timers
                 </div>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.showGreeting" />&nbsp;Show Greeting
+                    <checkbox ng-model="vm.settings.greeting.show" />&nbsp;Show Greeting
                 </div>
                 <div class="checkbox">
                     <checkbox ng-model="vm.settings.showFocus"/>&nbsp;Show Focus
@@ -41,26 +41,44 @@
                 </div>
 
                 <div id="pomodoro-settings">
-                    <h4 class="header">Pomodoro Timer</h4>
-                    <div class="form-group">
-                        <label for="pomodoroTime">Pomodoro Time</label>
-                        <select class="form-control transparent" id="pomodoroTime"
-                                ng-options="option for option in workCollection track by option"
-                                ng-model="vm.settings.pomodoroTime"></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pomodoroShortBreak">Short Break</label>
-                        <select class="form-control transparent" id="pomodoroShortBreak"
-                                ng-options="option for option in shortBreakCollection track by option"
-                                ng-model="vm.settings.pomodoroShortBreak"></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pomodoroLongBreak">Long Break</label>
-                        <select class="form-control transparent" id="pomodoroLongBreak"
-                                ng-options="option for option in longBreakCollection track by option"
-                                ng-model="vm.settings.pomodoroLongBreak"></select>
-                    </div>
+                    <table class="pomodoro-table table table-borderless">
+                        <thead>
+                            <tr>
+                                <td><label for="pomodoroTime">Pomodoro Time</label></td>
+                                <td><label for="pomodoroShortBreak">Short Break</label></td>
+                                <td><label for="pomodoroLongBreak">Long Break</label></td>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <select class="form-control transparent" id="pomodoroTime"
+                                        ng-options="option for option in workCollection track by option"
+                                        ng-model="vm.settings.pomodoroTime"></select>
+                            </td>
+                            <td>
+                                <select class="form-control transparent" id="pomodoroShortBreak"
+                                        ng-options="option for option in shortBreakCollection track by option"
+                                        ng-model="vm.settings.pomodoroShortBreak"></select>
+                            </td>
+                            <td>
+                                <select class="form-control transparent" id="pomodoroLongBreak"
+                                        ng-options="option for option in longBreakCollection track by option"
+                                        ng-model="vm.settings.pomodoroLongBreak"></select>
+
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+
+                <h4>Greeting</h4>
+                <div class="checkbox">
+                    <checkbox ng-model="vm.settings.greeting.randomName" />&nbsp;Greet with a random name
+                </div>
+                <input type="text" class="form-control transparent" 
+                       placeholder="{{vm.settings.greeting.namesPlaceholder}}"
+                       ng-model="vm.settings.greeting.names"
+                       ng-show="vm.settings.greeting.randomName"/>
+
             </form>
         </div>
 
