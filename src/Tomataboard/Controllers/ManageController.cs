@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Tomataboard.Models;
 using Tomataboard.Services;
-using Tomataboard.ViewModels.Manage;
+using Tomataboard.Models;
+using Tomataboard.Models.ManageViewModels;
 
-namespace WebApplication1.Controllers
+namespace Tomataboard.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -18,17 +18,20 @@ namespace WebApplication1.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
+        ISmsSender smsSender,
         ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -98,9 +101,8 @@ namespace WebApplication1.Controllers
             // Generate the token and send it
             var user = await GetCurrentUserAsync();
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-            //await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
-            //return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
-            return null;
+            await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
+            return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
         }
 
         //

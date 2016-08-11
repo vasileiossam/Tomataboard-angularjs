@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Tomataboard.Models;
 using Tomataboard.Services;
-using Tomataboard.Controllers;
-using Tomataboard.ViewModels.Account;
+using Tomataboard.Models.AccountViewModels;
 
-namespace WebApplication1.Controllers
+namespace Tomataboard.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -19,17 +18,20 @@ namespace WebApplication1.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
+            ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -379,8 +381,7 @@ namespace WebApplication1.Controllers
             }
             else if (model.SelectedProvider == "Phone")
             {
-                //await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
-                return null;
+                await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
             }
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
