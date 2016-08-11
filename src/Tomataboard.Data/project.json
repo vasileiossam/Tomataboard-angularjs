@@ -8,19 +8,19 @@
     "netcoreapp1.0": {
       "imports": [
         "dotnet5.6",
-        "dnxcore50",
+        "dnxcore50", 
         "portable-net45+win8"
       ]
     }
   },
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.0-rc2-*",
+      "version": "1.0.0",
       "type": "platform"
     },
-    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-rc2-final",
-    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0-rc2-final"
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0"
   },
   "testRunner": "xunit",
   "packOptions": {
@@ -32,26 +32,26 @@
   },
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
-    },
+    },   
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
       ]
     },
     "Microsoft.Extensions.SecretManager.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
@@ -60,7 +60,7 @@
   },
   "publishOptions": {
     "include": [
-      "wwwroot",
+      "wwwroot", 
       "Views",
       "appsettings.json",
       "web.config"

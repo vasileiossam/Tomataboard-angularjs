@@ -16,7 +16,6 @@
 /// <reference path="app/dashboard/timer/timer.js" />
 /// <reference path="app/dashboard/todo/todo.js" />
 /// <reference path="app/dashboard/weather/weather.js" />
-/// <reference path="js/dashboard.min.js" />
 /// <reference path="js/google-analytics.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-animate/angular-animate.js" />

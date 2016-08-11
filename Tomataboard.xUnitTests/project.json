@@ -7,10 +7,10 @@
   "dependencies": {
     "Tomataboard.Data": "1.0.0-*",
     "Tomataboard.Services": "1.0.0-*",
-    "xunit": "2.1.0-rc2-*",
-    "dotnet-test-xunit": "1.0.0-rc2-*",
+    "xunit": "2.2.0-beta1-build3239",
+    "dotnet-test-xunit": "1.0.0-*",
     "Microsoft.NETCore.App": {
-      "version": "1.0.0-rc2-*",
+      "version": "1.0.0",
       "type": "platform"
     }
   },
@@ -34,26 +34,26 @@
   },
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
       ]
     },
     "Microsoft.Extensions.SecretManager.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
-      "version": "1.0.0-preview1-final",
+      "version": "1.0.0-preview2-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
