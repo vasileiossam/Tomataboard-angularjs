@@ -53,8 +53,7 @@ namespace Tomataboard.Controllers
         /// <param name="readCache"></param>
         /// <returns></returns>
         [HttpGet("api/dashboard")]
-        [HttpGet("api/dashboard/{milliseconds}")]
-        public async Task<JsonResult> Get(long milliseconds, string tags, bool? readCache)
+        public async Task<JsonResult> Get(string tags, bool? readCache)
         {
             var weather = await _weatherProvider.Execute();
             var photos = await _photoProvider.Execute(
@@ -65,7 +64,6 @@ namespace Tomataboard.Controllers
             {
                 Photos = photos.Shuffle().Take(20).ToArray(),
                 Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(20).ToArray(),
-                Greeting = _greetingsService.GetGreeting(milliseconds),
                 Weather = weather
             };
 

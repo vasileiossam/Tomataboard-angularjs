@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Tomataboard.Services.Greetings
 {
+    [Obsolete("Use javascript instead")]
     public class GreetingsService : IGreetingsService
     {
         private class Greeting

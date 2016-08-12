@@ -1,6 +1,6 @@
 {
   "userSecretsId": "aspnet5-Tomataboard-2758b425-7740-4589-825a-42e8d05436f5",
-  "version": "1.0.29",
+  "version": "1.0.31",
   "dependencies": {
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",

@@ -110,9 +110,10 @@
         vm.getDashboard = function () {
             vm.isBusy = true;
             var offsetMins = new Date().getTimezoneOffset();
-            var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
+            // var localMilliseconds = Date.now() - offsetMins * 60 * 1000;
+            // $http.get("/api/dashboard/" + localMilliseconds)
 
-            $http.get("/api/dashboard/" + localMilliseconds)
+            $http.get("/api/dashboard")
                 .then(
                     function (response) {
                         // on sucess
@@ -176,6 +177,8 @@
 
                 vm.isBusy = false;
             }
+
+            vm.dashboard.greeting = getGreeting();
         }
         vm.refresh();
 
@@ -187,6 +190,20 @@
                 vm.refresh();
             }, 1000);
         };
+    }
+    
+    function getGreeting() {
+        var hours = new Date().getHours();
+
+        if (hours >= 5 && hours < 12) {
+            return "Good morning";
+        }
+        if (hours >= 12 && hours < 17) {
+            return "Good afternoon";
+        }
+        if (hours >= 17) {
+            return "Good evening";
+        } 
     }
 
     //function getRandomElement(arr) {
