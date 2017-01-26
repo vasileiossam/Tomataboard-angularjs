@@ -72,7 +72,7 @@
         }
 
         vm.stopwatchReset = {};
- 
+
         vm.showTimer = function (selector) {
             // reset stopwatch if its working
             if (selector !== "stopwatch") {
@@ -153,7 +153,7 @@
                     },
                     function (error) {
                         // on failure
-                        vm.errorMessage = "Failed to load data: " + error;
+                        vm.errorMessage = "Failed to load data: " + error.statusText;
                     })
                     .finally(function () {
                         vm.isBusy = false;
@@ -177,8 +177,10 @@
 
                 vm.isBusy = false;
             }
-
-            vm.dashboard.greeting = getGreeting();
+            if (vm.dashboard)
+            {
+                vm.dashboard.greeting = getGreeting();
+            }
         }
         vm.refresh();
 

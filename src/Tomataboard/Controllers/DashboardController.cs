@@ -55,21 +55,30 @@ namespace Tomataboard.Controllers
         [HttpGet("api/dashboard")]
         public async Task<JsonResult> Get(string tags, bool? readCache)
         {
-            var weather = await _weatherProvider.Execute();
-            var photos = await _photoProvider.Execute(
-                string.IsNullOrEmpty(tags) ? "landscape" : tags,
-                readCache ?? true);
-           
-            var dashboardDto = new DashboardDto
+            try
             {
-                Photos = photos.Shuffle().Take(20).ToArray(),
-                Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(20).ToArray(),
-                Weather = weather
-            };
+                var weather = await _weatherProvider.Execute();
+                var photos = await _photoProvider.Execute(
+                    string.IsNullOrEmpty(tags) ? "landscape" : tags,
+                    readCache ?? true);
 
-            return Json(dashboardDto);
+                var dashboardDto = new DashboardDto
+                {
+                    Photos = photos.Shuffle().Take(20).ToArray(),
+                    Quotes = _quoteRepository.GetQuotes("inspirational,motivational").Shuffle().Take(20).ToArray(),
+                    Weather = weather
+                };
+
+                return Json(dashboardDto);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error getting DashboardDto", e);
+                throw e; 
+            }
         }
-    }
+   
+}
 
     public class FromUriAttribute : Attribute
     {
