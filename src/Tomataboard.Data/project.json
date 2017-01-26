@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "platform"
     },
-    "Microsoft.EntityFrameworkCore": "1.0.0",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.1",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0"
   },
   "testRunner": "xunit",
@@ -34,7 +34,7 @@
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"
-    },   
+    },
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
       "version": "1.0.0-preview2-final",
       "imports": "portable-net45+win8+dnxcore50"

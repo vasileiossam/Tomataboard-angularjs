@@ -27,12 +27,9 @@ using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
 using Tomataboard.Services.Photos.Tirolography;
-using System.IO;
 
 namespace Tomataboard
 {
-
-
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -125,9 +122,9 @@ namespace Tomataboard
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
+               app.UseDeveloperExceptionPage();
+               app.UseDatabaseErrorPage();
+               app.UseBrowserLink();
             }
             else
             {
@@ -171,19 +168,6 @@ namespace Tomataboard
                        name: "dashboard",
                        template: "focus/{controller=Dashboard}/{action=Index}");
             });
-        }
-
-        // Entry point for the application.
-        public static void Main(string[] args)
-        {
-            var host = new WebHostBuilder()
-              .UseKestrel()
-              .UseContentRoot(Directory.GetCurrentDirectory())
-              .UseIISIntegration()
-              .UseStartup<Startup>()
-              .Build();
-
-            host.Run();
         }
     }
 }

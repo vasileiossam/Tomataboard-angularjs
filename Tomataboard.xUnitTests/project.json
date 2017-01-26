@@ -10,7 +10,7 @@
     "xunit": "2.2.0-beta1-build3239",
     "dotnet-test-xunit": "1.0.0-*",
     "Microsoft.NETCore.App": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "platform"
     }
   },
