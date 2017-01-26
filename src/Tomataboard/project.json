@@ -1,6 +1,6 @@
 {
   "userSecretsId": "aspnet5-Tomataboard-2758b425-7740-4589-825a-42e8d05436f5",
-  "version": "1.0.31",
+  "version": "1.0.43",
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
