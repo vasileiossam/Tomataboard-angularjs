@@ -148,6 +148,7 @@
                                 }
                             }
                         }
+                        vm.dashboard.greeting = getGreeting();
 
                         vm.saveDashboard();
                     },
@@ -177,11 +178,11 @@
 
                 vm.isBusy = false;
             }
-            if (vm.dashboard)
-            {
+
+            if (vm.dashboard) {
                 vm.dashboard.greeting = getGreeting();
             }
-        }
+        };
         vm.refresh();
 
         vm.startFade = false;
