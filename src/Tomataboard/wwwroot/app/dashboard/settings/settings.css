@@ -26,3 +26,7 @@
 .pomodoro-table > thead > tr > th, .pomodoro-table > tbody > tr > th, .pomodoro-table > tfoot > tr > th, .pomodoro-table > thead > tr > td, .pomodoro-table > tbody > tr > td, .pomodoro-table > tfoot > tr > td {
     padding: 0px;
 }
+
+#account form {
+    display: inline;
+}

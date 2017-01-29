@@ -72,17 +72,23 @@
                     <sidebar class="semi-transparent"></sidebar>
                     <div class="ssm-overlay ssm-toggle-nav"></div>
                 </div>
-                <div id="top-center" class="col-sm-8 text-center">
+                <div id="top-center" class="col-sm-7 text-center">
                     <div class="text-danger" ng-show="vm.errorMessage"><span ng-bind="vm.errorMessage"></span></div>
                 </div>
-                <div id="top-right" class="col-sm-2 text-right">
+                <div id="top-right" class="col-sm-3 text-right">
                     <div class="hover-container">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                    <div class="hover-container">
+                        @*Settings*@
                         <ul id="top-menu" class="hover-item">
-                            @*Settings*@ 
                             <li>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
-                                    <settings class="dropdown-menu dropdown-menu-right semi-transparent"></settings>
+                                    <settings x-username="@User?.Identity?.Name"
+                                              x-settings="vm.settings"
+                                              x-weather="vm.dashboard.weather"
+                                              class="dropdown-menu dropdown-menu-right semi-transparent"></settings>
                                 </div>
                             </li>
                         </ul>

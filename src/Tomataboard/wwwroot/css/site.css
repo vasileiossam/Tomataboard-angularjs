@@ -1,56 +1,50 @@
-﻿.intro .intro-body .brand-heading {
-    font-size: 36px;
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
-.contact-section {
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display:inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+.btn-bracketed::after {
+    display:inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"]
+{
     width: 100%;
-    padding: 50px 0;
-    color: #fff;
-    background: url('../lib/startbootstrap-grayscale/img/downloads-bg.jpg') no-repeat center center scroll;
-    background-color: #000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
 }
 
-@media(min-width:768px) {
-    .intro {
-        height: 100%;
-        padding: 0;
-    }
-
-    .intro .intro-body .brand-heading {
-        font-size: 36px;
-    }
-
-    .intro .intro-body .intro-text {
-        font-size: 26px;
-    }
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
 }
-
-@media(min-width:767px) {
-    .content-section {
-        padding-top: 250px;
-    }
-
-    .contact-section {
-        padding: 100px 0;
-    }
-
-    #map {
-        height: 400px;
-        margin-top: 250px;
-    }
-}
-
-.hide-circle {
-    border: 0;
-    font-size: 50px;
-    margin-top: 0px;
-    width: 80px;
-    height: 80px;
-}
-
-

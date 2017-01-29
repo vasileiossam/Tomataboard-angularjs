@@ -11,7 +11,13 @@
 
             templateUrl: '/app/dashboard/settings/settings.html',
 
-            link: function(scope, element, attrs) {
+            scope: {
+                weather: "=",
+                settings: "=",
+                username: "@"
+            },
+
+            link: function (scope, element, attrs) {
                 var i;
                 scope.workCollection = [];
                 for (i = 10; i <= 60; i++) {

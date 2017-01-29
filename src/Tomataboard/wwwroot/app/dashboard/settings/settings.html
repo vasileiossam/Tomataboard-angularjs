@@ -1,5 +1,11 @@
 <div id="settings">
-    
+    <div id="account" ng-show="username">
+        <a class="fa fa-user" href="Manage/Index">&nbsp;{{username}}1</a>
+        <form action="Account/Logout" method="post">
+            <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+        </form>
+    </div>
+
     <ul class="nav nav-pills nav-justified">
         <li class="active"><a data-toggle="pill" href="#settings-tab">General</a></li>
         <li><a data-toggle="pill" href="#todo-tab">Todo</a></li>
@@ -10,33 +16,33 @@
         <div id="settings-tab" class="tab-pane fade in active">
             <form role="form">
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.showBackgroundPhoto"/>&nbsp;Show Background Photo
+                    <checkbox ng-model="settings.showBackgroundPhoto" />&nbsp;Show Background Photo
                 </div>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.showTimers" />&nbsp;Show Timers
+                    <checkbox ng-model="settings.showTimers" />&nbsp;Show Timers
                 </div>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.greeting.show" />&nbsp;Show Greeting
+                    <checkbox ng-model="settings.greeting.show" />&nbsp;Show Greeting
                 </div>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.showFocus"/>&nbsp;Show Focus
+                    <checkbox ng-model="settings.showFocus" />&nbsp;Show Focus
                 </div>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.showQuote"/>&nbsp;Show Quote
+                    <checkbox ng-model="settings.showQuote" />&nbsp;Show Quote
                 </div>
-                <div class="checkbox" ng-show="vm.dashboard.weather != null">
-                    <checkbox ng-model="vm.settings.showWeather"/>&nbsp;Show Weather
+                <div class="checkbox" ng-show="dashboard.weather != null">
+                    <checkbox ng-model="settings.showWeather" />&nbsp;Show Weather
                 </div>
 
                 <h4>Clock Format</h4>
-                <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="vm.settings.clockFormat">12 hour</label>
-                <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="vm.settings.clockFormat">24 hour</label>
+                <label class="radio-inline"><input type="radio" name="timeFormat" value="12-hour" ng-model="settings.clockFormat">12 hour</label>
+                <label class="radio-inline"><input type="radio" name="timeFormat" value="24-hour" ng-model="settings.clockFormat">24 hour</label>
 
-                <div ng-show="vm.dashboard.weather != null">
+                <div ng-show="dashboard.weather != null">
                     <h4>Temperature</h4>
                     <span id="temperatureSettings">
-                        <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="vm.settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
-                        <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="vm.settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
+                        <label class="radio-inline"><input type="radio" name="temperatureUnits" value="celsius" ng-model="settings.temperatureUnits"><i class="wi wi-celsius"></i></label>
+                        <label class="radio-inline"><input type="radio" name="temperatureUnits" value="fahrenheit" ng-model="settings.temperatureUnits"><i class="wi wi-fahrenheit"></i></label>
                     </span>
                 </div>
 
@@ -53,17 +59,17 @@
                             <td>
                                 <select class="form-control transparent" id="pomodoroTime"
                                         ng-options="option for option in workCollection track by option"
-                                        ng-model="vm.settings.pomodoroTime"></select>
+                                        ng-model="settings.pomodoroTime"></select>
                             </td>
                             <td>
                                 <select class="form-control transparent" id="pomodoroShortBreak"
                                         ng-options="option for option in shortBreakCollection track by option"
-                                        ng-model="vm.settings.pomodoroShortBreak"></select>
+                                        ng-model="settings.pomodoroShortBreak"></select>
                             </td>
                             <td>
                                 <select class="form-control transparent" id="pomodoroLongBreak"
                                         ng-options="option for option in longBreakCollection track by option"
-                                        ng-model="vm.settings.pomodoroLongBreak"></select>
+                                        ng-model="settings.pomodoroLongBreak"></select>
 
                             </td>
                         </tr>
@@ -72,12 +78,12 @@
 
                 <h4>Greeting</h4>
                 <div class="checkbox">
-                    <checkbox ng-model="vm.settings.greeting.randomName" />&nbsp;Greet with a random name
+                    <checkbox ng-model="settings.greeting.randomName" />&nbsp;Greet with a random name
                 </div>
-                <input type="text" class="form-control transparent" 
-                       placeholder="{{vm.settings.greeting.namesPlaceholder}}"
-                       ng-model="vm.settings.greeting.names"
-                       ng-show="vm.settings.greeting.randomName"/>
+                <input type="text" class="form-control transparent"
+                       placeholder="{{settings.greeting.namesPlaceholder}}"
+                       ng-model="settings.greeting.names"
+                       ng-show="settings.greeting.randomName" />
 
             </form>
         </div>
@@ -85,17 +91,17 @@
         <div id="todo-tab" class="tab-pane fade">
             <h4 class="header">Categories</h4>
             <form role="form">
-               <div class="form-group">
+                <div class="form-group">
                     <input type="text" class="form-control transparent" placeholder="type a todo category"
-                           ng-model="vm.settings.todo.categories[0]" id="todoCategory0"/>
+                           ng-model="settings.todo.categories[0]" id="todoCategory0" />
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control transparent" placeholder="type a todo category"
-                           ng-model="vm.settings.todo.categories[1]" id="todoCategory1"/>
+                           ng-model="settings.todo.categories[1]" id="todoCategory1" />
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control transparent" placeholder="type a todo category"
-                           ng-model="vm.settings.todo.categories[2]" id="todoCategory2"/>
+                           ng-model="settings.todo.categories[2]" id="todoCategory2" />
                 </div>
             </form>
         </div>
@@ -104,7 +110,8 @@
             <h1>
                 <strong><a href="http://www.tomataboard.com">Tomataboard</a></strong>
             </h1>
-            <h4>Personal Dashboard 
+            <h4>
+                Personal Dashboard
                 <small>
                     v<!-- build:version -->1.0.43<!-- endbuild --> beta
                 </small>
@@ -140,6 +147,5 @@
             </h5>
         </div>
     </div>
-        
-   
+
 </div>

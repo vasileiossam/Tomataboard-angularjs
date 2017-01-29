@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Tomataboard.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (!SignInManager.IsSignedIn(User))
+{ 
+    <ul id="top-menu" class="hover-item">
+        <li>
+            <a asp-area="" asp-controller="Account" asp-action="Login">Log&nbsp;in</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Account" asp-action="Register">Sign&nbsp;Up</a>
+        </li>
+    </ul>
+}

@@ -17,6 +17,7 @@
 /// <reference path="app/dashboard/todo/todo.js" />
 /// <reference path="app/dashboard/weather/weather.js" />
 /// <reference path="js/google-analytics.js" />
+/// <reference path="js/site.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular-animate/angular-animate.js" />
 /// <reference path="lib/angular-audio/app/angular.audio.js" />

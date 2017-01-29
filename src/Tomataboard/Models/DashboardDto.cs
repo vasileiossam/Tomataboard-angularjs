@@ -8,8 +8,8 @@ namespace Tomataboard.Models
     {
         public Photo[] Photos { get; set; }
         public Quote[] Quotes { get; set; }
-        public string Greeting { get; set; }
         public WeatherConditions Weather { get; set; }
         public string TemperatureUnits { get; set; }
+        public string Username { get; set; }
     }
 }
