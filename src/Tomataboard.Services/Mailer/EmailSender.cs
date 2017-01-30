@@ -38,7 +38,7 @@ namespace Tomataboard.Services
             _gmailOptions = gmailOptions;
         }
 
-        public async Task<bool> TrySendEmailAsync(EmailSenderOptions options, string email, string subject, string message)
+        public async Task<bool> TrySendEmailAsync(EmailSenderOptions options, string email, string subject, string message, bool isHtml = true)
         {
             try
             {
@@ -47,10 +47,19 @@ namespace Tomataboard.Services
                 mimeMessage.To.Add(new MailboxAddress(email, email));
                 mimeMessage.Subject = subject;
 
-                mimeMessage.Body = new TextPart("plain")
+                if (isHtml)
                 {
-                    Text = message
-                };
+                    var bodyBuilder = new BodyBuilder();
+                    bodyBuilder.HtmlBody = message;
+                    mimeMessage.Body = bodyBuilder.ToMessageBody();
+                }
+                else
+                {
+                    mimeMessage.Body = new TextPart("plain")
+                    {
+                        Text = message
+                    };
+                }
 
                 using (var client = new SmtpClient())
                 {

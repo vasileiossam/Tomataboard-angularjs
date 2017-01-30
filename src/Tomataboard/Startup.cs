@@ -69,6 +69,7 @@ namespace Tomataboard
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
+                    options.SignIn.RequireConfirmedEmail = true;
                 }
             ).AddEntityFrameworkStores<ApplicationDbContext>()
              .AddDefaultTokenProviders();
