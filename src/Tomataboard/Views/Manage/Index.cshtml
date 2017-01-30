@@ -9,22 +9,19 @@
 <div>
     <h4>Change your account settings</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            @if (Model.HasPassword)
+    @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change</a>
-            }
-            else
-            {
-                <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
-            }
-        </dd>
-        <dt>External Logins:</dt>
+        <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-info">Change Password</a>
+    }
+    else
+    {
+        <a asp-controller="Manage" asp-action="SetPassword" class="button">Create Password</a>
+    }
+
+        @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
-        </dd>
+        </dd>*@
         
 
         @*<dt>Two-Factor Authentication:</dt>
@@ -46,5 +43,4 @@
                     </form>
                 }*@
         @*</dd>*@
-    </dl>
 </div>
