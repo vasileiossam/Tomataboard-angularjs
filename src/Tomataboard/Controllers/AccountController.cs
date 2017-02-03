@@ -40,6 +40,11 @@ namespace Tomataboard.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/focus");
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }

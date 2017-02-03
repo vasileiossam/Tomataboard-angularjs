@@ -27,6 +27,8 @@ using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
 using Tomataboard.Services.Photos.Tirolography;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace Tomataboard
 {
@@ -64,12 +66,31 @@ namespace Tomataboard
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
+                    options.User.RequireUniqueEmail = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 6;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.SignIn.RequireConfirmedEmail = true;
+                    options.Cookies.ApplicationCookie.LoginPath = "/Account/Login";
+                    options.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = async ctx =>
+                        {
+                            // return 401 unauthorized when accessing the api and not logged in
+                            // instead of redirecting and returning the html for the login view
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 401;
+                            }
+                            else
+                            {
+                                ctx.Response.Redirect(ctx.RedirectUri);
+                            }
+                            await Task.Yield();
+                        }
+                    };
                 }
             ).AddEntityFrameworkStores<ApplicationDbContext>()
              .AddDefaultTokenProviders();
