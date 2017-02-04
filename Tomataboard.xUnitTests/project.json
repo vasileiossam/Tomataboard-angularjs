@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Tomataboard.xUnitTests Class Library",
   "authors": [
@@ -12,7 +12,8 @@
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
       "type": "platform"
-    }
+    },
+    "Tomataboard": "1.0.43"
   },
   "commands": {},
   "frameworks": {

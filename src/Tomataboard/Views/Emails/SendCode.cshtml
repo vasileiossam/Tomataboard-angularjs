@@ -1,0 +1,5 @@
+﻿@model Tomataboard.Models.EmailViewModels.EmailSendCodeViewModel
+@{
+    ViewData["Subject"] = "Security Code";
+    ViewData["Text"] = $"Your security code is: {Model.Code}";
+}

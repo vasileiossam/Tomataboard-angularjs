@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Threading.Tasks;
+using Tomataboard.Services.Mailer;
 
 namespace Tomataboard.Services
 {
@@ -38,26 +39,27 @@ namespace Tomataboard.Services
             _gmailOptions = gmailOptions;
         }
 
-        public async Task<bool> TrySendEmailAsync(EmailSenderOptions options, string email, string subject, string message, bool isHtml = true)
+        public async Task<bool> TrySendEmailAsync(EmailSenderOptions options, EmailMessage message)
         {
             try
             {
                 var mimeMessage = new MimeMessage();
                 mimeMessage.From.Add(new MailboxAddress(_fromName, _fromAddress));
-                mimeMessage.To.Add(new MailboxAddress(email, email));
-                mimeMessage.Subject = subject;
+                mimeMessage.To.Add(new MailboxAddress(message.Email, message.Email));
+                mimeMessage.Subject = message.Subject;
 
-                if (isHtml)
+                if (!string.IsNullOrEmpty(message.Html))
                 {
                     var bodyBuilder = new BodyBuilder();
-                    bodyBuilder.HtmlBody = message;
+                    bodyBuilder.HtmlBody = message.Html;
                     mimeMessage.Body = bodyBuilder.ToMessageBody();
                 }
-                else
+
+                if (!string.IsNullOrEmpty(message.Text))
                 {
                     mimeMessage.Body = new TextPart("plain")
                     {
-                        Text = message
+                        Text = message.Text
                     };
                 }
 
@@ -91,10 +93,10 @@ namespace Tomataboard.Services
         /// <param name="subject"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task SendEmailAsync(string email, string subject, string message)
-        {
-            var sended = await TrySendEmailAsync(_sendGridOptions.Value, email, subject, message);
-            if(!sended) await TrySendEmailAsync(_gmailOptions.Value, email, subject, message);
+        public async Task SendEmailAsync(EmailMessage message)
+        { 
+            var sended = await TrySendEmailAsync(_sendGridOptions.Value, message);
+            if(!sended) await TrySendEmailAsync(_gmailOptions.Value, message);
         }
     }
 }

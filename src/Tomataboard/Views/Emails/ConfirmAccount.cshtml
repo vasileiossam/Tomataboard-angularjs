@@ -1,0 +1,8 @@
+﻿@model Tomataboard.Models.EmailViewModels.MessageViewModel
+@{
+    ViewData["Subject"] = $"Confirm you {Model.Title} account";
+
+    ViewData["Text"] =
+        $"Please confirm your {Model.Title} account by clicking this link:\n\n" + 
+        $"{Model.CallbackUrl}\n\n";
+}

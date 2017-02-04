@@ -141,6 +141,8 @@ namespace Tomataboard
             services.Configure<EncryptionServiceKeys>(Configuration.GetSection("ApiSettings:EncryptionServiceKeys"));
             services.Configure<SendGridOptions>(Configuration.GetSection("ApiSettings:SendGridOptions"));
             services.Configure<GmailOptions>(Configuration.GetSection("ApiSettings:GmailOptions"));
+
+            services.AddScoped<IViewRenderService, ViewRenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,26 +11,26 @@ using Microsoft.Extensions.Logging;
 using Tomataboard.Models;
 using Tomataboard.Services;
 using Tomataboard.Models.AccountViewModels;
+using Tomataboard.Models.EmailViewModels;
 
 namespace Tomataboard.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IViewRenderService viewRenderService,
             IEmailSender emailSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory):base(viewRenderService, emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -125,9 +125,13 @@ namespace Tomataboard.Controllers
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Please confirm your account by clicking this <a href='{callbackUrl}'>link</a>");
+
+                    var messageViewModel = new MessageViewModel()
+                    {
+                        CallbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme)
+                    };
+                    await SendEmailAsync(model.Email, "Emails/ConfirmAccount", messageViewModel);
+
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return View("DisplayEmail");
@@ -283,11 +287,13 @@ namespace Tomataboard.Controllers
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>");
+                var messageViewModel = new MessageViewModel()
+                {
+                    CallbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme)
+                };
+                await SendEmailAsync(model.Email, "Emails/PasswordReset", messageViewModel);
+
                 return View("ForgotPasswordConfirmation");
             }
 
@@ -389,10 +395,13 @@ namespace Tomataboard.Controllers
                 return View("Error");
             }
 
-            var message = "Your security code is: " + code;
             if (model.SelectedProvider == "Email")
             {
-                await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+                var messageViewModel = new EmailSendCodeViewModel()
+                {
+                    Code = code,
+                };
+                await SendEmailAsync(await _userManager.GetEmailAsync(user), "Emails/SendCode", messageViewModel);
             }
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
