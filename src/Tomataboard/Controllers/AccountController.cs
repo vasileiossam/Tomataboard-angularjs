@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Tomataboard.Models;
-using Tomataboard.Services;
 using Tomataboard.Models.AccountViewModels;
 using Tomataboard.Models.EmailViewModels;
+using Tomataboard.Services;
 
 namespace Tomataboard.Controllers
 {
@@ -27,7 +25,7 @@ namespace Tomataboard.Controllers
             SignInManager<ApplicationUser> signInManager,
             IViewRenderService viewRenderService,
             IEmailSender emailSender,
-            ILoggerFactory loggerFactory):base(viewRenderService, emailSender)
+            ILoggerFactory loggerFactory) : base(viewRenderService, emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -481,6 +479,6 @@ namespace Tomataboard.Controllers
             }
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

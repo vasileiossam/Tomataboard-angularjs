@@ -8,7 +8,6 @@
             restrict: "A",
             require: "ngModel",
             link: function (scope, element, attrs, ngModel) {
-
                 function read() {
                     var html = element.html();
                     html = html.replace(/&nbsp;/g, "\u00a0");
@@ -38,7 +37,6 @@
 
                 // prevent Enter key
                 element.bind("keydown keypress", function (event) {
-
                     // erase the default value when start typing
                     var value = ngModel.$viewValue.trim();
                     if (value === attrs.defaultvalue) {
@@ -63,5 +61,4 @@
             }
         };
     });
-
 })();

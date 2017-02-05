@@ -4,8 +4,8 @@ namespace Tomataboard.Services.Photos.Api500px.Models
 {
     public enum IncludeStates
     {
-       voted,
-       favorited,
-       purchased
+        voted,
+        favorited,
+        purchased
     }
 }

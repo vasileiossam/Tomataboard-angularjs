@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
-using System.Linq;
-using Microsoft.Extensions.Options;
 
 // ReSharper disable InconsistentNaming
 
@@ -23,6 +22,7 @@ namespace Tomataboard.Services
     public class OauthService : IOauthService
     {
         #region Protected Fields
+
         protected Dictionary<string, string> AuthorizationParameters;
         protected ILogger<OauthService> _logger;
         protected IOptions<OauthKeys> _keys;
@@ -33,17 +33,21 @@ namespace Tomataboard.Services
         protected string AuthorizeUrl;
         protected string RequestTokenUrl;
         protected bool AlwaysEscapeSignature;
-        #endregion
+
+        #endregion Protected Fields
 
         #region Constructors
+
         public OauthService(ILogger<OauthService> logger, IAccessTokensRepository accessTokensRepository)
         {
             _logger = logger;
             _accessTokensRepository = accessTokensRepository;
         }
-        #endregion
 
-        #region Protected Methods        
+        #endregion Constructors
+
+        #region Protected Methods
+
         protected static string GetNonce()
         {
             var rand = new Random();
@@ -82,7 +86,7 @@ namespace Tomataboard.Services
 
             // get Oauth params first
             var parameters = new Dictionary<string, string>(AuthorizationParameters);
-            
+
             //  add the query params
             foreach (var param in query)
             {
@@ -131,7 +135,6 @@ namespace Tomataboard.Services
                 AuthorizationParameters.Clear();
             }
 
-
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", oauthString);
@@ -155,7 +158,7 @@ namespace Tomataboard.Services
                 oauthString += string.Join(", ",
                                                AuthorizationParameters.Select(
                                                    key =>
-                                                   key.Key + 
+                                                   key.Key +
                                                    (string.IsNullOrEmpty(key.Value) ? string.Empty : "=\"" + Uri.EscapeDataString(key.Value) + "\"")));
                 AuthorizationParameters.Clear();
             }
@@ -191,14 +194,17 @@ namespace Tomataboard.Services
                     case "oauth_token":
                         token.Token = splits[1];
                         break;
+
                     case "oauth_token_secret":
                         token.Secret = splits[1];
                         break;
+
                     case "oauth_expires_in":
                         int seconds;
                         if (int.TryParse(splits[1], out seconds))
                             token.Expires = DateTime.Now.AddSeconds(seconds);
                         break;
+
                     case "oauth_session_handle":
                         token.SessionHandle = splits[1];
                         break;
@@ -207,9 +213,11 @@ namespace Tomataboard.Services
 
             return token;
         }
-        #endregion
-        
-        #region Public Methods 
+
+        #endregion Protected Methods
+
+        #region Public Methods
+
         public async Task<OauthToken> GetRequestToken()
         {
             AuthorizationParameters = new Dictionary<string, string>()
@@ -244,7 +252,7 @@ namespace Tomataboard.Services
             var response = await PostRequest(AccessTokenUrl);
             return ParseReponse(response);
         }
-        
+
         /// <summary>
         /// A callback is needed to get back oauth_token and oauth_verifier
         /// </summary>
@@ -254,6 +262,7 @@ namespace Tomataboard.Services
         {
             return AuthorizeUrl + "?oauth_token=" + token.Token;
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

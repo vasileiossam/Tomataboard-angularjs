@@ -4,7 +4,6 @@
     var app = angular.module("dashboard-app");
 
     app.directive("timer", ["$interval", "ngAudio", function ($interval, ngAudio) {
-
         return {
             restrict: "E",
             replace: "true",
@@ -27,7 +26,7 @@
                 scope.promise = {};
                 var seconds;
                 var audio = ngAudio.load("/sounds/alarm_beep.wav");
-                
+
                 var calcSeconds = function () {
                     seconds = 0;
                     if (angular.isNumber(scope.minutesSelection)) {
@@ -64,7 +63,6 @@
                     } else {
                         updateTime();
                     }
-                  
                 }
 
                 // toggle start/pause
@@ -103,5 +101,4 @@
             }
         };
     }]);
-
 })();

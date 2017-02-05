@@ -6,6 +6,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
     public class Image
     {
         #region Public Properties
+
         [DataMember(Name = "format")]
         public string Format { get; set; }
 
@@ -17,6 +18,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
 
         [DataMember(Name = "url")]
         public string Url { get; set; }
-        #endregion
+
+        #endregion Public Properties
     }
 }

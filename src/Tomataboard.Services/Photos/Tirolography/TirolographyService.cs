@@ -8,6 +8,7 @@ namespace Tomataboard.Services.Photos.Tirolography
     {
         // no quota since we have the tirolography photos as static files
         public Quota Quota => null;
+
         public TimeSpan? Expiration { get; }
 
         public const int MaxPhotoNum = 36;

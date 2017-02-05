@@ -11,12 +11,11 @@
 }
 
 #todo-text {
- 
 }
 
 #todo-text input {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;       
+    font-size: 1.5em;
     font-weight: 300;
     border: none;
 }
@@ -24,7 +23,6 @@
 #todo input:hover {
     border: none;
 }
- 
 
 .done-true {
     text-decoration: line-through;
@@ -32,26 +30,26 @@
 }
 
 #todo #todo-empty {
-    margin-top: 20px;  
+    margin-top: 20px;
     text-align: center;
-} 
+}
 
 #todo #todo-empty span {
     text-align: center;
-    font-size: 5em;   
-} 
+    font-size: 5em;
+}
 
 #todo #todo-empty div {
     text-align: center;
-    font-size: 1.5em;   
-} 
+    font-size: 1.5em;
+}
 
 #todo #todo-empty div.line2 {
-    padding-bottom: 20px;  
-} 
+    padding-bottom: 20px;
+}
 
 #todo-remainding {
-    margin-top: 15px;  
+    margin-top: 15px;
 }
 
 #todo-pills .active a {
@@ -68,7 +66,7 @@
     margin-left: 10px;
     /* align icon right */
     display: block;
-    margin-left:auto; 
+    margin-left:auto;
     margin-right:0;
 }
 
@@ -96,7 +94,7 @@
 .todoItem .editable {
     padding: 4px;
 }
- 
+
 .todoItem .editable:hover {
     padding: 4px;
 }

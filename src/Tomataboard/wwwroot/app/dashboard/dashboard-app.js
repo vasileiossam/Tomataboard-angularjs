@@ -1,5 +1,4 @@
 (function() {
-
     angular.module("dashboard-app", [
         "ngCookies",
         "ngStorage",
@@ -9,5 +8,4 @@
         "ui.bootstrap.datetimepicker",
         "as.sortable",
         "ui.checkbox"]);
-
 })();

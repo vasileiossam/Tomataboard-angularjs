@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 
 namespace Tomataboard.Services.Locations.Freegeoip
@@ -13,8 +13,10 @@ namespace Tomataboard.Services.Locations.Freegeoip
     public class FreegeoipService : IFreegeoipService
     {
         #region private members
+
         private readonly ILogger<FreegeoipService> _logger;
-        #endregion
+
+        #endregion private members
 
         public Quota Quota => new Quota() { Requests = 150, Time = TimeSpan.FromMinutes(1) };
         public TimeSpan? Expiration { get; }
@@ -26,7 +28,7 @@ namespace Tomataboard.Services.Locations.Freegeoip
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parameters">IPv4</param>
         /// <returns></returns>

@@ -4,7 +4,7 @@
 
 html {
     position: relative;
-    min-height: 100%;    
+    min-height: 100%;
     height: 100%;
 }
 
@@ -31,8 +31,8 @@ a:hover, a:focus {
 }
 
 #loader {
-    font-family: 'Roboto Condensed', sans-serif; 
-    font-size: 2.5em;       
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.5em;
     font-weight: bold;
 }
 
@@ -89,7 +89,7 @@ a:hover, a:focus {
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
-    
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -97,31 +97,29 @@ a:hover, a:focus {
 }
 
 #top-left {
- 
 }
 
 #top-center {
- 
 }
 
 #top-right {
     display: flex;
     justify-content: flex-end;
-    align-items: center;  
+    align-items: center;
 }
 
 #bottom-center {
     height: 80px;
     display: flex;
     justify-content:center;
-    align-items: center;     
+    align-items: center;
 }
 
 #bottom-right {
     height: 80px;
     display: flex;
     justify-content: flex-end;
-    align-items: center; 
+    align-items: center;
 }
 
 /*http://stackoverflow.com/questions/8865458/how-to-align-text-vertically-center-in-div-with-css*/
@@ -134,23 +132,23 @@ a:hover, a:focus {
 
 #photo  {
     font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400; 
+    font-weight: 400;
     font-size: 1em;
 }
 
 #weather-icon {
-    font-size: 1.5em;   
+    font-size: 1.5em;
 }
 
 #weather-temperature {
     font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400;     
-    font-size: 1.5em;   
+    font-weight: 400;
+    font-size: 1.5em;
 }
 
 #weather-location {
     font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400; 
+    font-weight: 400;
     font-size: 1em;
 }
 
@@ -197,13 +195,13 @@ a:hover, a:focus {
     -webkit-appearance:none;
     -moz-appearance:none;
     -o-appearance:none;
-    appearance:none; 
+    appearance:none;
 }
 /* hides the SELECT arrow from IE10 */
 select.hide-arrow::-ms-expand{
   display:none;
 }
-.transparent option { 
+.transparent option {
     background-color: rgb(0, 0, 0);
     color: #fbfbfb;
 }
@@ -219,13 +217,13 @@ select.hide-arrow::-ms-expand{
 }
 
 .time {
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 /* pomodoro task and event name */
 .form-group.description {
     margin-bottom: 20px;
-    font-size: 2.5em;         
+    font-size: 2.5em;
 }
 
 .buttons .pomodoro-button {
@@ -260,7 +258,7 @@ select.hide-arrow::-ms-expand{
 
 /* this class is added by ngsf-fullscreen */
 .fullscreen {
-    background: black;    
+    background: black;
 }
 
 #greeting {
@@ -269,12 +267,12 @@ select.hide-arrow::-ms-expand{
 
 #focus {
     margin-top: 40px;
-    font-size: 2.5em;      
+    font-size: 2.5em;
 }
 
 .editable {
     -ms-border-radius: 3px;
-    border-radius: 3px;  
+    border-radius: 3px;
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0);
     padding: 10px;
@@ -284,7 +282,7 @@ select.hide-arrow::-ms-expand{
 .editable:hover {
     padding: 10px;
     -ms-border-radius: 3px;
-    border-radius: 3px;  
+    border-radius: 3px;
     border: 2px solid #ffffff;
     border: 2px solid rgba(255, 255, 255, 0.85);
     -webkit-transition: all 1s;
@@ -313,7 +311,7 @@ select.hide-arrow::-ms-expand{
 
 #quote {
     font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400; 
+    font-weight: 400;
     font-size: 1.3em;
 }
 
@@ -447,7 +445,7 @@ nav.nav {
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
 }
- 
+
 .fade-out.ng-hide {
     -ms-opacity: 0;
     opacity: 0;
@@ -456,8 +454,6 @@ nav.nav {
 .fade-out.ng-hide-remove,
 .fade-out.ng-hide-add {
   display: block !important;
-            
-
 }
 .fade-out.ng-hide-remove {
     -webkit-transition: all linear 1000ms;
@@ -480,7 +476,7 @@ nav.nav {
 }
 
 #volume {
-    cursor: pointer;  
+    cursor: pointer;
     margin-left: 10px;
     color: #ffffff;
     color: rgba(255, 255, 255, 0.4);
@@ -507,7 +503,7 @@ nav.nav {
 }
 
 #pomodoros-total {
-    margin-top: 20px;    
+    margin-top: 20px;
 }
 
 .show-on-hover {
@@ -523,4 +519,3 @@ button.checked {
 .table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
     border: none;
 }
-

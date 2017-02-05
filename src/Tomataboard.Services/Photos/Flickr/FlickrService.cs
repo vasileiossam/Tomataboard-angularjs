@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Tomataboard.Services;
 using Tomataboard.Services.Extensions;
-using Tomataboard.Services.Photos;
-using Tomataboard.Services.Photos.Flickr;
-using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Photos.Flickr
 {
@@ -20,23 +17,28 @@ namespace Tomataboard.Services.Photos.Flickr
     public class FlickrService : IFlickrService
     {
         #region Private Fields
+
         private readonly IOptions<FlickrServiceKeys> _keys;
         private readonly ILogger<FlickrService> _logger;
         private readonly Random _rnd = new Random();
         private const string ServiceUrl = "https://api.flickr.com/services/rest/";
-        #endregion
+
+        #endregion Private Fields
 
         // 3600 per hour
         public Quota Quota => new Quota() { Requests = 3600, Time = TimeSpan.FromHours(1) };
+
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
-        
+
         #region Constructors
+
         public FlickrService(ILogger<FlickrService> logger, IOptions<FlickrServiceKeys> keys)
         {
             _logger = logger;
             _keys = keys;
         }
-        #endregion
+
+        #endregion Constructors
 
         /// <summary>
         /// https://www.flickr.com/services/api/flickr.photos.search.html
@@ -56,7 +58,7 @@ namespace Tomataboard.Services.Photos.Flickr
                 {
                     var response = await client.GetAsync(new Uri(ServiceUrl + "?" + queryString, UriKind.Absolute));
                     var content = await response.Content.ReadAsStringAsync();
-                    
+
                     if (response.IsSuccessStatusCode)
                     {
                         var photosResponse = JsonConvert.DeserializeObject<GetPhotosResponse>(content);
@@ -91,7 +93,7 @@ namespace Tomataboard.Services.Photos.Flickr
         private int GetRandomPageNumber(int totalPages)
         {
             if (totalPages == 0) return 1;
-            
+
             // to compensate for the 4000 results limit which is actually 2000 (per_page = 100)
             if (totalPages > 20) totalPages = 20;
 
@@ -101,12 +103,12 @@ namespace Tomataboard.Services.Photos.Flickr
         /// <summary>
         /// https://www.flickr.com/services/api/flickr.photos.search.html
         /// https://www.flickr.com/services/api/explore/flickr.photos.search
-        /// 
-        /// from the documentation page: flickr.photos.search will return at most the first 4,000 results 
-        ///                              for any given search query. If this is an issue, we recommend 
-        ///                              trying a more specific query. 
         ///
-        /// This method is very buggy. The limit is not 4000 but 2000 results. 
+        /// from the documentation page: flickr.photos.search will return at most the first 4,000 results
+        ///                              for any given search query. If this is an issue, we recommend
+        ///                              trying a more specific query.
+        ///
+        /// This method is very buggy. The limit is not 4000 but 2000 results.
         /// Pages after the limit can bring results from Page 1 or return empty.
         /// Also, pages in the range 1 - 20 might returned empty in successive calls.
         /// </summary>
@@ -128,16 +130,16 @@ namespace Tomataboard.Services.Photos.Flickr
                     { "media", "photos" },
                     { "safe_search", "1" }, // 1 = safe
                     { "extras", "date_upload,owner_name,geo,o_dims,views,url_l,url_h,url_k" },
-                    
+
                     // possible values are: date-posted-asc, date-posted-desc, date-taken-asc, date-taken-desc, interestingness-desc, interestingness-asc, and relevance.
                     { "sort", "interestingness-desc" },
-                    
+
                     // use the upload date to build a more specific query
                     //{ "min_upload_date", new DateTime(year, 1, 1).GetUnixTimestamp().ToString() },
                     //{ "max_upload_date", new DateTime(year, 12, 31).GetUnixTimestamp().ToString() },
                     { "min_upload_date", new DateTime(year, 1, 1).ToString("yyyy-MM-dd")},
                     { "max_upload_date", new DateTime(year, 12, 31).ToString("yyyy-MM-dd")},
-                    
+
                     { "tags", tags },
                     { "tag_mode", "any" },
                     { "page", page.ToString() },
@@ -198,6 +200,7 @@ namespace Tomataboard.Services.Photos.Flickr
 
             return photos.Count == 0 ? null : photos;
         }
-        #endregion
+
+        #endregion private
     }
 }

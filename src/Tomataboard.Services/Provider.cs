@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Tomataboard.Services.Cache;
 
 namespace Tomataboard.Services
@@ -31,7 +31,7 @@ namespace Tomataboard.Services
                     return JsonConvert.DeserializeObject<T>(item.Result);
                 }
             }
-            return default(T);                
+            return default(T);
         }
 
         public async Task<T> Execute(string parameters, bool canCache)

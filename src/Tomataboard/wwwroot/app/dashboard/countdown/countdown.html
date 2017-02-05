@@ -22,12 +22,12 @@
         <div class="editable" contenteditable ng-model="settings.eventDescription" spellcheck="false"
              defaultvalue="{{settings.eventPlaceholder}}"></div>
     </div>
-    
+
     <div class="buttons row form-group fade-out" ng-show="!promise">
         <form class="form-inline" role="form">
             <button type="button" ng-click="start()" class="btn btn-warning"><span ng-bind="startText"></span></button>&nbsp;
             &nbsp;&nbsp;
-    
+
             <div class="form-group">
                 <div class="dropdown">
                     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -37,12 +37,10 @@
                         </div>
                     </a>
                     <ul class="dropdown-menu semi-transparent" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="settings.endDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                        <datetimepicker data-ng-model="settings.endDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
                     </ul>
                 </div>
-
             </div>
         </form>
     </div>
 </div>
-

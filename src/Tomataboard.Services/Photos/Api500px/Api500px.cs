@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Tomataboard.Services;
-using Tomataboard.Services.Extensions;
-using Tomataboard.Services.Photos;
-using Tomataboard.Services.Photos.Api500px;
-using Tomataboard.Services.Photos.Api500px.Contracts;
 using Tomataboard.Services.AccessTokens;
-using Microsoft.Extensions.Options;
+using Tomataboard.Services.Extensions;
+using Tomataboard.Services.Photos.Api500px.Contracts;
 
 // ReSharper disable InconsistentNaming
 
@@ -23,13 +20,14 @@ namespace Tomataboard.Services.Photos.Api500px
     /// Good ideas here: http://www.rahulpnath.com/blog/exploring-oauth-c-and-500px/
     /// To check the signature: http://oauth.googlecode.com/svn/code/javascript/example/signature.html
     /// </summary>
-    public class Api500px  : OauthService, IApi500px
+    public class Api500px : OauthService, IApi500px
     {
         /// <summary>
         /// https://github.com/500px/api-documentation
-        /// 1,000,000 requesters per month 
+        /// 1,000,000 requesters per month
         /// </summary>
         public Quota Quota => new Quota() { Requests = 1000000 / 30, Time = TimeSpan.FromDays(1) };
+
         public TimeSpan? Expiration => TimeSpan.FromHours(6);
 
         private OauthToken _accessToken;
@@ -37,6 +35,7 @@ namespace Tomataboard.Services.Photos.Api500px
         private readonly Random _rnd = new Random();
 
         #region Constructors
+
         public Api500px(
             ILogger<Api500px> logger,
             IOptions<Api500pxKeys> keys,
@@ -50,7 +49,8 @@ namespace Tomataboard.Services.Photos.Api500px
             RequestTokenUrl = "https://api.500px.com/v1/oauth/request_token";
             AlwaysEscapeSignature = true;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Public Methods
 
@@ -103,7 +103,7 @@ namespace Tomataboard.Services.Photos.Api500px
             var json = await GetRequest(url, queryParams);
             return GetResult(json);
         }
-        
+
         public async Task<List<Photo>> Execute(string parameters)
         {
             try
@@ -157,6 +157,7 @@ namespace Tomataboard.Services.Photos.Api500px
 
             return photos.Count == 0 ? null : photos;
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

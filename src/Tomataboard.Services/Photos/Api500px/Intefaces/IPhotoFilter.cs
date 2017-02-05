@@ -6,6 +6,7 @@ namespace Tomataboard.Services.Photos.Api500px.Intefaces
     public interface IPhotoFilter
     {
         #region Properties
+
         Categories Categories { get; set; }
         Feature Feature { get; set; }
         FilterMode FilterMode { get; set; }
@@ -13,10 +14,13 @@ namespace Tomataboard.Services.Photos.Api500px.Intefaces
         Sort Sort { get; set; }
         SortDirection SortDirection { get; set; }
         long UserId { get; set; }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         string ToString();
-        #endregion
+
+        #endregion Methods
     }
 }

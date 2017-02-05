@@ -4,10 +4,10 @@ namespace Tomataboard.Services.Extensions
 {
     public static class DateTimeExtensions
     {
-       public static int GetUnixTimestamp(this DateTime date)
-       {
-         return (int)(date.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-       }
+        public static int GetUnixTimestamp(this DateTime date)
+        {
+            return (int)(date.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
 
         public static DateTime? GetDateTimeFromUnixString(this string str)
         {

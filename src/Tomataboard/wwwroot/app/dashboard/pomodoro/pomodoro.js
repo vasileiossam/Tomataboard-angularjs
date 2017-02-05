@@ -4,7 +4,6 @@
     var app = angular.module("dashboard-app");
 
     app.directive("pomodoro", ["$interval", "ngAudio", function ($interval, ngAudio) {
-
         return {
             restrict: "E",
             replace: "true",
@@ -20,7 +19,7 @@
                 total: "=",
                 volumeOn: "=volumeOn"
             },
-            
+
             link: function (scope, element, attrs) {
                 // states: 1 pomodoro, 2 short break, 3 long break
                 var state = 1;
@@ -29,7 +28,7 @@
                 var seconds;
                 var audioStartPomodoro = ngAudio.load("/sounds/start.wav");
                 //var audioStartBreak = ngAudio.load("/sounds/finish1.wav");
-                
+
                 scope.startPomodoro = function () {
                     state = 1;
                     scope.reset();
@@ -80,13 +79,12 @@
                 };
 
                 var finished = function () {
-
                     if (state === 1) {
                         scope.total = scope.total + 1;
                         if (scope.volumeOn) {
                             audioStartPomodoro.play();
                         }
-                    }                     
+                    }
                 }
 
                 var tick = function () {
@@ -135,5 +133,4 @@
             }
         };
     }]);
-
 })();

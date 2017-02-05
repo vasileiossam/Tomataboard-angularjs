@@ -8,7 +8,7 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     fs = require('fs'),
 
-    // add angularjs dependency injection annotations 
+    // add angularjs dependency injection annotations
     ngAnnotate = require("gulp-ng-annotate");
 
 // version bumping
@@ -18,7 +18,7 @@ var bump = require("gulp-bump");
 var htmlreplace = require("gulp-html-replace");
 
 // run a series of dependent gulp tasks in order
-// This is intended to be a temporary solution until the release of gulp 4.0 
+// This is intended to be a temporary solution until the release of gulp 4.0
 var runSequence = require('run-sequence');
 
 var del = require("del");
@@ -35,7 +35,7 @@ paths.dashboardCssDest = paths.webroot + "css/dashboard.min.css";
 gulp.task("clean:js", function (cb) {
     rimraf(paths.dashboardJsDest, cb);
 });
- 
+
 gulp.task("clean:css", function (cb) {
     rimraf(paths.dashboardCssDest, cb);
 });
@@ -57,8 +57,7 @@ gulp.task("min:js", function () {
             paths.webroot + "app/dashboard/**/*.js",
             paths.webroot + "app/common/**/*.js"],
         {
-            base: "." 
-            
+            base: "."
         })
         .pipe(concat(paths.dashboardJsDest))
         .pipe(ngAnnotate())
@@ -103,10 +102,10 @@ gulp.task("version:html", ['bump'], function (callback) {
 // ----------------------------
 // prepublish tasks
 // ----------------------------
-gulp.task("version", function(callback) {
+gulp.task("version", function (callback) {
     runSequence('bump',
               'version:html',
               callback);
-              });
+});
 gulp.task("clean", ["clean:js", "clean:css", "clean:logfiles"]);
 gulp.task("min", ["min:js", "min:css"]);

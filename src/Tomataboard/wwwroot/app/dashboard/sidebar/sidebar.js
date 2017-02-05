@@ -2,9 +2,8 @@
     "use strict";
 
     var app = angular.module("dashboard-app");
-    
-    app.directive("sidebar", function () {
 
+    app.directive("sidebar", function () {
         return {
             restrict: "E",
             replace: "true",
@@ -15,9 +14,7 @@
                 $(document).ready(function () {
                     $('nav').slideAndSwipe();
                 });
-
             }
         };
     });
-
 })();

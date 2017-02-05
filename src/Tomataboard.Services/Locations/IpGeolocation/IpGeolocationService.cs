@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
-using Tomataboard.Services.Locations;
-using Tomataboard.Services.Locations.IpGeolocation;
 
 namespace Tomataboard.Services.Locations.IpGeolocation
 {
@@ -15,8 +13,10 @@ namespace Tomataboard.Services.Locations.IpGeolocation
     public class IpGeolocationService : IIpGeolocationService
     {
         #region private members
+
         private readonly ILogger<IpGeolocationService> _logger;
-        #endregion
+
+        #endregion private members
 
         public Quota Quota => new Quota() { Requests = 140, Time = TimeSpan.FromMinutes(1) };
         public TimeSpan? Expiration { get; }
@@ -27,7 +27,7 @@ namespace Tomataboard.Services.Locations.IpGeolocation
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parameters">IPv4</param>
         /// <returns></returns>

@@ -4,7 +4,6 @@
     var app = angular.module("dashboard-app");
 
     app.directive("stopwatch", ["$interval", function ($interval) {
-
         return {
             restrict: "E",
             replace: "true",
@@ -39,7 +38,7 @@
                         scope.promise = $interval(tick, 1 * 1000);
                     }
                 };
-                
+
                 scope.reset = function () {
                     $interval.cancel(scope.promise);
                     scope.promise = 0;
@@ -61,5 +60,4 @@
             }
         };
     }]);
-
 })();

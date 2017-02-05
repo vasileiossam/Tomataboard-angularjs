@@ -7,6 +7,7 @@ namespace Tomataboard.Services.Photos.Api500px
     public class ImageCollection : List<Image>
     {
         #region Private Static Fields
+
         private static readonly List<int> CroppedIds = new List<int>
         {
             1, // 70px x 70px
@@ -51,9 +52,11 @@ namespace Tomataboard.Services.Photos.Api500px
             1600, // 1600px on the longest edge
             2048, // 2048px on the longest edge
         };
-        #endregion
+
+        #endregion Private Static Fields
 
         #region Private Methods
+
         private void CheckEmpty()
         {
             if (Count <= 0)
@@ -137,9 +140,11 @@ namespace Tomataboard.Services.Photos.Api500px
 
             return nextLargerImage ?? nextSmallerImage;
         }
-        #endregion
+
+        #endregion Private Methods
 
         #region Public Methods
+
         public Image GetImage(int sizeId)
         {
             if (!CroppedIds.Contains(sizeId) && !UncroppedIds.Contains(sizeId))
@@ -156,9 +161,11 @@ namespace Tomataboard.Services.Photos.Api500px
                 ? GetCroppedImage(desiredSize) ?? GetUncroppedImage(desiredSize)
                 : GetUncroppedImage(desiredSize) ?? GetCroppedImage(desiredSize);
         }
-        #endregion
+
+        #endregion Public Methods
 
         #region Public Static Methods
+
         public static List<int> GetAllSizeIds()
         {
             var imageSizes = new List<int>();
@@ -168,6 +175,7 @@ namespace Tomataboard.Services.Photos.Api500px
 
             return imageSizes;
         }
-        #endregion
+
+        #endregion Public Static Methods
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Threading.Tasks;
+using Tomataboard.Services.Cache;
 using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;
 using Tomataboard.Services.Locations.IpGeolocation;
-using Tomataboard.Services.Cache;
-using Microsoft.AspNetCore.Http;
 
 namespace Tomataboard.Services.Locations
 {
@@ -13,7 +13,7 @@ namespace Tomataboard.Services.Locations
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LocationProvider(ILogger<LocationProvider> logger, 
+        public LocationProvider(ILogger<LocationProvider> logger,
             ICacheRepository<Location> cacheRepository,
             IHttpContextAccessor httpContextAccessor,
             IIpGeolocationService ipGeolocationService,
@@ -117,7 +117,7 @@ namespace Tomataboard.Services.Locations
                 ip = "175.34.25.23";
             }
 #else
-            if (ip == null) 
+            if (ip == null)
             {
                 _logger.LogError($"{GetType().Name}: Cannot get RemoteIpAddress");
             }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using Tomataboard.Services.Cache;
 using Tomataboard.Services.Photos.Api500px;
 using Tomataboard.Services.Photos.Flickr;
-using Tomataboard.Services.Cache;
 using Tomataboard.Services.Photos.Tirolography;
 
 namespace Tomataboard.Services.Photos
@@ -13,7 +13,7 @@ namespace Tomataboard.Services.Photos
             // ReSharper disable once InconsistentNaming
             IApi500px api500px,
             IFlickrService flickrService,
-            ITirolographyService tirolographyService) 
+            ITirolographyService tirolographyService)
             : base(logger, cacheRepository)
         {
             _operations.Add(api500px);

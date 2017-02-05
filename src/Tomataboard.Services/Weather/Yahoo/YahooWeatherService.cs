@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Tomataboard.Services.AccessTokens;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Tomataboard.Services.AccessTokens;
-using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Weather.Yahoo
 {
@@ -18,12 +18,14 @@ namespace Tomataboard.Services.Weather.Yahoo
     public class YahooWeatherService : OauthService, IYahooWeatherService
     {
         /// <summary>
-        /// access is limited to 2,000 signed calls per day  
+        /// access is limited to 2,000 signed calls per day
         /// </summary>
         public Quota Quota => new Quota() { Requests = 2000, Time = TimeSpan.FromDays(1) };
+
         public TimeSpan? Expiration => TimeSpan.FromHours(1);
 
         #region Constructors
+
         public YahooWeatherService(
             ILogger<YahooWeatherService> logger,
             IOptions<YahooWeatherServiceKeys> keys,
@@ -37,7 +39,8 @@ namespace Tomataboard.Services.Weather.Yahoo
             AuthorizeUrl = "https://api.login.yahoo.com/oauth/v2/request_auth";
             AccessTokenUrl = "https://api.login.yahoo.com/oauth/v2/get_token";
         }
-        #endregion
+
+        #endregion Constructors
 
         private Dictionary<string, string> GetQueryParameters(Location location)
         {
@@ -91,14 +94,14 @@ namespace Tomataboard.Services.Weather.Yahoo
 
             return null;
         }
-    
+
         private WeatherConditions GetResult(string json, Location location)
         {
             var weatherDto = JsonConvert.DeserializeObject<WeatherDto>(json);
             if (weatherDto?.query?.results?.channel?.item?.condition == null) return null;
 
             var condition = weatherDto.query.results.channel.item.condition;
-            
+
             // Icon.Code = 3200: not available
             if (condition.code == "3200") return null;
 
@@ -124,7 +127,7 @@ namespace Tomataboard.Services.Weather.Yahoo
                 Service = "Yahoo",
                 ServiceUrl = url
             };
-            
+
             return weatherConditions;
         }
 
@@ -147,7 +150,7 @@ namespace Tomataboard.Services.Weather.Yahoo
                 {OauthParameter.OauthSignature, _keys.Value.ConsumerSecret + "&" + accessToken.Secret}
              };
 
-           // Sign(AccessTokenUrl, _keys.Value.ConsumerSecret, accessToken.Secret, "POST", "");
+            // Sign(AccessTokenUrl, _keys.Value.ConsumerSecret, accessToken.Secret, "POST", "");
             var response = await PostRequest(AccessTokenUrl);
             return ParseReponse(response);
         }

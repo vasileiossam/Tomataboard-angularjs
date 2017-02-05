@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Tomataboard.Services.Encryption;
-using Microsoft.AspNetCore.Http;
 
 namespace Tomataboard.Services
 {
@@ -14,6 +14,7 @@ namespace Tomataboard.Services
             _accessor = httpContextAccessor;
             _encryptor = encryptor;
         }
+
         public void Save(string key, T entity)
         {
             var json = JsonConvert.SerializeObject(entity);

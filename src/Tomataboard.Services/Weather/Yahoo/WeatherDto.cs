@@ -4,7 +4,6 @@
 
 namespace Tomataboard.Services.Weather.Yahoo
 {
-
     public class WeatherDto
     {
         public Query query { get; set; }
@@ -64,5 +63,4 @@ namespace Tomataboard.Services.Weather.Yahoo
         public string low { get; set; }
         public string text { get; set; }
     }
-
 }

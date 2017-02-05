@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Tomataboard.Services.Photos.Flickr
 {
-	[DataContract]
-	public class PagedResponse  
-	{
+    [DataContract]
+    public class PagedResponse
+    {
         [DataMember(Name = "page")]
         public int Page { get; set; }
-        
+
         /// <summary>
         /// Total pages
         /// </summary>
@@ -17,7 +16,7 @@ namespace Tomataboard.Services.Photos.Flickr
 
         [DataMember(Name = "perpage")]
         public int PerPage { get; set; }
-        
+
         /// <summary>
         ///  Total photos
         /// </summary>

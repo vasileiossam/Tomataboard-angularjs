@@ -6,6 +6,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
     public class PhotoFilter : IPhotoFilter
     {
         #region Constructor
+
         public PhotoFilter()
         {
             Feature = Feature.FreshToday;
@@ -25,9 +26,11 @@ namespace Tomataboard.Services.Photos.Api500px.Models
             Feature = feature;
             Sizes = ImageCollection.GetAllSizeIds();
         }
-        #endregion
-        
+
+        #endregion Constructor
+
         #region Public Properties
+
         public Categories Categories { get; set; }
         public Feature Feature { get; set; }
         public FilterMode FilterMode { get; set; }
@@ -35,14 +38,17 @@ namespace Tomataboard.Services.Photos.Api500px.Models
         public Sort Sort { get; set; }
         public SortDirection SortDirection { get; set; }
         public long UserId { get; set; }
-        #endregion
+
+        #endregion Public Properties
 
         #region Public Properties
+
         public override string ToString()
         {
             //return UrlBuilder.GetPhotos(this);
             return null;
         }
-        #endregion
+
+        #endregion Public Properties
     }
 }

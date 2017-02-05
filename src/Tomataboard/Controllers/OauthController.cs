@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
-using System;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Tomataboard.Controllers
 {
@@ -73,6 +73,5 @@ namespace Tomataboard.Controllers
         public abstract Task<ActionResult> Execute();
 
         public abstract Task<ActionResult> Refresh();
-
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Tomataboard.Services;
+using System.Linq;
+using System.Threading.Tasks;
 using Tomataboard.Models;
 using Tomataboard.Models.ManageViewModels;
+using Tomataboard.Services;
 
 namespace Tomataboard.Controllers
 {
@@ -322,6 +320,6 @@ namespace Tomataboard.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

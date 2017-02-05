@@ -4,7 +4,6 @@
     var app = angular.module("dashboard-app");
 
     app.directive("greeting", function () {
-
         return {
             restrict: "E",
             replace: "true",
@@ -18,7 +17,7 @@
 
             link: function(scope, element, attrs) {
                 scope.name = "";
-       
+
                 if (scope.settings.names) {
                     var names = scope.settings.names.split(",");
                     scope.name = getRandomElement(names);
@@ -31,5 +30,4 @@
             }
         };
     });
-
 })();

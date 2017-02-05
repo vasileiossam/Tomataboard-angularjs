@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Tomataboard.Models;
+using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Greetings;
 using Tomataboard.Services.Photos;
 using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Weather;
-using Tomataboard.Services.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Tomataboard.Controllers
 {
@@ -21,7 +21,7 @@ namespace Tomataboard.Controllers
         private IGreetingsService _greetingsService;
 
         public DashboardController(
-            ILogger<HomeController> logger, 
+            ILogger<HomeController> logger,
             IPhotoProvider photoProvider,
             IWeatherProvider weatherProvider,
             IQuoteRepository quoteRepository,
@@ -33,7 +33,7 @@ namespace Tomataboard.Controllers
             _quoteRepository = quoteRepository;
             _greetingsService = greetingsService;
         }
-        
+
         public IActionResult Index()
         {
             return View();
@@ -74,12 +74,8 @@ namespace Tomataboard.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Error getting DashboardDto", e);
-                throw e; 
+                throw e;
             }
         }
-    }
-
-    public class FromUriAttribute : Attribute
-    {
     }
 }

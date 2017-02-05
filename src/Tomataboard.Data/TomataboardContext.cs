@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Tomataboard.Data.Entities;
 
 namespace Tomataboard.Data
@@ -18,7 +17,6 @@ namespace Tomataboard.Data
         public TomataboardContext(DbContextOptions<TomataboardContext> options)
             : base(options)
         {
-           
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -2,7 +2,7 @@
     <form role="form" ng-submit="addTodo()">
         <div id="todo-text" class="form-group semi-transparent">
             <input type="text" ng-model="todoText" placeholder="Add new todo here"
-                   class="form-control semi-transparent main-color"/>
+                   class="form-control semi-transparent main-color" />
         </div>
         <ul id="todo-pills" class="nav nav-pills nav-justified">
             <li class="active"><a data-toggle="pill" href="#tab0" class="secondary-color" ng-click="settings.category = 0">All</a></li>
@@ -31,14 +31,14 @@
             <li class="todoItem" ng-repeat="todo in todos | filter: filter" data-as-sortable-item>
                 <div class="todoItem-container">
                     <span class="glyphicon glyphicon-move secondary-color move show-on-hover" ng-show="settings.category == 0" data-as-sortable-item-handle></span>
-                    <checkbox ng-model="todo.done"/> 
+                    <checkbox ng-model="todo.done" />
                     <div class="editable done-{{todo.done}}" contenteditable ng-model="todo.text" defaultvalue="" spellcheck="false"></div>
                     <div class="remove"><a ng-click="remove(todo)" class="fa fa-remove secondary-color show-on-hover"></a></div>
                 </div>
             </li>
         </ul>
     </div>
-    
+
     <div id="tab0"></div>
     <div id="tab1"></div>
     <div id="tab2"></div>

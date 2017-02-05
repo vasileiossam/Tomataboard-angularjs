@@ -1,22 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Tomataboard.Data;
-using Tomataboard.Services.Locations;
-using Tomataboard.Services.Locations.GeoLite;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Tomataboard.Data;
 
 namespace Tomataboard.Services.Locations.GeoLite
 {
     public class GeoLiteService : IGeoLiteService
     {
         #region private members
+
         private ILogger<GeoLiteService> _logger;
         private TomataboardContext _context;
-        #endregion
+
+        #endregion private members
 
         // no quota since we always read from our database
         public Quota Quota => null;
+
         public TimeSpan? Expiration { get; }
 
         public GeoLiteService(ILogger<GeoLiteService> logger, TomataboardContext context)
@@ -26,7 +27,7 @@ namespace Tomataboard.Services.Locations.GeoLite
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parameters">IPv4</param>
         /// <returns></returns>

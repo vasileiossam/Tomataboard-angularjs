@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Tomataboard.Services.Photos.Flickr
 {
@@ -47,33 +46,39 @@ namespace Tomataboard.Services.Photos.Flickr
 
         [DataMember(Name = "latitude")]
         public string Latitude { get; set; }
-       
+
         // l large
         [DataMember(Name = "url_l")]
         public string UrlL { get; set; }
+
         [DataMember(Name = "height_l")]
         public int HeightL { get; set; }
+
         [DataMember(Name = "width_l")]
         public int WidthL { get; set; }
 
         //h large 1600, 1600 on longest side
         [DataMember(Name = "url_h")]
         public string UrlH { get; set; }
+
         [DataMember(Name = "height_h")]
         public int HeightH { get; set; }
+
         [DataMember(Name = "width_h")]
         public int WidthH { get; set; }
-        
+
         //k large 2048, 2048 on longest side
         [DataMember(Name = "url_k")]
         public string UrlK { get; set; }
+
         [DataMember(Name = "height_k")]
         public int HeightK { get; set; }
+
         [DataMember(Name = "width_k")]
         public int WidthK { get; set; }
-        
 
         #region Public Methods
+
         public string GetUrl()
         {
             // https://www.flickr.com/services/api/misc.urls.html
@@ -91,6 +96,7 @@ namespace Tomataboard.Services.Photos.Flickr
         {
             return $"https://www.flickr.com/photos/{Owner}/{Id}";
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

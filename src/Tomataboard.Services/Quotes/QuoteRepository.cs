@@ -7,6 +7,7 @@ using Tomataboard.Data.Entities;
 namespace Tomataboard.Services.Quotes
 {
     #region tags
+
     //age
     //alone
     //amazing
@@ -124,7 +125,8 @@ namespace Tomataboard.Services.Quotes
     //wisdom
     //women
     //work
-    #endregion
+
+    #endregion tags
 
     public class QuoteRepository : IQuoteRepository
     {
@@ -144,7 +146,7 @@ namespace Tomataboard.Services.Quotes
             var tagArray = tags.Split(',');
             foreach (var tag in tagArray)
             {
-                var q = _context.Quotes.Where(x => x.Tag == tag && (x.Wording.Length <= MaxWordingLength) ).ToList();
+                var q = _context.Quotes.Where(x => x.Tag == tag && (x.Wording.Length <= MaxWordingLength)).ToList();
                 quotes.AddRange(q);
             }
             return quotes;
@@ -157,7 +159,7 @@ namespace Tomataboard.Services.Quotes
                          select new { Quote = quote, Rnd = _rnd.Next() };
 
             var randomQuotes = new List<Quote>();
-            foreach(var quote in quotes.OrderBy(x => x.Rnd)) randomQuotes.Add(quote.Quote);
+            foreach (var quote in quotes.OrderBy(x => x.Rnd)) randomQuotes.Add(quote.Quote);
 
             return randomQuotes;
         }
@@ -165,7 +167,7 @@ namespace Tomataboard.Services.Quotes
         public Quote GetQuoteOfTheDay()
         {
             var quote = GetRandomQuotes("inspirational,motivational").FirstOrDefault();
-             return quote;
+            return quote;
         }
     }
 }

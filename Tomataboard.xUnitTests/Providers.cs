@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using Tomataboard.Data;
 using Tomataboard.Services.Cache;
 using Tomataboard.Services.Locations;
@@ -7,12 +7,9 @@ using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;
 using Tomataboard.Services.Locations.IpGeolocation;
 using Tomataboard.Services.Photos;
-using Tomataboard.Services.Photos.Api500px;
-using Tomataboard.Services.Photos.Flickr;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
-using Tomataboard.Services.Weather.Yahoo;
 using Tomataboard.xUnitTests.Stubs;
 using Xunit;
 
@@ -24,9 +21,11 @@ namespace Tomataboard.xUnitTests
     public class Providers
     {
         private readonly TomataboardContext _TomataboardContext;
+
         //private readonly StubOptions<Api500pxKeys> _api500pxKeys;
         //private readonly StubOptions<FlickrKeys> _flickrKeys;
         private readonly StubOptions<OpenWeatherMapKeys> _openWeatherMapKeys;
+
         //private readonly StubOptions<YahooWeatherKeys> _yahooWeatherKeys;
         private readonly StubOptions<ForecastKeys> _forecastKeys;
 
@@ -39,8 +38,8 @@ namespace Tomataboard.xUnitTests
                 TomataboardContextConnection =
                     @"Server=.;Database=Tomataboard;Trusted_Connection=True;MultipleActiveResultSets=true"
             };
-           // var settings = new StubOptions<DataSettings>(dataSettings);
-           // _TomataboardContext = new TomataboardContext(settings);
+            // var settings = new StubOptions<DataSettings>(dataSettings);
+            // _TomataboardContext = new TomataboardContext(settings);
 
             //_api500pxKeys = new StubOptions<Api500pxKeys>(new Api500pxKeys()
             //{
@@ -110,7 +109,7 @@ namespace Tomataboard.xUnitTests
 
             var cacheRepository = new CacheRepository<WeatherConditions>(_TomataboardContext);
 
-            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(),_openWeatherMapKeys);
+            var openWeatherMapService = new OpenWeatherMapService(new StubLogger<OpenWeatherMapService>(), _openWeatherMapKeys);
             weather = await openWeatherMapService.Execute(serializedMelbourne);
             Assert.NotNull(weather);
 
@@ -118,7 +117,6 @@ namespace Tomataboard.xUnitTests
             weather = await forecastService.Execute(serializedMelbourne);
             Assert.NotNull(weather);
 
-            
             //var yahooWeatherService = new YahooWeatherService(new StubLogger<YahooWeatherService>(), _yahooWeatherKeys);
 
             //var provider = new WeatherProvider(new StubLogger<WeatherProvider>(), cacheRepository, forecastService,openWeatherMapService, yahooWeatherService);
@@ -148,7 +146,7 @@ namespace Tomataboard.xUnitTests
             //var provider = new LocationProvider(new StubLogger<LocationProvider>(), cacheRepository, ipGeolocationService, geoLiteService, freegeoipService);
             //location = await provider.Execute(ip);
             //Assert.NotNull(location);
-            
+
             //// invalid ip
             //location = await provider.Execute("asdfasdF");
             //Assert.Null(location);

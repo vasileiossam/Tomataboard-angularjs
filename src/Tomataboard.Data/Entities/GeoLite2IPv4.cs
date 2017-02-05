@@ -5,8 +5,7 @@ namespace Tomataboard.Data.Entities
 {
     [Table("GeoLite2IPv4")]
     public class GeoLite2IPv4
-    { 
-
+    {
         [Column("network")]
         [Key]
         public string Network { get; set; }

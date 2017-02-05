@@ -5,7 +5,6 @@
 
     app.directive("clock",
         ["$interval", "dateFilter", function ($interval, dateFilter) {
-
         return {
             restrict: "E",
             replace: "true",
@@ -17,7 +16,6 @@
             },
 
             link: function (scope, element, attrs) {
-
                 var setTimeFormat = function () {
                     if (scope.format === "12-hour") {
                         scope.timeFormat = "h:mm";
@@ -55,5 +53,4 @@
             }
         };
     }]);
-
 })();

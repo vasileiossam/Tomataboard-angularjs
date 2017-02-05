@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Weather.OpenWeatherMap
 {
@@ -15,25 +15,30 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
     public class OpenWeatherMapService : IOpenWeatherMapService
     {
         #region Private Fields
+
         private readonly IOptions<OpenWeatherMapKeys> _keys;
         private readonly ILogger<OpenWeatherMapService> _logger;
-        #endregion
-        
+
+        #endregion Private Fields
+
         // 60 calls a min
         public Quota Quota => new Quota() { Requests = 60, Time = TimeSpan.FromMinutes(1) };
+
         public TimeSpan? Expiration => TimeSpan.FromHours(1);
 
         #region Constructors
+
         public OpenWeatherMapService(ILogger<OpenWeatherMapService> logger, IOptions<OpenWeatherMapKeys> keys)
         {
             _logger = logger;
             _keys = keys;
         }
-        #endregion
+
+        #endregion Constructors
 
         private string GetQueryString(Location location)
         {
-            // use geographic coordinates 
+            // use geographic coordinates
             if (!string.IsNullOrEmpty(location.Latitude) && !string.IsNullOrEmpty(location.Longitude))
             {
                 return $"lat={location.Latitude}&&lon={location.Longitude}&appid={_keys.Value.ConsumerKey}";
@@ -42,11 +47,11 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
             // use city and country names
             var country = string.IsNullOrEmpty(location.CountryCode) ? location.Country : location.CountryCode;
             var cityName = $"{location.City},{location.StateCode},{country}".Replace(",,", "");
-            return  $"q={cityName}&appid={_keys.Value.ConsumerKey}";
+            return $"q={cityName}&appid={_keys.Value.ConsumerKey}";
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parameters">serialized Location</param>
         /// <returns></returns>

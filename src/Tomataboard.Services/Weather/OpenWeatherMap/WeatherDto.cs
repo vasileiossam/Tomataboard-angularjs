@@ -78,7 +78,7 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
     public class Main
     {
         /// <summary>
-        /// Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit. 
+        /// Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
         /// </summary>
         [DataMember(Name = "temp")]
         public float Temperature { get; set; }
@@ -94,7 +94,7 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
         /// </summary>
         [DataMember(Name = "temp_min")]
         public float MinTemperature { get; set; }
-        
+
         /// <summary>
         /// Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
         /// </summary>

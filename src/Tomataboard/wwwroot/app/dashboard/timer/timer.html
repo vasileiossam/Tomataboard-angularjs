@@ -1,10 +1,10 @@
 ﻿<div id="timer" class="timer-container hover-item" ngsf-fullscreen>
-    
+
     <span>
         <span class="time" ng-bind="time"></span>&nbsp;
         <span id="fullscreen-button" ngsf-toggle-fullscreen class="fa fa-arrows-alt show-on-hover"></span>
     </span>
-    
+
     <div class="buttons row form-group fade-out" ng-show="!promise">
         <form class="form-inline" role="form">
             <button type="button" ng-click="start()" class="btn btn-warning" ng-bind="startText"></button>&nbsp;
@@ -21,7 +21,7 @@
                     ng-model="secondsSelection"
                     ng-change="reset()">
             </select>
-            
+
             <span id="volume">
                 <span ng-show="volumeOn" ng-click="volumeOn = false" class="glyphicon glyphicon glyphicon-volume-up"></span>
                 <span ng-show="!volumeOn" ng-click="volumeOn = true" class="glyphicon glyphicon glyphicon-volume-off"></span>
@@ -29,4 +29,3 @@
         </form>
     </div>
 </div>
-

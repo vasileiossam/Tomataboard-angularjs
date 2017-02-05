@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -7,28 +7,28 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tomataboard.Data;
 using Tomataboard.Models;
 using Tomataboard.Services;
-using Tomataboard.Data;
 using Tomataboard.Services.AccessTokens;
 using Tomataboard.Services.Cache;
 using Tomataboard.Services.Encryption;
 using Tomataboard.Services.Greetings;
 using Tomataboard.Services.Locations;
-using Tomataboard.Services.Photos.Api500px;
-using Tomataboard.Services.Photos.Flickr;
-using Tomataboard.Services.Weather.Yahoo;
 using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;
 using Tomataboard.Services.Locations.IpGeolocation;
 using Tomataboard.Services.Photos;
+using Tomataboard.Services.Photos.Api500px;
+using Tomataboard.Services.Photos.Flickr;
+using Tomataboard.Services.Photos.Tirolography;
 using Tomataboard.Services.Quotes;
 using Tomataboard.Services.Weather;
 using Tomataboard.Services.Weather.Forecast;
 using Tomataboard.Services.Weather.OpenWeatherMap;
-using Tomataboard.Services.Photos.Tirolography;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Threading.Tasks;
+using Tomataboard.Services.Weather.Yahoo;
 
 namespace Tomataboard
 {
@@ -42,7 +42,7 @@ namespace Tomataboard
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("keys.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                // will cascade over appsettings.json  
+                // will cascade over appsettings.json
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
@@ -50,11 +50,11 @@ namespace Tomataboard
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
             }
-            
+
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get;  }
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -122,7 +122,7 @@ namespace Tomataboard
             services.AddTransient<IYahooWeatherService, YahooWeatherService>();
             services.AddTransient<IOpenWeatherMapService, OpenWeatherMapService>();
             services.AddTransient<IForecastService, ForecastService>();
-            services.AddTransient<ICacheRepository<WeatherConditions>, CacheRepository<WeatherConditions>> ();
+            services.AddTransient<ICacheRepository<WeatherConditions>, CacheRepository<WeatherConditions>>();
 
             services.AddTransient<IEncryptionService, EncryptionService>();
             services.AddTransient<ICookiesService<OauthToken>, CookiesService<OauthToken>>();
@@ -154,9 +154,9 @@ namespace Tomataboard
 
             if (env.IsDevelopment())
             {
-               app.UseDeveloperExceptionPage();
-               app.UseDatabaseErrorPage();
-               app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
             else
             {
@@ -174,7 +174,7 @@ namespace Tomataboard
                 //}
                 //catch { }
             }
-            
+
             app.UseStaticFiles();
 
             app.UseIdentity();

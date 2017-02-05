@@ -9,6 +9,7 @@ namespace Tomataboard.Data.Entities
     {
         [Key]
         public long Id { get; set; }
+
         public string Service { get; set; }
         public string Operation { get; set; }
         public string Params { get; set; }

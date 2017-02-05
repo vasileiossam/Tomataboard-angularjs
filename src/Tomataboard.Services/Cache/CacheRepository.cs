@@ -15,7 +15,6 @@ namespace Tomataboard.Services.Cache
 
         public void Add(string service, IServiceOperation<T> operation, string parameters, string result, bool hasErrored)
         {
-
             DateTime? expires = null;
             if (operation.Expiration != null)
             {
@@ -42,7 +41,7 @@ namespace Tomataboard.Services.Cache
             Data.Entities.Cache item;
 
             // todo error handling, loging
-            
+
             // the most recent non errored item in cache will do regardless if its actually expired or not
             if (expired)
             {
@@ -53,18 +52,18 @@ namespace Tomataboard.Services.Cache
                     );
                 return item;
             }
-            
+
             // return the most recent non errored, non expired item
-            item = _context.Cache.OrderByDescending(x=>x.Created).FirstOrDefault(x =>
-                    ((x.Expires == null) || (x.Expires > DateTime.Now)) &&
-                    (x.Service == service) && 
-                    (x.HasErrored == false) &&
-                    (x.Params == parameters)
+            item = _context.Cache.OrderByDescending(x => x.Created).FirstOrDefault(x =>
+                      ((x.Expires == null) || (x.Expires > DateTime.Now)) &&
+                      (x.Service == service) &&
+                      (x.HasErrored == false) &&
+                      (x.Params == parameters)
                 );
             return item;
         }
 
-        // todo 
+        // todo
         public void PurgedAll()
         {
             throw new NotImplementedException();
@@ -78,10 +77,9 @@ namespace Tomataboard.Services.Cache
 
         public int CountItems(string operation, DateTime created)
         {
-            return _context.Cache.Count(x => 
-                x.Operation == operation && 
+            return _context.Cache.Count(x =>
+                x.Operation == operation &&
                 x.Created >= created && x.Created <= DateTime.Now);
         }
-
     }
 }

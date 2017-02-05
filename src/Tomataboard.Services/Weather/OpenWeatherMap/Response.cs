@@ -5,7 +5,6 @@ namespace Tomataboard.Services.Weather.OpenWeatherMap
     [DataContract]
     public class Response
     {
-
         [DataMember(Name = "cod")]
         public int Code { get; set; }
 

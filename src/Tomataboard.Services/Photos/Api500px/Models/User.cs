@@ -7,6 +7,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
     public class User : IUser
     {
         #region Public Properties
+
         [DataMember(Name = "affection")]
         public long Affection { get; set; }
 
@@ -39,13 +40,16 @@ namespace Tomataboard.Services.Photos.Api500px.Models
 
         [DataMember(Name = "userpic_url")]
         public string UserPicUrl { get; set; }
-        #endregion
+
+        #endregion Public Properties
 
         #region Public Methods
+
         public override string ToString()
         {
             return FullName + " [" + Id + "]";
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

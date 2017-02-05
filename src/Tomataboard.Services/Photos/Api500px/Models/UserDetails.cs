@@ -8,6 +8,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
     public class UserDetails : User, IUserDetails
     {
         #region Public Properties
+
         [DataMember(Name = "about")]
         public string About { get; set; }
 
@@ -37,6 +38,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
 
         [DataMember(Name = "store_on")]
         public bool StoreEnabled { get; set; }
-        #endregion
+
+        #endregion Public Properties
     }
 }

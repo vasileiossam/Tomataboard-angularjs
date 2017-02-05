@@ -5,7 +5,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @if (!SignInManager.IsSignedIn(User))
-{ 
+{
     <ul id="top-menu" class="hover-item">
         <li>
             <a asp-area="" asp-controller="Account" asp-action="Login">Log&nbsp;in</a>

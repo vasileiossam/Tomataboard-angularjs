@@ -8,10 +8,10 @@
     function dashboardController($scope, $localStorage, $http, $interval, $timeout) {
         var vm = this;
 
-        // get any persisted data 
+        // get any persisted data
         vm.dashboard = $localStorage.dashboard;
         vm.settings = $localStorage.settings;
-       
+
         vm.isBusy = true;
         vm.errorMessage = "";
         // 30 minutes
@@ -125,7 +125,7 @@
                         vm.dashboard.photoIndex = vm.getNextElementIndex(vm.dashboard.photos, 0);
                         vm.dashboard.photo = vm.dashboard.photos[vm.dashboard.photoIndex];
 
-                        // truncate photo names                    
+                        // truncate photo names
                         for (var i = 0; i < vm.dashboard.photos.length; i++) {
                             var name = vm.dashboard.photos[i].name;
                             vm.dashboard.photos[i].shortName = name;
@@ -194,7 +194,7 @@
             }, 1000);
         };
     }
-    
+
     function getGreeting() {
         var hours = new Date().getHours();
 
@@ -206,12 +206,11 @@
         }
         if (hours >= 17) {
             return "Good evening";
-        } 
+        }
     }
 
     //function getRandomElement(arr) {
     //    var index = Math.floor(Math.random() * ((arr.length - 1) - 0 + 1)) + 0;
     //    return arr[index];
     //}
-   
 })();

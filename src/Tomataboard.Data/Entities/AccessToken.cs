@@ -9,6 +9,7 @@ namespace Tomataboard.Data.Entities
     {
         [Key]
         public int Id { get; set; }
+
         public string Service { get; set; }
         public string Token { get; set; }
         public string Secret { get; set; }

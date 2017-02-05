@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
-using Tomataboard.Services.Weather.Yahoo;
-using System;
-using Newtonsoft.Json;
 using Tomataboard.Services.Locations;
-using Microsoft.AspNetCore.Mvc;
+using Tomataboard.Services.Weather.Yahoo;
 
 namespace Tomataboard.Controllers
 {
@@ -50,7 +50,7 @@ namespace Tomataboard.Controllers
         {
             try
             {
-                var accessToken =_accessTokensRepository.Find(_service.GetType().Name);
+                var accessToken = _accessTokensRepository.Find(_service.GetType().Name);
                 if (accessToken != null)
                 {
                     var service = _service as YahooWeatherService;
@@ -69,6 +69,5 @@ namespace Tomataboard.Controllers
                 return View("Error");
             }
         }
-
     }
 }

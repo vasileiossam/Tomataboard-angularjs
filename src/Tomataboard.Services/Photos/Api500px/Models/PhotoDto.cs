@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using Tomataboard.Services.Photos.Api500px.Intefaces;
-using System.Linq;
 
 namespace Tomataboard.Services.Photos.Api500px.Models
 {
@@ -81,6 +81,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
         public User User { get; set; }
 
         #region Public Methods
+
         public string GetUrl()
         {
             var photo = Images.LastOrDefault();
@@ -99,6 +100,7 @@ namespace Tomataboard.Services.Photos.Api500px.Models
         {
             return $"https://500px.com/photo/{Id}/";
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

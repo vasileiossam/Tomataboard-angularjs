@@ -16,8 +16,10 @@ namespace Tomataboard.Services
         public int SmtpPort { get; set; }
         public bool UseSsl { get; set; }
     }
+
     public class SendGridOptions : EmailSenderOptions { }
-    public class GmailOptions : EmailSenderOptions  { }
+
+    public class GmailOptions : EmailSenderOptions { }
 
     /// <summary>
     /// Gmail Smtp only works with 'Less secure apps' turned on: http://www.google.com/settings/security/lesssecureapps
@@ -30,7 +32,7 @@ namespace Tomataboard.Services
         private IOptions<SendGridOptions> _sendGridOptions;
         private IOptions<GmailOptions> _gmailOptions;
 
-        public EmailSender(ILogger<EmailSender> logger, 
+        public EmailSender(ILogger<EmailSender> logger,
             IOptions<SendGridOptions> sendGridOptions,
             IOptions<GmailOptions> gmailOptions)
         {
@@ -94,9 +96,9 @@ namespace Tomataboard.Services
         /// <param name="message"></param>
         /// <returns></returns>
         public async Task SendEmailAsync(EmailMessage message)
-        { 
+        {
             var sended = await TrySendEmailAsync(_sendGridOptions.Value, message);
-            if(!sended) await TrySendEmailAsync(_gmailOptions.Value, message);
+            if (!sended) await TrySendEmailAsync(_gmailOptions.Value, message);
         }
     }
 }

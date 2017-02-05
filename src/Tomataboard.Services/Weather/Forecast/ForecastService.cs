@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations;
-using Microsoft.Extensions.Options;
 
 namespace Tomataboard.Services.Weather.Forecast
 {
@@ -15,32 +15,37 @@ namespace Tomataboard.Services.Weather.Forecast
     public class ForecastService : IForecastService
     {
         #region Private Fields
+
         private readonly IOptions<ForecastKeys> _keys;
         private readonly ILogger<ForecastService> _logger;
-        #endregion
+
+        #endregion Private Fields
 
         /// <summary>
         /// 1000 calls a day
         /// </summary>
         public Quota Quota => new Quota() { Requests = 1000, Time = TimeSpan.FromDays(1) };
+
         public TimeSpan? Expiration => TimeSpan.FromHours(1);
 
         #region Constructors
+
         public ForecastService(ILogger<ForecastService> logger, IOptions<ForecastKeys> keys)
         {
             _logger = logger;
             _keys = keys;
         }
-        #endregion
+
+        #endregion Constructors
 
         private string GetQueryString(Location location)
         {
             // Forecast allows geographical search only
-            return  $"{_keys.Value.ConsumerKey}/{location.Latitude},{location.Longitude}";
+            return $"{_keys.Value.ConsumerKey}/{location.Latitude},{location.Longitude}";
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parameters">serialized Location</param>
         /// <returns></returns>

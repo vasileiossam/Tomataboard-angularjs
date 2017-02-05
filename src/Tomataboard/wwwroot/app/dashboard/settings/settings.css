@@ -16,11 +16,11 @@
 }
 
 #settings h4 {
-    margin-bottom: 5px;   
+    margin-bottom: 5px;
 }
 
 #todo-tab h4 {
-    margin-bottom: 15px;   
+    margin-bottom: 15px;
 }
 
 .pomodoro-table > thead > tr > th, .pomodoro-table > tbody > tr > th, .pomodoro-table > tfoot > tr > th, .pomodoro-table > thead > tr > td, .pomodoro-table > tbody > tr > td, .pomodoro-table > tfoot > tr > td {

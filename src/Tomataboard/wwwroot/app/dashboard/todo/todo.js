@@ -4,7 +4,6 @@
     var app = angular.module("dashboard-app");
 
     app.directive("todo", function () {
-
         return {
             restrict: "E",
             replace: "true",
@@ -19,9 +18,9 @@
                 if (scope.settings.category) {
                     $('#todo-pills a[href="#tab' + scope.settings.category + '"]').tab("show");
                 }
-                
+
                 scope.todos = scope.settings.todos;
-                
+
                 scope.addTodo = function () {
                     if (scope.todoText) {
                         scope.todos.push(
@@ -30,7 +29,6 @@
                             date: new Date(),
                             text: scope.todoText,
                             done: false
-                            
                         });
                         scope.todoText = "";
                     }
@@ -96,5 +94,4 @@
             }
         };
     });
-
 })();

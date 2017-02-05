@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Tomataboard.Models.ManageViewModels
+﻿namespace Tomataboard.Models.ManageViewModels
 {
     public class FactorViewModel
     {
