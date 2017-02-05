@@ -1,19 +1,29 @@
 <div id="settings">
-    <div id="account" ng-show="username">
-        <a class="fa fa-user" href="Manage/Index">&nbsp;{{username}}</a>
-        <form action="Account/Logout" method="post">
-            <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
-        </form>
-    </div>
-
     <ul class="nav nav-pills nav-justified">
-        <li class="active"><a data-toggle="pill" href="#settings-tab">General</a></li>
+        <li class="active"><a data-toggle="pill" href="#account-tab">Account</a></li>
+        <li><a data-toggle="pill" href="#settings-tab">General</a></li>
         <li><a data-toggle="pill" href="#todo-tab">Todo</a></li>
         <li><a data-toggle="pill" href="#about-tab">About</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="settings-tab" class="tab-pane fade in active">
+        <div id="account-tab" class="tab-pane fade in active">
+            <div id="account-logout" ng-show="username">
+                <a class="fa fa-user" href="Manage/Index">&nbsp;{{username}}</a>
+                <form action="Account/Logout" method="post">
+                    <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+                </form>
+            </div>
+            <div id="account-login" ng-show="!username">
+                <strong>Login in to sync account and refresh photo as many times as you like!</strong>
+                <div>
+                    <a href="Account/Login" class="btn btn-info">Log&nbsp;in</a>
+                    <a href="Account/Register" class="btn btn-info">Sign&nbsp;Up</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings-tab" class="tab-pane fade">
             <form role="form">
                 <div class="checkbox">
                     <checkbox ng-model="settings.showBackgroundPhoto" />&nbsp;Show Background Photo

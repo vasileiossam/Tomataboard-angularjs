@@ -27,6 +27,14 @@
     padding: 0px;
 }
 
-#account form {
+#account-logout form {
     display: inline;
+}
+
+#account-login {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#account-login div {
+    padding-top: 10px;
 }
