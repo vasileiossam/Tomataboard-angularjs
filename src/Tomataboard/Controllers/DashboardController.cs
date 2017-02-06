@@ -53,7 +53,7 @@ namespace Tomataboard.Controllers
         /// <param name="readCache"></param>
         /// <returns></returns>
         [HttpGet("api/dashboard")]
-        public async Task<JsonResult> Get(string tags, bool? readCache)
+        public async Task<DashboardDto> Get(string tags, bool? readCache)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Tomataboard.Controllers
                     Weather = weather
                 };
 
-                return Json(dashboardDto);
+                return dashboardDto;
             }
             catch (Exception e)
             {
