@@ -8,67 +8,72 @@
     function dashboardController($scope, $localStorage, $http, $interval, $timeout) {
         var vm = this;
 
-        // get any persisted data
-        vm.dashboard = $localStorage.dashboard;
-        vm.settings = $localStorage.settings;
-
         vm.isBusy = true;
         vm.errorMessage = "";
         // 30 minutes
         vm.refreshTime = 30 * 60 * 1000;
 
-        // initialize settings
-        if (!vm.settings) {
-            vm.settings = {};
-            vm.settings.defaultQuestion = "What is your goal for today?";
-            vm.settings.question = vm.settings.defaultQuestion;
-            vm.settings.location = "";
-            vm.settings.showBackgroundPhoto = true;
-            vm.settings.showFocus = true;
-            vm.settings.showWeather = true;
-            vm.settings.temperatureUnits = "";
-            vm.settings.showQuote = true;
-            vm.settings.showTodo = false;
+        var defaultOptions = {
+            defaultQuestion: "What is your goal for today?",
+            question: "What is your goal for today?",
+            location: "",
+            showBackgroundPhoto: true,
+            showFocus: true,
+            showWeather: true,
+            temperatureUnits: "",
+            showQuote: true,
+            showTodo: false,
 
-            vm.settings.showTimers = true;
-            vm.settings.clockFormat = "12-hour";
-            vm.settings.activeTimer = "clock";
-            vm.settings.volumeOn = true;
+            showTimers: true,
+            clockFormat: "12-hour",
+            activeTimer: "clock",
+            volumeOn: true,
 
-            vm.settings.timerMinutesSelection = 5;
-            vm.settings.timerSecondsSelection = 0;
+            timerMinutesSelection: 5,
+            timerSecondsSelection: 0,
 
-            vm.settings.pomodoroTime = 25;
-            vm.settings.pomodoroShortBreak = 5;
-            vm.settings.pomodoroLongBreak = 15;
-            vm.settings.pomodoroTaskPlaceholder = "What task are you working on?";
-            vm.settings.pomodoroTaskDescription = vm.settings.pomodoroTaskPlaceholder;
-            vm.settings.pomodoroTotal = 0;
+            pomodoroTime: 25,
+            pomodoroShortBreak: 5,
+            pomodoroLongBreak: 15,
+            pomodoroTaskPlaceholder: "What task are you working on?",
+            pomodoroTaskDescription: "What task are you working on?",
+            pomodoroTotal: 0,
 
-            vm.settings.countdown = {
+            countdown: {
                 eventPlaceholder: "Event Name...",
                 eventDescription: "Event Name...",
                 endDate: new Date(),
                 started: false
-            };
+            },
 
-            vm.settings.todo = {
+            todo: {
                 category: 0,
                 categories: ["Work", "Personal", "Make a difference"],
                 todos: []
-            };
-        }
+            },
 
-        if (!vm.settings.greeting)
-        {
-            vm.settings.greeting = {
+            greeting: {
                 show: true,
                 defaultName: "Young Grasshopper",
                 name: "Young Grasshopper",
                 randomName: false,
                 names: "Champion, Winner, Lucky, Fighter, Rock Star",
                 namesPlaceholder: "Comma separated names e.g Champion, Winner, Lucky",
-            }
+            },
+            newproperty: 1
+        };
+
+        // get any persisted data
+        vm.dashboard = $localStorage.dashboard;
+        var settings = $localStorage.settings;
+
+        // initialize settings
+        if (settings) {
+            vm.settings = angular.merge({}, defaultOptions, settings)
+        }
+        else
+        {
+            vm.settings = defaultOptions;
         }
 
         vm.stopwatchReset = {};
