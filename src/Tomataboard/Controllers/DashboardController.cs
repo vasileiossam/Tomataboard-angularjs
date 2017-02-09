@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,19 +22,22 @@ namespace Tomataboard.Controllers
         private IWeatherProvider _weatherProvider;
         private IQuoteRepository _quoteRepository;
         private IGreetingsService _greetingsService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public DashboardController(
             ILogger<HomeController> logger,
             IPhotoProvider photoProvider,
             IWeatherProvider weatherProvider,
             IQuoteRepository quoteRepository,
-            IGreetingsService greetingsService)
+            IGreetingsService greetingsService,
+            UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _photoProvider = photoProvider;
             _weatherProvider = weatherProvider;
             _quoteRepository = quoteRepository;
             _greetingsService = greetingsService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -52,8 +58,21 @@ namespace Tomataboard.Controllers
         /// <param name="tags"></param>
         /// <param name="readCache"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("api/dashboard")]
         public async Task<DashboardDto> Get(string tags, bool? readCache)
+        {
+            return await GetDashboardDto(tags, readCache);
+        }
+
+        [HttpGet("api/dashboard-public")]
+        public async Task<DashboardDto> GetPublic(string tags, bool? readCache)
+        {
+            // TODO limit this to return same data per day per IP?
+            return await GetDashboardDto(tags, readCache);
+        }
+
+        private async Task<DashboardDto> GetDashboardDto(string tags, bool? readCache)
         {
             try
             {
@@ -74,6 +93,48 @@ namespace Tomataboard.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Error getting DashboardDto", e);
+                throw e;
+            }
+        }
+
+        [Authorize]
+        [HttpPost("api/settings")]
+        public async Task Post([FromBody] SettingsDto settings)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    user.Settings = JsonConvert.SerializeObject(settings);
+                    await _userManager.UpdateAsync(user);
+                }
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error posting settings", e);
+                throw e;
+            }
+        }
+
+        [Authorize]
+        [HttpGet("api/settings")]
+        public async Task<SettingsDto> Get()
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                if ( (user != null) && (!string.IsNullOrEmpty(user.Settings)))
+                {
+                    return JsonConvert.DeserializeObject<SettingsDto>(user.Settings);
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error getting settings", e);
                 throw e;
             }
         }

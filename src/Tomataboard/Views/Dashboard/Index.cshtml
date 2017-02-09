@@ -42,7 +42,7 @@
     </environment>
 </head>
 
-<body ng-app="dashboard-app" ng-controller="dashboardController as vm">
+<body ng-app="dashboard-app" ng-controller="dashboardController as vm" username="@User?.Identity?.Name">
     <div id="loader" ng-show="vm.isBusy" class="vertical-center text-center"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
     <div id="dashboard" ng-cloak ng-show="!vm.isBusy" ng-class="{dashboardFade: vm.startFade}">
         <div id="photo-background" ng-show="vm.settings.showBackgroundPhoto" ng-style="{'background-image': 'url(' + vm.dashboard.photo.url + ') '}"></div>
