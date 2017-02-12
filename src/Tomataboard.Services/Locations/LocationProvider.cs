@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Tomataboard.Services.Cache;
+using Tomataboard.Services.Extensions;
 using Tomataboard.Services.Locations.Freegeoip;
 using Tomataboard.Services.Locations.GeoLite;
 using Tomataboard.Services.Locations.IpGeolocation;
@@ -30,7 +32,7 @@ namespace Tomataboard.Services.Locations
             _operations.Add(freegeoipService);
         }
 
-        private string GetRemoteIP(HttpRequest request)
+        private string GetIPFromHeaders(HttpRequest request)
         {
             string[] headers =
             {
@@ -91,38 +93,64 @@ namespace Tomataboard.Services.Locations
             IPAddress ip;
             if (IPAddress.TryParse(value, out ip))
             {
-                value = ip.MapToIPv4().ToString();
+                value = ConvertIPToString(ip);
             }
 
             return value;
         }
 
+        private string ConvertIPToString(IPAddress ip)
+        {
+            if (ip.IsIPv4MappedToIPv6)
+            {
+                return ip.MapToIPv4().ToString();
+            }
+            return ip.ToString();
+        }
+
+        private bool IsLocal(IPAddress ip)
+        {
+            if (ip == null) return false;
+            return (ip.ToString() == "127.0.0.1") || (ip.ToString() == "::1");
+        }
+
+        private string GetIP()
+        {
+            var loopback = "127.0.0.1";
+
+            try
+            {
+                var ip = _httpContextAccessor.HttpContext.Connection?.RemoteIpAddress;
+                if (ip == null)
+                {
+                    // fall back to this (although it was fixed in RC2)
+                    // https://github.com/aspnet/IISIntegration/issues/17
+                    _logger.LogError($"{GetType().Name}: Context.Connection.RemoteIpAddress is not working");
+                    return GetIPFromHeaders(_httpContextAccessor.HttpContext.Request);
+                }
+
+                if (IsLocal(ip))
+                {
+                    _logger.LogError("Cannot determine the IP of the request");
+                    return loopback;
+                }
+
+                return ConvertIPToString(ip);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Cannot determine the IP of the request", ex);
+                return loopback;
+            }
+        }
+
         /// <summary>
-        ///  It passes the IPv4 to the services
+        ///  It passes the IP to the services
         /// </summary>
         /// <returns>Returns the geo location</returns>
         public async Task<Location> Execute()
         {
-            // TODO investigate: do I need to cater for Ipv6?
-            var ip = _httpContextAccessor.HttpContext.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
-            if (string.IsNullOrEmpty(ip) || (ip == "127.0.0.1"))
-            {
-                // TODO remove this in RC2 where the RemoteIpAddress bug is fixed
-                // https://github.com/aspnet/IISIntegration/issues/17
-                ip = GetRemoteIP(_httpContextAccessor.HttpContext.Request);
-            }
-#if DEBUG
-            if ((ip == null) || (ip == "0.0.0.1") || (ip == "127.0.0.1"))
-            {
-                ip = "175.34.25.23";
-            }
-#else
-            if (ip == null)
-            {
-                _logger.LogError($"{GetType().Name}: Cannot get RemoteIpAddress");
-            }
-#endif
-            return await Execute(ip, true);
+            return await Execute(GetIP(), true);
         }
     }
 }
