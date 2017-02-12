@@ -19,7 +19,7 @@ namespace Tomataboard.Controllers
         public async Task SendEmailAsync(string email, string viewName, MessageViewModel messageViewModel)
         {
             var emailMessage = await _viewRenderService.RenderAsync(viewName, messageViewModel);
-            emailMessage.Email = email;
+            emailMessage.To = email;
             await _emailSender.SendEmailAsync(emailMessage);
         }
     }

@@ -70,11 +70,16 @@ namespace Tomataboard.Services
                 _cacheRepository.Add(GetType().Name, operation, parameters, string.Empty, true);
             }
 
-            // todo WRITE something for the alert manager to send the email immediately
-            // all operations failed, alert the admin
+            _logger.LogCritical($"{GetType().Name}: All operations failed to returned data. Attempting to use expired cache...");
 
             // fall back to any cached item even if its expired
             var cachedExpired = GetFromCache(parameters, true);
+
+            if (cachedExpired == null)
+            {
+                _logger.LogCritical($"{GetType().Name}: No data returned");
+            }
+
             return cachedExpired;
         }
 

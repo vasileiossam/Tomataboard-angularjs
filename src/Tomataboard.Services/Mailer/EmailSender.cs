@@ -47,7 +47,7 @@ namespace Tomataboard.Services
             {
                 var mimeMessage = new MimeMessage();
                 mimeMessage.From.Add(new MailboxAddress(_fromName, _fromAddress));
-                mimeMessage.To.Add(new MailboxAddress(message.Email, message.Email));
+                mimeMessage.To.Add(new MailboxAddress(message.To, message.To));
                 mimeMessage.Subject = message.Subject;
 
                 if (!string.IsNullOrEmpty(message.Html))

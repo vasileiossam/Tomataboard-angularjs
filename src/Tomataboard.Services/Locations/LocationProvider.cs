@@ -116,8 +116,6 @@ namespace Tomataboard.Services.Locations
 
         private string GetIP()
         {
-            var loopback = "127.0.0.1";
-
             try
             {
                 var ip = _httpContextAccessor.HttpContext.Connection?.RemoteIpAddress;
@@ -132,7 +130,7 @@ namespace Tomataboard.Services.Locations
                 if (IsLocal(ip))
                 {
                     _logger.LogError("Cannot determine the IP of the request");
-                    return loopback;
+                    return string.Empty;
                 }
 
                 return ConvertIPToString(ip);
@@ -140,7 +138,7 @@ namespace Tomataboard.Services.Locations
             catch(Exception ex)
             {
                 _logger.LogError("Cannot determine the IP of the request", ex);
-                return loopback;
+                return string.Empty;
             }
         }
 

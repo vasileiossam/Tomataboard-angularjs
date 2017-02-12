@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tomataboard.Data;
+using Tomataboard.Logger;
 using Tomataboard.Models;
 using Tomataboard.Services;
 using Tomataboard.Services.AccessTokens;
@@ -141,16 +142,21 @@ namespace Tomataboard
             services.Configure<EncryptionServiceKeys>(Configuration.GetSection("ApiSettings:EncryptionServiceKeys"));
             services.Configure<SendGridOptions>(Configuration.GetSection("ApiSettings:SendGridOptions"));
             services.Configure<GmailOptions>(Configuration.GetSection("ApiSettings:GmailOptions"));
+            services.Configure<EmailLoggerOptions>(Configuration.GetSection("ApiSettings:EmailLoggerOptions"));
 
             services.AddScoped<IViewRenderService, ViewRenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, 
+            IEmailSender emailSender,
+            IOptions<EmailLoggerOptions> emailLoggerOptions)
         {
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddConsole(LogLevel.Debug);
-            loggerFactory.AddDebug();
+            loggerFactory.AddDebug(LogLevel.Debug);
+            loggerFactory.AddEmail(emailSender, emailLoggerOptions, LogLevel.Critical);
 
             if (env.IsDevelopment())
             {
