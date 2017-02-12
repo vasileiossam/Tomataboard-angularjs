@@ -40,33 +40,14 @@ namespace Tomataboard.Controllers
             return View();
         }
 
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
+        public IActionResult PurgedAllCache()
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            return RedirectToAction("Index");
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync()
+        public IActionResult PurgedExpiredCache()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+            return RedirectToAction("Index");
         }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-        }
-
-        #endregion Helpers
     }
 }

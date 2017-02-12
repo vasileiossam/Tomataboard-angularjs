@@ -61,18 +61,6 @@ namespace Tomataboard.Services.Cache
             return item;
         }
 
-        // todo
-        public void PurgedAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        // todo
-        public void PurgedExpired()
-        {
-            throw new NotImplementedException();
-        }
-
         public int CountItems(string operation, DateTime created)
         {
             return _context.Cache.Count(x =>
