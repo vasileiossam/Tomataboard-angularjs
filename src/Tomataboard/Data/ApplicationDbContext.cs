@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Tomataboard.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationUserRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

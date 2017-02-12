@@ -40,8 +40,6 @@ namespace Tomataboard.Services.Cache
         {
             Data.Entities.Cache item;
 
-            // todo error handling, loging
-
             // the most recent non errored item in cache will do regardless if its actually expired or not
             if (expired)
             {

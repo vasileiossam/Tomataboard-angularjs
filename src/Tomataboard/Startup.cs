@@ -64,7 +64,7 @@ namespace Tomataboard
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TomataboardConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationUserRole>(options =>
                 {
                     options.User.RequireUniqueEmail = true;
                     options.Password.RequireDigit = false;
