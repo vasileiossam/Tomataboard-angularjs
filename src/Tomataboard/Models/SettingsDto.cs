@@ -4,6 +4,7 @@
     {
         public string DefaultQuestion { get; set; }
         public string Question { get; set; }
+        public string Answer { get; set; }
         public string Location { get; set; }
         public bool ShowBackgroundPhoto { get; set; }
         public bool ShowFocus { get; set; }

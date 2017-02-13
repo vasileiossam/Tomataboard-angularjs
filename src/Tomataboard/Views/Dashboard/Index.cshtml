@@ -96,7 +96,7 @@
             </div>
         </header>
 
-        <todo ng-show="vm.settings.showTodo" x-settings="vm.settings.todo" class="semi-transparent"></todo>
+        <todo ng-if="vm.settings.todo" ng-show="vm.settings.showTodo" x-settings="vm.settings.todo" class="semi-transparent"></todo>
 
         <div class="vertical-center">
             <div class="container">
@@ -122,6 +122,7 @@
                             <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset">
                             </stopwatch>
                             <countdown
+                                ng-if="vm.settings.countdown"
                                 x-settings="vm.settings.countdown"
                                 ng-show="vm.settings.activeTimer=='countdown'">
                             </countdown>

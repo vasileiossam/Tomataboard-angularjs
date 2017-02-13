@@ -144,6 +144,7 @@
                              // expect response.data.defaultQuestion != null or we have received a "corrupted" saved object
                              if ((response.data) && (response.data.defaultQuestion)) {
                                  vm.settings = angular.merge({}, vm.getDefaultSettings(), response.data);
+                                 vm.settings.canSync = true;
                              }
                              vm.init();
                          },
@@ -158,6 +159,7 @@
             return {
                 defaultQuestion: "What is your goal for today?",
                 question: "What is your goal for today?",
+                answer: "",
                 location: "",
                 showBackgroundPhoto: true,
                 showFocus: true,
@@ -254,12 +256,9 @@
             }, true);
         }
         
-        vm.settings = vm.getDefaultSettings();
-
         // user is logged in
         if ($attrs.username) {
             vm.getSettings();
-            vm.settings.canSync = true;
         }
         else {
             vm.settings = vm.getLocalSettings();
