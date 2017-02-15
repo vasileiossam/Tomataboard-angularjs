@@ -1,24 +1,35 @@
-Yahoo Weather Api
+﻿# Tomataboard
+Tomataboard is a personal dashboard. It can help you be more productive and stay focused on the task at hand.
 
-When creating an App in Yahoo:
+It provides todos and timers. It can help you beat procrastination with its anti-procrastination (pomodoro) timer. It provides inspiration with daily quotes and gorgeous photos.
 
-1. Select 'Web Application' as the application type.
+### Live Site
+View Tomataboard in action [here](http://www.tomataboard)
 
-2. Specify a domain or subdomain in Callback Domain e.g. http://www.mydomain.com 
-Urls like http://www.mydomain.com/api/callback are not allowed (you will get the "Invalid domain name" error). 
-You will have to specify the full callback url in your code. 
+## Screenshot
+![screenshot](http://www.tomataboard.com/images/screenshot.png)
 
-3. API Permissions: You should select at least one. If you don't you will keep getting consumer_key_rejected when trying to get a request token.
+### How to use it?
+Best way to use it is to set the live site [http://www.tomataboard](http:/www.tomataboard.com/focus) as your home page or your new tab page in your favourite browser.
 
+### Build with
+* ASP.NET Core 1.0
+* AngularJS 1.4
+* [Grayscale Jekyll theme](https://github.com/jeromelachaud/grayscale-theme)
 
-How to make the Yahoo callback work in IIS Express with localhost
+### Power by APIs
+* [500px](https://500px.com)
+* [Flickr](https://www.flickr.com/)
+* [Yahoo Weather](https://weather.yahoo.com)
+* [Forecast.io](http://forecast.io)
+* [OpenWeatherMap](http://openweathermap.org)
+* [Freegeoip](http://freegeoip.net)
+* [GeoLite2](https://dev.maxmind.com/geoip/geoip2/geolite2/)
+* [IP Location Finder](https://www.iplocation.net)
 
-1. In the yahoo create app page specify a callback domain e.g. mydomain.com 
-
-2. Add the entry below in your hosts file:
-  127.0.0.1 mydomain.com 
-
-3. Your oauth_callback should be mydomain.com/Yahoo/Callback
-
-4. if http://127.0.0.1 doesn't work in your browser follow the instructions here:
-https://cyanbyfuchsia.wordpress.com/2014/07/29/make-iis-express-works-with-http127-0-0-1/
+### Acknowledgments
+* Thanks to Dimitrios Barbatsoulis for his beautiful winter photos.
+* Tomataboard is inspired by Chrome extension [Momentum](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca).
+ 
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

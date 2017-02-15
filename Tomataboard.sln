@@ -8,7 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F6D7B74-8A63-40DF-A460-53061B376B59}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		INSTALLING.md = INSTALLING.md
 		global.json = global.json
+		LICENSE.md = LICENSE.md
 		Local.testsettings = Local.testsettings
 		README.md = README.md
 		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
