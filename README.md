@@ -4,13 +4,13 @@ Tomataboard is a personal dashboard. It can help you be more productive and stay
 It provides todos and timers. It can help you beat procrastination with its anti-procrastination (pomodoro) timer. It provides inspiration with daily quotes and gorgeous photos.
 
 ### Live Site
-View Tomataboard in action [here](http://www.tomataboard)
+View Tomataboard in action [here](http://www.tomataboard.com)
 
 ## Screenshot
 ![screenshot](http://www.tomataboard.com/images/screenshot.png)
 
 ### How to use it?
-Best way to use it is to set the live site [http://www.tomataboard](http:/www.tomataboard.com/focus) as your home page or your new tab page in your favourite browser.
+Best way to use it is to set the live site [tomataboard](http://www.tomataboard.com/focus) as your home page or your new tab page in your favourite browser.
 
 ### Build with
 * ASP.NET Core 1.0
@@ -32,4 +32,4 @@ Best way to use it is to set the live site [http://www.tomataboard](http:/www.to
 * Tomataboard is inspired by Chrome extension [Momentum](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca).
  
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
