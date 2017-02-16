@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +11,7 @@ using Tomataboard.Services.Weather.Yahoo;
 
 namespace Tomataboard.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class YahooController : OauthController
     {
         public YahooController(

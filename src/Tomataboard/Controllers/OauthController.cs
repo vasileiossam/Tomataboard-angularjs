@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Tomataboard.Services.AccessTokens;
 
 namespace Tomataboard.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public abstract class OauthController : Controller
     {
         protected string _cookieKey;
