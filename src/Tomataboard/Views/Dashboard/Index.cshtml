@@ -84,7 +84,8 @@
                             <li>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
-                                    <settings x-username="@User?.Identity?.Name"
+                                    <settings ng-if="vm.settings"
+                                              x-username="@User?.Identity?.Name"
                                               x-settings="vm.settings"
                                               x-weather="vm.dashboard.weather"
                                               class="dropdown-menu dropdown-menu-right semi-transparent"></settings>
@@ -103,9 +104,9 @@
                 <div class="col-sm-12 text-center">
                     <div class="hover-container">
                         <div id="timers" ng-show="vm.settings.showTimers">
-                            <clock format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'">
-                            </clock>
-                            <pomodoro x-total="vm.settings.pomodoroTotal"
+                            <clock ng-if="vm.settings.clockFormat" x-format="vm.settings.clockFormat" ng-show="vm.settings.activeTimer=='clock'"></clock>
+                            <pomodoro ng-if="vm.settings"
+                                      x-total="vm.settings.pomodoroTotal"
                                       x-pomodoro-time="vm.settings.pomodoroTime"
                                       x-short-break="vm.settings.pomodoroShortBreak"
                                       x-long-break="vm.settings.pomodoroLongBreak"
@@ -114,12 +115,14 @@
                                       x-volume-on="vm.settings.volumeOn"
                                       ng-show="vm.settings.activeTimer=='pomodoro'">
                             </pomodoro>
-                            <timer x-minutes-selection="vm.settings.timerMinutesSelection"
+                            <timer ng-if="vm.settings"
+                                   x-minutes-selection="vm.settings.timerMinutesSelection"
                                    x-seconds-selection="vm.settings.timerSecondsSelection"
                                    x-volume-on="vm.settings.volumeOn"
                                    ng-show="vm.settings.activeTimer=='timer'">
                             </timer>
-                            <stopwatch ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset">
+                            <stopwatch ng-if="vm.stopwatchReset"
+                                       ng-show="vm.settings.activeTimer=='stopwatch'" x-reset="vm.stopwatchReset">
                             </stopwatch>
                             <countdown
                                 ng-if="vm.settings.countdown"
@@ -127,7 +130,9 @@
                                 ng-show="vm.settings.activeTimer=='countdown'">
                             </countdown>
                         </div>
-                        <greeting x-text="vm.dashboard.greeting" x-settings="vm.settings.greeting"></greeting>
+                        <greeting ng-if="vm.settings.greeting"
+                                  x-text="vm.dashboard.greeting" 
+                                  x-settings="vm.settings.greeting"></greeting>
                         <focus></focus>
                     </div>
                 </div>
