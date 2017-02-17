@@ -14,7 +14,10 @@ Best way to use it is to set the live site [tomataboard](http://www.tomataboard.
 
 ### Build with
 * ASP.NET Core 1.0
+* Entity Framework 1.0
 * AngularJS 1.4
+* Azure Websites
+* Bootstrap 3
 * [Grayscale Jekyll theme](https://github.com/jeromelachaud/grayscale-theme)
 
 ### Power by APIs
