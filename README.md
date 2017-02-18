@@ -7,7 +7,7 @@ It provides todos and timers. It can help you beat procrastination with its anti
 View Tomataboard in action [here](http://www.tomataboard.com)
 
 ## Screenshot
-![screenshot](http://www.tomataboard.com/images/screenshot.png)
+![screenshot](src/Tomataboard/wwwroot/images/screenshot.png)
 
 ### How to use it?
 Best way to use it is to set the live site [tomataboard](http://www.tomataboard.com/focus) as your home page or your new tab page in your favourite browser.
