@@ -84,8 +84,9 @@ namespace Tomataboard.Services.Encryption
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
+                    // TODO log exception
                     return string.Empty;
                 }
 

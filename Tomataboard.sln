@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{909861CB-C578-4C33-9CE3-C76BF5716197}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F6D7B74-8A63-40DF-A460-53061B376B59}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		INSTALLING.md = INSTALLING.md
 		global.json = global.json
+		INSTALLING.md = INSTALLING.md
 		LICENSE.md = LICENSE.md
 		Local.testsettings = Local.testsettings
 		README.md = README.md
@@ -18,13 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C59D817B-1DE1-4A24-8B73-2E35D07E1D20}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tomataboard", "src\Tomataboard\Tomataboard.xproj", "{2A216B13-46FE-4155-B806-76EE5275EBE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomataboard", "src\Tomataboard\Tomataboard.csproj", "{4A6626A5-7734-4DEE-91CE-6E0BC321C00E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tomataboard.Data", "src\Tomataboard.Data\Tomataboard.Data.xproj", "{3BB87656-50A6-46C2-911A-92CF5804F10A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomataboard.Data", "src\Tomataboard.Data\Tomataboard.Data.csproj", "{D9486E46-4FFE-4203-BAF7-84F7F7040F9B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tomataboard.Services", "src\Tomataboard.Services\Tomataboard.Services.xproj", "{E65967C3-6AA8-4549-A3C9-C85498EFB817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomataboard.Services", "src\Tomataboard.Services\Tomataboard.Services.csproj", "{14BC5C1C-4F20-4210-A739-BC97DE2659EE}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tomataboard.xUnitTests", "Tomataboard.xUnitTests\Tomataboard.xUnitTests.xproj", "{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomataboard.xUnitTests", "Tomataboard.xUnitTests\Tomataboard.xUnitTests.csproj", "{9213D3E0-AA2E-4761-B497-AD0D6DD685B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,31 +32,29 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2A216B13-46FE-4155-B806-76EE5275EBE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A216B13-46FE-4155-B806-76EE5275EBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A216B13-46FE-4155-B806-76EE5275EBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A216B13-46FE-4155-B806-76EE5275EBE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BB87656-50A6-46C2-911A-92CF5804F10A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E65967C3-6AA8-4549-A3C9-C85498EFB817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E65967C3-6AA8-4549-A3C9-C85498EFB817}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E65967C3-6AA8-4549-A3C9-C85498EFB817}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E65967C3-6AA8-4549-A3C9-C85498EFB817}.Release|Any CPU.Build.0 = Release|Any CPU
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Debug|Any CPU.Build.0 = Release|Any CPU
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Debug|Any CPU.Deploy.0 = Release|Any CPU
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A6626A5-7734-4DEE-91CE-6E0BC321C00E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6626A5-7734-4DEE-91CE-6E0BC321C00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6626A5-7734-4DEE-91CE-6E0BC321C00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6626A5-7734-4DEE-91CE-6E0BC321C00E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9486E46-4FFE-4203-BAF7-84F7F7040F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9486E46-4FFE-4203-BAF7-84F7F7040F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9486E46-4FFE-4203-BAF7-84F7F7040F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9486E46-4FFE-4203-BAF7-84F7F7040F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BC5C1C-4F20-4210-A739-BC97DE2659EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BC5C1C-4F20-4210-A739-BC97DE2659EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BC5C1C-4F20-4210-A739-BC97DE2659EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BC5C1C-4F20-4210-A739-BC97DE2659EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9213D3E0-AA2E-4761-B497-AD0D6DD685B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9213D3E0-AA2E-4761-B497-AD0D6DD685B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9213D3E0-AA2E-4761-B497-AD0D6DD685B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9213D3E0-AA2E-4761-B497-AD0D6DD685B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2A216B13-46FE-4155-B806-76EE5275EBE4} = {909861CB-C578-4C33-9CE3-C76BF5716197}
-		{3BB87656-50A6-46C2-911A-92CF5804F10A} = {909861CB-C578-4C33-9CE3-C76BF5716197}
-		{E65967C3-6AA8-4549-A3C9-C85498EFB817} = {909861CB-C578-4C33-9CE3-C76BF5716197}
-		{704F6294-08FA-469C-A2A7-7CA2A0B8B30B} = {C59D817B-1DE1-4A24-8B73-2E35D07E1D20}
+		{4A6626A5-7734-4DEE-91CE-6E0BC321C00E} = {909861CB-C578-4C33-9CE3-C76BF5716197}
+		{D9486E46-4FFE-4203-BAF7-84F7F7040F9B} = {909861CB-C578-4C33-9CE3-C76BF5716197}
+		{14BC5C1C-4F20-4210-A739-BC97DE2659EE} = {909861CB-C578-4C33-9CE3-C76BF5716197}
 	EndGlobalSection
 EndGlobal

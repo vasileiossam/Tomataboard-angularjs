@@ -78,9 +78,9 @@ namespace Tomataboard.xUnitTests
         [Fact]
         public async void GetPhotos()
         {
-            List<Photo> photos;
+            //List<Photo> photos;
 
-            var cacheRepository = new CacheRepository<List<Photo>>(_TomataboardContext);
+            //var cacheRepository = new CacheRepository<List<Photo>>(_TomataboardContext);
 
             //var api500px = new Api500px(new StubLogger<Api500px>(), _api500pxKeys);
             //photos = await api500px.Execute("Greece");
