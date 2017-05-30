@@ -80,7 +80,7 @@ var getPublishJson = function () {
 
 // bump version number
 gulp.task("bump", function () {
-    return gulp.src("./publishing.json")
+    return gulp.src("./publish.json")
     .pipe(bump())
     .pipe(gulp.dest("./"));
 });
