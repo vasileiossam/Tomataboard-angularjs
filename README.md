@@ -33,6 +33,10 @@ Best way to use it is to set the live site [tomataboard](http://www.tomataboard.
 ### Acknowledgments
 * Thanks to Dimitrios Barbatsoulis for his beautiful winter photos.
 * Tomataboard is inspired by Chrome extension [Momentum](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca).
- 
+* Thanks to [JetBrains](https://www.jetbrains.com) for the OSS license of Resharper Ultimate.
+Proudly developed using:
+<a href="https://www.jetbrains.com/resharper/
+"><img src="https://blog.jetbrains.com/wp-content/uploads/2014/04/logo_resharper.gif" alt="Resharper logo" width="100" /></a>
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
