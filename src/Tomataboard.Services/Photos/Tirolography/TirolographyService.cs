@@ -35,7 +35,8 @@ namespace Tomataboard.Services.Photos.Tirolography
                 };
                 list.Add(photo);
             }
-            return list;
+
+            return await Task.FromResult(list);
         }
     }
 }

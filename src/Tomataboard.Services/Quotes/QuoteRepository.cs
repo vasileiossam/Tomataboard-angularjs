@@ -152,7 +152,6 @@ namespace Tomataboard.Services.Quotes
             return quotes;
         }
 
-        [Obsolete("Use the Shuffle() extension method instead")]
         public List<Quote> GetRandomQuotes(string tags)
         {
             var quotes = from quote in GetQuotes(tags)

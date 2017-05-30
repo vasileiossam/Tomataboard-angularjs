@@ -129,7 +129,6 @@ namespace Tomataboard
             services.AddTransient<ICookiesService<OauthToken>, CookiesService<OauthToken>>();
             services.AddTransient<IAccessTokensRepository, AccessTokensRepository>();
             services.AddTransient<IQuoteRepository, QuoteRepository>();
-            services.AddTransient<IGreetingsService, GreetingsService>();
 
             services.AddLogging();
 

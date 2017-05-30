@@ -20,7 +20,7 @@ namespace Tomataboard.xUnitTests
     /// </summary>
     public class Providers
     {
-        private readonly TomataboardContext _TomataboardContext;
+        private readonly TomataboardContext _TomataboardContext = null;
 
         //private readonly StubOptions<Api500pxKeys> _api500pxKeys;
         //private readonly StubOptions<FlickrKeys> _flickrKeys;
@@ -38,8 +38,8 @@ namespace Tomataboard.xUnitTests
                 TomataboardContextConnection =
                     @"Server=.;Database=Tomataboard;Trusted_Connection=True;MultipleActiveResultSets=true"
             };
-            // var settings = new StubOptions<DataSettings>(dataSettings);
-            // _TomataboardContext = new TomataboardContext(settings);
+             //var settings = new StubOptions<DataSettings>(dataSettings);
+             //_TomataboardContext = new TomataboardContext(settings);
 
             //_api500pxKeys = new StubOptions<Api500pxKeys>(new Api500pxKeys()
             //{
@@ -75,9 +75,9 @@ namespace Tomataboard.xUnitTests
         /// <summary>
         /// http://dotnetliberty.com/index.php/2015/12/14/asp-net-5-web-api-unit-testing/
         /// </summary>
-        [Fact]
-        public async void GetPhotos()
-        {
+        //[Fact]
+        //public async void GetPhotos()
+        //{
             //List<Photo> photos;
 
             //var cacheRepository = new CacheRepository<List<Photo>>(_TomataboardContext);
@@ -93,7 +93,7 @@ namespace Tomataboard.xUnitTests
             //var provider = new PhotoProvider(new StubLogger<PhotoProvider>(), cacheRepository, api500px, flickrService);
             //photos = await provider.Execute("landscape");
             //Assert.NotNull(photos);
-        }
+       // }
 
         [Fact]
         public async void GetWeather()
