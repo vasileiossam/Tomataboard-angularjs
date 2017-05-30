@@ -17,11 +17,10 @@ namespace Tomataboard.Controllers
 {
     public class DashboardController : Controller
     {
-        private ILogger _logger;
-        private IPhotoProvider _photoProvider;
-        private IWeatherProvider _weatherProvider;
-        private IQuoteRepository _quoteRepository;
-        private IGreetingsService _greetingsService;
+        private readonly ILogger _logger;
+        private readonly IPhotoProvider _photoProvider;
+        private readonly IWeatherProvider _weatherProvider;
+        private readonly IQuoteRepository _quoteRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public DashboardController(
@@ -36,7 +35,6 @@ namespace Tomataboard.Controllers
             _photoProvider = photoProvider;
             _weatherProvider = weatherProvider;
             _quoteRepository = quoteRepository;
-            _greetingsService = greetingsService;
             _userManager = userManager;
         }
 
@@ -54,7 +52,6 @@ namespace Tomataboard.Controllers
         /// <summary>
         /// http://damienbod.com/2014/08/22/web-api-2-exploring-parameter-binding/
         /// </summary>
-        /// <param name="milliseconds"></param>
         /// <param name="tags"></param>
         /// <param name="readCache"></param>
         /// <returns></returns>
@@ -93,7 +90,7 @@ namespace Tomataboard.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Error getting DashboardDto", e);
-                throw e;
+                throw;
             }
         }
 
@@ -114,7 +111,7 @@ namespace Tomataboard.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Error posting settings", e);
-                throw e;
+                throw;
             }
         }
 
@@ -125,7 +122,7 @@ namespace Tomataboard.Controllers
             try
             {
                 var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-                if ( (user != null) && (!string.IsNullOrEmpty(user.Settings)))
+                if ( user != null && !string.IsNullOrEmpty(user.Settings))
                 {
                     return JsonConvert.DeserializeObject<SettingsDto>(user.Settings);
                 }
@@ -135,7 +132,7 @@ namespace Tomataboard.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Error getting settings", e);
-                throw e;
+                throw;
             }
         }
     }
