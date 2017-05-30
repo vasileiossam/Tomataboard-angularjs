@@ -28,7 +28,6 @@ namespace Tomataboard.Controllers
             IPhotoProvider photoProvider,
             IWeatherProvider weatherProvider,
             IQuoteRepository quoteRepository,
-            IGreetingsService greetingsService,
             UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
