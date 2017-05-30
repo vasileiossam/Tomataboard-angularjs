@@ -74,8 +74,8 @@ gulp.task("min:css", function () {
         .pipe(gulp.dest("."));
 });
 
-var getProjectJson = function () {
-    return JSON.parse(fs.readFileSync('./project.json', 'utf8'));
+var getPublishJson = function () {
+    return JSON.parse(fs.readFileSync('./publish.json', 'utf8'));
 };
 
 // bump version number
@@ -89,7 +89,7 @@ gulp.task("bump", function () {
 gulp.task("version:html", ['bump'], function (callback) {
     gulp.src("./wwwroot/app/dashboard/settings/settings.html")
      .pipe(htmlreplace({
-         'version': getProjectJson().version
+         'version': getPublishJson().version
      },
      {
          keepBlockTags: true
