@@ -30,7 +30,7 @@
   },
   "homepage": "http://joanclaret.github.io/slide-and-swipe-menu/",
   "dependencies": {
-    "jquery": "~1",
+    "jquery": "~3",
     "jquery-touchswipe": "^1.6.7"
   }
 }
