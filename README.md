@@ -1,4 +1,5 @@
-﻿# Tomataboard
+# DEPRECATED
+
 Tomataboard is a personal dashboard. It can help you be more productive and stay focused on the task at hand.
 
 It provides todos and timers. It can help you beat procrastination with its anti-procrastination (pomodoro) timer. It provides inspiration with daily quotes and gorgeous photos.
